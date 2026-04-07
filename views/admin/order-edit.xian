@@ -1,0 +1,423 @@
+{{>head}}
+<body class="min-h-screen relative overflow-x-hidden">
+  <!-- Background Photo with Overlay -->
+  <div class="fixed inset-0 z-0">
+    <img 
+      src="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/16/e2/a9/62/up-on-the-bluff.jpg?w=1000&h=-1&s=1" 
+      alt="Oriental Mindoro Background" 
+      class="w-full h-full object-cover"
+    >
+    <div class="absolute inset-0 bg-gradient-to-br from-emerald-900/85 via-emerald-800/75 to-teal-900/90 backdrop-blur-[1px]"></div>
+  </div>
+
+  <div class="flex relative z-10">
+    <!-- Enhanced Sidebar -->
+    <aside class="w-72 bg-gradient-to-b from-emerald-800 via-emerald-700 to-emerald-900 text-white min-h-screen p-6 shadow-2xl relative overflow-hidden">
+      <!-- Animated Background Pattern -->
+      <div class="absolute inset-0 bg-white/5 bg-[linear-gradient(45deg,transparent_25%,rgba(255,255,255,.1)_50%,transparent_75%,transparent_100%)] bg-[length:10px_10px] animate-pulse-slow"></div>
+      
+      <div class="relative z-10">
+        <!-- Logo Section -->
+        <div class="flex items-center space-x-3 mb-10 p-4 bg-white/10 rounded-2xl backdrop-blur-sm border border-white/20">
+          <div class="w-12 h-12 bg-gradient-to-r from-emerald-400 to-green-400 rounded-xl flex items-center justify-center shadow-lg">
+            <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M10 2a4 4 0 00-4 4v1H5a1 1 0 00-.994.89l-1 9A1 1 0 004 18h12a1 1 0 00.994-1.11l-1-9A1 1 0 0015 7h-1V6a4 4 0 00-4-4zm2 5V6a2 2 0 10-4 0v1h4zm-6 3a1 1 0 112 0 1 1 0 01-2 0zm7-1a1 1 0 100 2 1 1 0 000-2z" clip-rule="evenodd"></path>
+            </svg>
+          </div>
+          <div>
+            <h2 class="text-xl font-bold bg-gradient-to-r from-emerald-200 to-green-200 bg-clip-text text-transparent">CultureFrame</h2>
+            <p class="text-emerald-200 text-xs">Admin Panel</p>
+          </div>
+        </div>
+
+        <!-- Navigation -->
+        <nav class="space-y-2 mb-8">
+          <a href="/admin" class="flex items-center space-x-3 py-3 px-4 rounded-xl transform transition-all duration-300 hover:scale-105 hover:bg-white/15 group">
+            <div class="w-8 h-8 bg-white/10 rounded-lg flex items-center justify-center group-hover:bg-white/20 transition-colors">
+              <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"></path>
+              </svg>
+            </div>
+            <span class="font-medium">Dashboard</span>
+          </a>
+          
+          <a href="/admin/heritage" class="flex items-center space-x-3 py-3 px-4 rounded-xl transform transition-all duration-300 hover:scale-105 hover:bg-white/15 group">
+            <div class="w-8 h-8 bg-white/10 rounded-lg flex items-center justify-center group-hover:bg-white/20 transition-colors">
+              <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M4 4a2 2 0 012-2h8a2 2 0 012 2v12a1 1 0 110 2h-3a1 1 0 01-1-1v-2a1 1 0 00-1-1H9a1 1 0 00-1 1v2a1 1 0 01-1 1H4a1 1 0 110-2V4zm3 1h2v2H7V5zm2 4H7v2h2V9zm2-4h2v2h-2V5zm2 4h-2v2h2V9z" clip-rule="evenodd"></path>
+              </svg>
+            </div>
+            <span class="font-medium">Heritage</span>
+          </a>
+          
+          <a href="/admin/products" class="flex items-center space-x-3 py-3 px-4 rounded-xl transform transition-all duration-300 hover:scale-105 hover:bg-white/15 group">
+            <div class="w-8 h-8 bg-white/10 rounded-lg flex items-center justify-center group-hover:bg-white/20 transition-colors">
+              <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M3 1a1 1 0 000 2h1.22l.305 1.222a.997.997 0 00.01.042l1.358 5.43-.893.892C3.74 11.846 4.632 14 6.414 14H15a1 1 0 000-2H6.414l1-1H14a1 1 0 00.894-.553l3-6A1 1 0 0017 3H6.28l-.31-1.243A1 1 0 005 1H3z"></path>
+              </svg>
+            </div>
+            <span class="font-medium">Products</span>
+          </a>
+          
+          <a href="/admin/orders" class="flex items-center space-x-3 py-3 px-4 bg-white/20 rounded-xl border border-white/20 backdrop-blur-sm transform transition-all duration-300 hover:scale-105 hover:bg-white/25 group">
+            <div class="w-8 h-8 bg-white/20 rounded-lg flex items-center justify-center group-hover:bg-white/30 transition-colors">
+              <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 2a4 4 0 00-4 4v1H5a1 1 0 00-.994.89l-1 9A1 1 0 004 18h12a1 1 0 00.994-1.11l-1-9A1 1 0 0015 7h-1V6a4 4 0 00-4-4zm2 5V6a2 2 0 10-4 0v1h4zm-6 3a1 1 0 112 0 1 1 0 01-2 0zm7-1a1 1 0 100 2 1 1 0 000-2z" clip-rule="evenodd"></path>
+              </svg>
+            </div>
+            <span class="font-medium">Orders</span>
+          </a>
+          
+          <a href="/admin/events" class="flex items-center space-x-3 py-3 px-4 rounded-xl transform transition-all duration-300 hover:scale-105 hover:bg-white/15 group">
+            <div class="w-8 h-8 bg-white/10 rounded-lg flex items-center justify-center group-hover:bg-white/20 transition-colors">
+              <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"></path>
+              </svg>
+            </div>
+            <span class="font-medium">Events</span>
+          </a>
+
+          <a href="/admin/scenic" class="flex items-center space-x-3 py-3 px-4 rounded-xl transform transition-all duration-300 hover:scale-105 hover:bg-white/15 group">
+            <div class="w-8 h-8 bg-white/10 rounded-lg flex items-center justify-center group-hover:bg-white/20 transition-colors">
+              <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M10 2a6 6 0 00-6 6v6a2 2 0 002 2h8a2 2 0 002-2V8a6 6 0 00-6-6zM8 10a2 2 0 114 0 2 2 0 01-4 0z"></path>
+              </svg>
+            </div>
+            <span class="font-medium">Scenic</span>
+          </a>
+
+          <a href="/admin/crafts" class="flex items-center space-x-3 py-3 px-4 rounded-xl transform transition-all duration-300 hover:scale-105 hover:bg-white/15 group">
+            <div class="w-8 h-8 bg-white/10 rounded-lg flex items-center justify-center group-hover:bg-white/20 transition-colors">
+              <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M4 3a1 1 0 000 2h12a1 1 0 100-2H4zm0 5a1 1 0 000 2h12a1 1 0 100-2H4zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"></path>
+              </svg>
+            </div>
+            <span class="font-medium">Crafts</span>
+          </a>
+        </nav>
+
+        <!-- Logout Button -->
+        <a href="/logout" class="flex items-center space-x-3 py-3 px-4 bg-gradient-to-r from-green-600 to-emerald-600 rounded-xl transform transition-all duration-300 hover:scale-105 hover:from-green-700 hover:to-emerald-700 shadow-lg group">
+          <div class="w-8 h-8 bg-white/20 rounded-lg flex items-center justify-center group-hover:bg-white/30 transition-colors">
+            <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M3 3a1 1 0 00-1 1v12a1 1 0 102 0V4a1 1 0 00-1-1zm10.293 9.293a1 1 0 001.414 1.414l3-3a1 1 0 000-1.414l-3-3a1 1 0 10-1.414 1.414L14.586 9H7a1 1 0 100 2h7.586l-1.293 1.293z" clip-rule="evenodd"></path>
+            </svg>
+          </div>
+          <span class="font-medium">Logout</span>
+        </a>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="flex-1 p-8">
+      <!-- Header -->
+      <div class="mb-8">
+        <div class="flex items-center justify-between">
+          <div>
+            <h1 class="text-4xl font-bold text-gray-800 mb-2 bg-gradient-to-r from-emerald-600 to-green-600 bg-clip-text text-transparent">Update Order</h1>
+            <p class="text-gray-600 text-lg">Manage order #{{order.id}} status and details</p>
+          </div>
+          <a href="/admin/orders" class="bg-gradient-to-r from-gray-600 to-gray-700 text-white px-6 py-3 rounded-xl transform transition-all duration-300 hover:scale-105 hover:shadow-lg active:scale-95 flex items-center space-x-2 group">
+            <svg class="w-5 h-5 text-white group-hover:animate-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+            </svg>
+            <span>Back to Orders</span>
+          </a>
+        </div>
+      </div>
+
+      <div class="max-w-6xl mx-auto space-y-6">
+        <!-- Order Information Card -->
+        <div class="bg-white/80 backdrop-blur-sm rounded-2xl shadow-2xl p-8 border border-emerald-100/50">
+          <div class="flex items-center justify-between mb-6">
+            <h2 class="text-2xl font-bold text-gray-800">Order Information</h2>
+            <div class="flex items-center space-x-4">
+              <span class="text-lg font-semibold text-gray-600">Total:</span>
+              <span class="text-3xl font-bold text-emerald-600">₱{{order.total_amount}}</span>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <!-- Customer Information -->
+            <div class="space-y-6">
+              <h3 class="text-lg font-semibold text-gray-800 flex items-center space-x-2">
+                <svg class="w-5 h-5 text-emerald-600" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"></path>
+                </svg>
+                <span>Customer Information</span>
+              </h3>
+              <div class="space-y-4">
+                <div class="p-4 bg-gray-50 rounded-xl border border-gray-200">
+                  <p class="text-sm text-gray-500">Name</p>
+                  <p class="font-medium text-gray-800 text-lg">{{order.customer_name}}</p>
+                </div>
+                <div class="p-4 bg-gray-50 rounded-xl border border-gray-200">
+                  <p class="text-sm text-gray-500">Email</p>
+                  <p class="font-medium text-gray-800">{{order.customer_email}}</p>
+                </div>
+                <div class="p-4 bg-gray-50 rounded-xl border border-gray-200">
+                  <p class="text-sm text-gray-500">Phone</p>
+                  <p class="font-medium text-gray-800">{{order.customer_phone}}</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Order Status Update -->
+            <div class="space-y-6">
+              <h3 class="text-lg font-semibold text-gray-800 flex items-center space-x-2">
+                <svg class="w-5 h-5 text-emerald-600" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                </svg>
+                <span>Update Order Status</span>
+              </h3>
+              
+              <!-- Current Status -->
+              <div class="p-4 bg-emerald-50 rounded-xl border-2 border-emerald-200">
+                <p class="text-sm text-emerald-600 font-medium mb-2">Current Status</p>
+                <span class="inline-flex px-4 py-2 text-base font-semibold rounded-full 
+                  {{#if (eq order.status 'pending')}}bg-yellow-100 text-yellow-800 border-2 border-yellow-300{{/if}}
+                  {{#if (eq order.status 'confirmed')}}bg-blue-100 text-blue-800 border-2 border-blue-300{{/if}}
+                  {{#if (eq order.status 'shipped')}}bg-purple-100 text-purple-800 border-2 border-purple-300{{/if}}
+                  {{#if (eq order.status 'delivered')}}bg-green-100 text-green-800 border-2 border-green-300{{/if}}
+                  {{#if (eq order.status 'cancelled')}}bg-red-100 text-red-800 border-2 border-red-300{{/if}}">
+                  {{order.status}}
+                </span>
+              </div>
+
+              <!-- Status Update Form -->
+              <form method="POST" action="/admin/orders/update-status/{{order.id}}" class="space-y-4">
+                <div class="p-4 bg-white rounded-xl border-2 border-gray-200">
+                  <label class="block text-sm font-semibold text-gray-700 mb-3">Select New Status</label>
+                  <select name="status" class="w-full p-3 border-2 border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transform transition-all duration-300 hover:border-emerald-400 cursor-pointer">
+                    <option value="pending" {{#if (eq order.status 'pending')}}selected{{/if}}>🟡 Pending</option>
+                    <option value="confirmed" {{#if (eq order.status 'confirmed')}}selected{{/if}}>🔵 Confirmed</option>
+                    <option value="shipped" {{#if (eq order.status 'shipped')}}selected{{/if}}>🟣 Shipped</option>
+                    <option value="delivered" {{#if (eq order.status 'delivered')}}selected{{/if}}>🟢 Delivered</option>
+                    <option value="cancelled" {{#if (eq order.status 'cancelled')}}selected{{/if}}>🔴 Cancelled</option>
+                  </select>
+                </div>
+
+                <div class="flex space-x-4">
+                  <button type="submit" class="flex-1 bg-gradient-to-r from-emerald-500 to-green-500 text-white py-4 px-6 rounded-xl font-bold text-lg shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300 flex items-center justify-center space-x-2 group cursor-pointer">
+                    <svg class="w-5 h-5 transform group-hover:scale-110 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                    </svg>
+                    <span>Update Status</span>
+                  </button>
+                  
+                  <button type="button" onclick="window.history.back()" class="flex-1 bg-gradient-to-r from-gray-400 to-gray-500 text-white py-4 px-6 rounded-xl font-bold text-lg shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300 flex items-center justify-center space-x-2 group cursor-pointer">
+                    <svg class="w-5 h-5 transform group-hover:scale-110 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                    <span>Cancel</span>
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+
+        <!-- Order Items -->
+        <div class="bg-white/80 backdrop-blur-sm rounded-2xl shadow-2xl p-8 border border-emerald-100/50">
+          <h2 class="text-2xl font-bold text-gray-800 mb-6">Order Items</h2>
+          
+          <div class="overflow-hidden rounded-xl border border-gray-200">
+            <table class="min-w-full divide-y divide-gray-200">
+              <thead class="bg-gradient-to-r from-emerald-50 to-green-50">
+                <tr>
+                  <th class="px-6 py-4 text-left text-xs font-semibold text-emerald-800 uppercase tracking-wider">Product</th>
+                  <th class="px-6 py-4 text-left text-xs font-semibold text-emerald-800 uppercase tracking-wider">Quantity</th>
+                  <th class="px-6 py-4 text-left text-xs font-semibold text-emerald-800 uppercase tracking-wider">Unit Price</th>
+                  <th class="px-6 py-4 text-left text-xs font-semibold text-emerald-800 uppercase tracking-wider">Subtotal</th>
+                </tr>
+              </thead>
+              <tbody class="bg-white divide-y divide-gray-200">
+                {{#each items}}
+                <tr class="transform transition-all duration-300 hover:bg-emerald-50/50">
+                  <td class="px-6 py-4 whitespace-nowrap">
+                    <div class="flex items-center space-x-3">
+                      <div class="w-10 h-10 bg-emerald-100 rounded-lg flex items-center justify-center">
+                        <svg class="w-5 h-5 text-emerald-600" fill="currentColor" viewBox="0 0 20 20">
+                          <path d="M3 1a1 1 0 000 2h1.22l.305 1.222a.997.997 0 00.01.042l1.358 5.43-.893.892C3.74 11.846 4.632 14 6.414 14H15a1 1 0 000-2H6.414l1-1H14a1 1 0 00.894-.553l3-6A1 1 0 0017 3H6.28l-.31-1.243A1 1 0 005 1H3z"></path>
+                        </svg>
+                      </div>
+                      <div>
+                        <p class="text-sm font-medium text-gray-900">{{this.product_name}}</p>
+                        <p class="text-xs text-gray-500">Product ID: {{this.product_id}}</p>
+                      </div>
+                    </div>
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap">
+                    <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-blue-100 text-blue-800">
+                      {{this.quantity}}
+                    </span>
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 font-medium">₱{{this.price}}</td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm font-bold text-emerald-600">₱{{this.subtotal}}</td>
+                </tr>
+                {{/each}}
+              </tbody>
+              <tfoot class="bg-gradient-to-r from-gray-50 to-gray-100">
+                <tr>
+                  <td colspan="3" class="px-6 py-4 text-lg font-semibold text-gray-900 text-right">Total Amount:</td>
+                  <td class="px-6 py-4 text-xl font-bold text-emerald-600">₱{{order.total_amount}}</td>
+                </tr>
+              </tfoot>
+            </table>
+          </div>
+        </div>
+
+        <!-- Additional Information -->
+        <div class="bg-white/80 backdrop-blur-sm rounded-2xl shadow-2xl p-6 border border-emerald-100/50">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="space-y-4">
+              <h3 class="text-lg font-semibold text-gray-800 flex items-center space-x-2">
+                <svg class="w-5 h-5 text-emerald-600" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"></path>
+                </svg>
+                <span>Shipping Information</span>
+              </h3>
+              <div class="p-4 bg-gray-50 rounded-xl border border-gray-200">
+                <p class="text-sm text-gray-600">{{order.shipping_address}}</p>
+              </div>
+            </div>
+            
+            <div class="space-y-4">
+              <h3 class="text-lg font-semibold text-gray-800 flex items-center space-x-2">
+                <svg class="w-5 h-5 text-emerald-600" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M4 4a2 2 0 00-2 2v4a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2H4zm2 6a1 1 0 011-1h1a1 1 0 110 2H7a1 1 0 01-1-1zm5-1a1 1 0 100 2h1a1 1 0 100-2h-1z" clip-rule="evenodd"></path>
+                </svg>
+                <span>Payment Method</span>
+              </h3>
+              <div class="p-4 bg-gray-50 rounded-xl border border-gray-200">
+                <p class="text-lg font-medium text-gray-800">{{order.payment_method}}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    // Add form submission confirmation
+    document.addEventListener('DOMContentLoaded', function() {
+      const form = document.querySelector('form');
+      const statusSelect = document.querySelector('select[name="status"]');
+      
+      form.addEventListener('submit', function(e) {
+        const currentStatus = '{{order.status}}';
+        const newStatus = statusSelect.value;
+        
+        if (currentStatus !== newStatus) {
+          const confirmed = confirm(`Are you sure you want to change order status from "${currentStatus}" to "${newStatus}"?`);
+          if (!confirmed) {
+            e.preventDefault();
+            return false;
+          }
+        }
+        
+        // Add loading state to button
+        const submitBtn = this.querySelector('button[type="submit"]');
+        submitBtn.innerHTML = `
+          <svg class="w-5 h-5 animate-spin" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 2v4m0 12v4m8-10h-4M6 12H2"></path>
+          </svg>
+          <span>Updating...</span>
+        `;
+        submitBtn.disabled = true;
+      });
+
+      // Add hover effects to table rows
+      const tableRows = document.querySelectorAll('tbody tr');
+      tableRows.forEach(row => {
+        row.addEventListener('mouseenter', function() {
+          this.style.transform = 'scale(1.01)';
+        });
+        row.addEventListener('mouseleave', function() {
+          this.style.transform = 'scale(1)';
+        });
+      });
+    });
+
+    // Status change visual feedback
+    const statusSelect = document.querySelector('select[name="status"]');
+    statusSelect.addEventListener('change', function() {
+      const statusColors = {
+        'pending': 'bg-yellow-100 text-yellow-800 border-yellow-300',
+        'confirmed': 'bg-blue-100 text-blue-800 border-blue-300',
+        'shipped': 'bg-purple-100 text-purple-800 border-purple-300',
+        'delivered': 'bg-green-100 text-green-800 border-green-300',
+        'cancelled': 'bg-red-100 text-red-800 border-red-300'
+      };
+      
+      // Animate the select element
+      this.style.transform = 'scale(1.05)';
+      setTimeout(() => {
+        this.style.transform = 'scale(1)';
+      }, 200);
+    });
+  </script>
+
+  <style>
+    @keyframes pulseSlow {
+      0%, 100% {
+        opacity: 1;
+      }
+      50% {
+        opacity: 0.8;
+      }
+    }
+
+    .animate-pulse-slow {
+      animation: pulseSlow 4s ease-in-out infinite;
+    }
+
+    /* Smooth transitions */
+    * {
+      transition-property: color, background-color, border-color, transform, box-shadow;
+      transition-duration: 300ms;
+      transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    /* Custom scrollbar */
+    ::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: #f1f5f9;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: #10b981;
+      border-radius: 3px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: #059669;
+    }
+
+    /* Ensure buttons are clickable */
+    button, select {
+      cursor: pointer;
+      user-select: none;
+    }
+
+    /* Active state for buttons */
+    button:active {
+      transform: scale(0.95) !important;
+    }
+
+    /* Custom select styling */
+    select {
+      background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3e%3c/svg%3e");
+      background-position: right 12px center;
+      background-repeat: no-repeat;
+      background-size: 16px 16px;
+      padding-right: 40px;
+    }
+  </style>
+
+{{>footer}}
+

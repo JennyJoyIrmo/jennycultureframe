@@ -1,0 +1,232 @@
+<!-- Enhanced Admin Sidebar Component -->
+<aside class="w-72 bg-gradient-to-b from-emerald-800/95 via-emerald-700/95 to-emerald-900/95 text-white min-h-screen p-6 shadow-2xl relative overflow-hidden backdrop-blur-lg border-r border-emerald-600/30">
+  <!-- Animated Background Pattern -->
+  <div class="absolute inset-0 bg-white/5 bg-[linear-gradient(45deg,transparent_25%,rgba(255,255,255,.1)_50%,transparent_75%,transparent_100%)] bg-[length:10px_10px] animate-pulse-slow"></div>
+  
+  <div class="relative z-10">
+    <!-- Logo Section with Animation -->
+    <div class="flex items-center space-x-3 mb-10 p-4 bg-white/10 rounded-2xl backdrop-blur-sm border border-white/20 transform transition-all duration-500 hover:scale-105 animate-fade-in">
+      <div class="w-12 h-12 bg-gradient-to-r from-emerald-400 to-green-400 rounded-xl flex items-center justify-center shadow-lg animate-bounce-slow">
+        <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
+          <path fill-rule="evenodd" d="M11.3 1.046A1 1 0 0112 2v5h4a1 1 0 01.82 1.573l-7 10A1 1 0 018 18v-5H4a1 1 0 01-.82-1.573l7-10a1 1 0 011.12-.38z" clip-rule="evenodd"></path>
+        </svg>
+      </div>
+      <div>
+        <h2 class="text-xl font-bold bg-gradient-to-r from-emerald-200 to-green-200 bg-clip-text text-transparent">CultureFrame</h2>
+        <p class="text-emerald-200 text-xs">Admin Panel</p>
+      </div>
+    </div>
+
+    <!-- Navigation with Staggered Animation -->
+    <nav class="space-y-2 mb-8">
+      <a href="/admin" class="flex items-center space-x-3 py-3 px-4 rounded-xl transform transition-all duration-300 hover:scale-105 hover:bg-white/15 group animate-slide-in-left delay-100 {{#if (eq activePage 'dashboard')}}bg-white/20 border border-white/20 backdrop-blur-sm{{/if}}">
+        <div class="w-8 h-8 bg-white/10 rounded-lg flex items-center justify-center group-hover:bg-white/20 transition-colors duration-300 {{#if (eq activePage 'dashboard')}}bg-white/20 group-hover:animate-pulse{{/if}}">
+          <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
+            <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"></path>
+          </svg>
+        </div>
+        <span class="font-medium">Dashboard</span>
+      </a>
+      
+      <a href="/admin/heritage" class="flex items-center space-x-3 py-3 px-4 rounded-xl transform transition-all duration-300 hover:scale-105 hover:bg-white/15 group animate-slide-in-left delay-200 {{#if (eq activePage 'heritage')}}bg-white/20 border border-white/20 backdrop-blur-sm{{/if}}">
+        <div class="w-8 h-8 bg-white/10 rounded-lg flex items-center justify-center group-hover:bg-white/20 transition-colors duration-300 {{#if (eq activePage 'heritage')}}bg-white/20 group-hover:animate-pulse{{/if}}">
+          <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M4 4a2 2 0 012-2h8a2 2 0 012 2v12a1 1 0 110 2h-3a1 1 0 01-1-1v-2a1 1 0 00-1-1H9a1 1 0 00-1 1v2a1 1 0 01-1 1H4a1 1 0 110-2V4zm3 1h2v2H7V5zm2 4H7v2h2V9zm2-4h2v2h-2V5zm2 4h-2v2h2V9z" clip-rule="evenodd"></path>
+          </svg>
+        </div>
+        <span class="font-medium">Heritage</span>
+      </a>
+      
+      <a href="/admin/products" class="flex items-center space-x-3 py-3 px-4 rounded-xl transform transition-all duration-300 hover:scale-105 hover:bg-white/15 group animate-slide-in-left delay-300 {{#if (eq activePage 'products')}}bg-white/20 border border-white/20 backdrop-blur-sm{{/if}}">
+        <div class="w-8 h-8 bg-white/10 rounded-lg flex items-center justify-center group-hover:bg-white/20 transition-colors duration-300 {{#if (eq activePage 'products')}}bg-white/20 group-hover:animate-pulse{{/if}}">
+          <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
+            <path d="M3 1a1 1 0 000 2h1.22l.305 1.222a.997.997 0 00.01.042l1.358 5.43-.893.892C3.74 11.846 4.632 14 6.414 14H15a1 1 0 000-2H6.414l1-1H14a1 1 0 00.894-.553l3-6A1 1 0 0017 3H6.28l-.31-1.243A1 1 0 005 1H3z"></path>
+          </svg>
+        </div>
+        <span class="font-medium">Products</span>
+      </a>
+      
+      <a href="/admin/orders" class="flex items-center space-x-3 py-3 px-4 rounded-xl transform transition-all duration-300 hover:scale-105 hover:bg-white/15 group animate-slide-in-left delay-400 {{#if (eq activePage 'orders')}}bg-white/20 border border-white/20 backdrop-blur-sm{{/if}}">
+        <div class="w-8 h-8 bg-white/10 rounded-lg flex items-center justify-center group-hover:bg-white/20 transition-colors duration-300 {{#if (eq activePage 'orders')}}bg-white/20 group-hover:animate-pulse{{/if}}">
+          <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M10 2a4 4 0 00-4 4v1H5a1 1 0 00-.994.89l-1 9A1 1 0 004 18h12a1 1 0 00.994-1.11l-1-9A1 1 0 0015 7h-1V6a4 4 0 00-4-4zm2 5V6a2 2 0 10-4 0v1h4zm-6 3a1 1 0 112 0 1 1 0 01-2 0zm7-1a1 1 0 100 2 1 1 0 000-2z" clip-rule="evenodd"></path>
+          </svg>
+        </div>
+        <span class="font-medium">Orders</span>
+      </a>
+      
+      <a href="/admin/events" class="flex items-center space-x-3 py-3 px-4 rounded-xl transform transition-all duration-300 hover:scale-105 hover:bg-white/15 group animate-slide-in-left delay-500 {{#if (eq activePage 'events')}}bg-white/20 border border-white/20 backdrop-blur-sm{{/if}}">
+        <div class="w-8 h-8 bg-white/10 rounded-lg flex items-center justify-center group-hover:bg-white/20 transition-colors duration-300 {{#if (eq activePage 'events')}}bg-white/20 group-hover:animate-pulse{{/if}}">
+          <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"></path>
+          </svg>
+        </div>
+        <span class="font-medium">Events</span>
+      </a>
+
+      <a href="/admin/scenic" class="flex items-center space-x-3 py-3 px-4 rounded-xl transform transition-all duration-300 hover:scale-105 hover:bg-white/15 group animate-slide-in-left delay-600 {{#if (eq activePage 'scenic')}}bg-white/20 border border-white/20 backdrop-blur-sm{{/if}}">
+        <div class="w-8 h-8 bg-white/10 rounded-lg flex items-center justify-center group-hover:bg-white/20 transition-colors duration-300 {{#if (eq activePage 'scenic')}}bg-white/20 group-hover:animate-pulse{{/if}}">
+          <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
+            <path d="M10 2a6 6 0 00-6 6v6a2 2 0 002 2h8a2 2 0 002-2V8a6 6 0 00-6-6zM8 10a2 2 0 114 0 2 2 0 01-4 0z"></path>
+          </svg>
+        </div>
+        <span class="font-medium">Scenic</span>
+      </a>
+
+      <a href="/admin/crafts" class="flex items-center space-x-3 py-3 px-4 rounded-xl transform transition-all duration-300 hover:scale-105 hover:bg-white/15 group animate-slide-in-left delay-700 {{#if (eq activePage 'crafts')}}bg-white/20 border border-white/20 backdrop-blur-sm{{/if}}">
+        <div class="w-8 h-8 bg-white/10 rounded-lg flex items-center justify-center group-hover:bg-white/20 transition-colors duration-300 {{#if (eq activePage 'crafts')}}bg-white/20 group-hover:animate-pulse{{/if}}">
+          <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
+            <path d="M4 3a1 1 0 000 2h12a1 1 0 100-2H4zm0 5a1 1 0 000 2h12a1 1 0 100-2H4zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"></path>
+          </svg>
+        </div>
+        <span class="font-medium">Crafts</span>
+      </a>
+
+      <a href="/admin/feedbacks" class="flex items-center space-x-3 py-3 px-4 rounded-xl transform transition-all duration-300 hover:scale-105 hover:bg-white/15 group animate-slide-in-left delay-800 {{#if (eq activePage 'feedbacks')}}bg-white/20 border border-white/20 backdrop-blur-sm{{/if}}">
+        <div class="w-8 h-8 bg-white/10 rounded-lg flex items-center justify-center group-hover:bg-white/20 transition-colors duration-300 {{#if (eq activePage 'feedbacks')}}bg-white/20 group-hover:animate-pulse{{/if}}">
+          <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
+            <path d="M2 5a2 2 0 012-2h7a2 2 0 012 2v4a2 2 0 01-2 2H9l-3 3v-3H4a2 2 0 01-2-2V5z"></path>
+            <path d="M15 7v2a4 4 0 01-4 4H9.828l-1.766 1.767c.28.149.599.233.938.233h2l3 3v-3h2a2 2 0 002-2V9a2 2 0 00-2-2h-1z"></path>
+          </svg>
+        </div>
+        <span class="font-medium">Feedbacks</span>
+      </a>
+    </nav>
+
+    <!-- Logout Button with Animation -->
+    <a href="/logout" class="flex items-center space-x-3 py-3 px-4 bg-gradient-to-r from-green-600 to-emerald-600 rounded-xl transform transition-all duration-300 hover:scale-105 hover:from-green-700 hover:to-emerald-700 shadow-lg group animate-fade-in-up delay-700">
+      <div class="w-8 h-8 bg-white/20 rounded-lg flex items-center justify-center group-hover:bg-white/30 transition-colors duration-300 group-hover:animate-pulse">
+        <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
+          <path fill-rule="evenodd" d="M3 3a1 1 0 00-1 1v12a1 1 0 102 0V4a1 1 0 00-1-1zm10.293 9.293a1 1 0 001.414 1.414l3-3a1 1 0 000-1.414l-3-3a1 1 0 10-1.414 1.414L14.586 9H7a1 1 0 100 2h7.586l-1.293 1.293z" clip-rule="evenodd"></path>
+        </svg>
+      </div>
+      <span class="font-medium">Logout</span>
+    </a>
+  </div>
+</aside>
+
+<style>
+  /* Custom Animations */
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes slideInLeft {
+    from {
+      opacity: 0;
+      transform: translateX(-20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  @keyframes bounceSlow {
+    0%, 100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-10px);
+    }
+  }
+
+  @keyframes pulseSlow {
+    0%, 100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.8;
+    }
+  }
+
+  /* Animation Classes */
+  .animate-fade-in {
+    animation: fadeIn 0.6s ease-out forwards;
+  }
+
+  .animate-fade-in-up {
+    animation: fadeInUp 0.8s ease-out forwards;
+  }
+
+  .animate-slide-in-left {
+    animation: slideInLeft 0.6s ease-out forwards;
+  }
+
+  .animate-bounce-slow {
+    animation: bounceSlow 3s ease-in-out infinite;
+  }
+
+  .animate-pulse-slow {
+    animation: pulseSlow 4s ease-in-out infinite;
+  }
+
+  /* Delay Utilities */
+  .delay-100 {
+    animation-delay: 0.1s;
+  }
+
+  .delay-200 {
+    animation-delay: 0.2s;
+  }
+
+  .delay-300 {
+    animation-delay: 0.3s;
+  }
+
+  .delay-400 {
+    animation-delay: 0.4s;
+  }
+
+  .delay-500 {
+    animation-delay: 0.5s;
+  }
+
+  .delay-600 {
+    animation-delay: 0.6s;
+  }
+
+  .delay-700 {
+    animation-delay: 0.7s;
+  }
+
+  .delay-800 {
+    animation-delay: 0.8s;
+  }
+
+  /* Custom scrollbar for sidebar */
+  aside::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  aside::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.1);
+  }
+
+  aside::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 3px;
+  }
+
+  aside::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.5);
+  }
+</style>

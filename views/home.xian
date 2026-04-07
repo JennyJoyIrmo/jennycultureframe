@@ -1,0 +1,77 @@
+{{>head}}
+<body class="min-h-screen bg-gray-50">
+  {{>nav}}
+
+  <!-- Hero Section -->
+  <div class="bg-gradient-to-br from-emerald-600 to-green-700 text-white">
+    <div class="container mx-auto px-6 py-20">
+      <div class="text-center">
+        <h1 class="text-5xl font-bold mb-6">Welcome to CultureFrame</h1>
+        <p class="text-xl mb-8 max-w-2xl mx-auto">
+          Discover and preserve the rich cultural heritage of Mansalay, Oriental Mindoro
+        </p>
+        {{#unless user.isAuthenticated}}
+          <div class="space-x-4">
+            <a href="/register" class="inline-block bg-white text-emerald-600 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors">
+              Get Started
+            </a>
+            <a href="/login" class="inline-block border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-emerald-600 transition-colors">
+              Login
+            </a>
+          </div>
+        {{/unless}}
+      </div>
+    </div>
+  </div>
+
+  <!-- Features Section -->
+  <div class="container mx-auto px-6 py-16">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      <div class="text-center p-6">
+        <div class="w-16 h-16 bg-emerald-500 rounded-full flex items-center justify-center mx-auto mb-4">
+          <i class="fas fa-landmark text-white text-2xl"></i>
+        </div>
+        <h3 class="text-xl font-semibold mb-2">Cultural Heritage</h3>
+        <p class="text-gray-600">Explore the rich history and traditions of Mansalay</p>
+        <a href="/heritage" class="text-emerald-600 hover:text-emerald-700 font-medium">Learn More →</a>
+      </div>
+      
+      <div class="text-center p-6">
+        <div class="w-16 h-16 bg-purple-500 rounded-full flex items-center justify-center mx-auto mb-4">
+          <i class="fas fa-calendar-alt text-white text-2xl"></i>
+        </div>
+        <h3 class="text-xl font-semibold mb-2">Events & Festivals</h3>
+        <p class="text-gray-600">Join us in celebrating local traditions and culture</p>
+        <a href="/events" class="text-purple-600 hover:text-purple-700 font-medium">View Events →</a>
+      </div>
+      
+      <div class="text-center p-6">
+        <div class="w-16 h-16 bg-amber-500 rounded-full flex items-center justify-center mx-auto mb-4">
+          <i class="fas fa-shopping-bag text-white text-2xl"></i>
+        </div>
+        <h3 class="text-xl font-semibold mb-2">Local Products</h3>
+        <p class="text-gray-600">Support local artisans and craftspeople</p>
+        <a href="/shop" class="text-amber-600 hover:text-amber-700 font-medium">Shop Now →</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- About Section -->
+  <div class="bg-white py-16">
+    <div class="container mx-auto px-6">
+      <div class="max-w-3xl mx-auto text-center">
+        <h2 class="text-3xl font-bold text-gray-800 mb-6">About CultureFrame</h2>
+        <p class="text-lg text-gray-600 leading-relaxed">
+          CultureFrame is a digital platform dedicated to preserving and promoting the rich cultural heritage 
+          of Mansalay, Oriental Mindoro. We connect local communities with visitors through authentic experiences, 
+          traditional crafts, and cultural events.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Clean home page without modals -->
+
+  {{>footer}}
+</body>
+</html>

@@ -1,0 +1,257 @@
+{{>head}}
+<body class="min-h-screen relative overflow-x-hidden">
+  <div class="fixed inset-0 z-0">
+    <div class="absolute inset-0 bg-gradient-to-br from-gray-50 to-emerald-50"></div>
+  </div>
+
+  <div class="flex relative z-10">
+    <aside class="w-72 bg-gradient-to-b from-emerald-800/95 via-emerald-700/90 to-emerald-900/95 text-white min-h-screen p-6 shadow-2xl relative overflow-hidden backdrop-blur-sm">
+      <div class="absolute inset-0 bg-white/5 bg-[linear-gradient(45deg,transparent_25%,rgba(255,255,255,.1)_50%,transparent_75%,transparent_100%)] bg-[length:10px_10px] animate-pulse-slow"></div>
+      <div class="relative z-10">
+        <div class="flex items-center space-x-3 mb-10 p-4 bg-white/10 rounded-2xl backdrop-blur-sm border border-white/20">
+          <div class="w-12 h-12 bg-gradient-to-r from-emerald-400 to-green-400 rounded-xl flex items-center justify-center shadow-lg">
+            <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M4 4a2 2 0 012-2h8a2 2 0 012 2v12a1 1 0 110 2h-3a1 1 0 01-1-1v-2a1 1 0 00-1-1H9a1 1 0 00-1 1v2a1 1 0 01-1 1H4a1 1 0 110-2V4zm3 1h2v2H7V5zm2 4H7v2h2V9zm2-4h2v2h-2V5zm2 4h-2v2h2V9z" clip-rule="evenodd"></path>
+            </svg>
+          </div>
+          <div>
+            <h2 class="text-xl font-bold bg-gradient-to-r from-emerald-200 to-green-200 bg-clip-text text-transparent">CultureFrame</h2>
+            <p class="text-emerald-200 text-xs">Admin</p>
+          </div>
+        </div>
+
+        <nav class="space-y-2 mb-8">
+          <a href="/admin" class="flex items-center space-x-3 py-3 px-4 rounded-xl transform transition-all duration-300 hover:scale-105 hover:bg-white/15 group">
+            <div class="w-8 h-8 bg-white/10 rounded-lg flex items-center justify-center group-hover:bg-white/20 transition-colors">
+              <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 00-1-1H9a1 1 0 00-1 1v2a1 1 0 01-1 1H4a1 1 0 110-2V4zm3 1h2v2H7V5zm2 4H7v2h2V9zm2-4h2v2h-2V5zm2 4h-2v2h2V9z" clip-rule="evenodd"></path>
+              </svg>
+            </div>
+            <span class="font-medium">Dashboard</span>
+          </a>
+          <a href="/admin/scenic" class="flex items-center space-x-3 py-3 px-4 bg-white/20 rounded-xl border border-white/20 backdrop-blur-sm transform transition-all duration-300 hover:scale-105 hover:bg-white/25 group">
+            <div class="w-8 h-8 bg-white/20 rounded-lg flex items-center justify-center group-hover:bg-white/30 transition-colors">
+              <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M10 12a2 2 0 100-4 2 2 0 000 4z"></path>
+                <path fill-rule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clip-rule="evenodd"></path>
+              </svg>
+            </div>
+            <span class="font-medium">Scenic Spots</span>
+          </a>
+          <a href="/admin/crafts" class="flex items-center space-x-3 py-3 px-4 rounded-xl transform transition-all duration-300 hover:scale-105 hover:bg-white/15 group">
+            <div class="w-8 h-8 bg-white/10 rounded-lg flex items-center justify-center group-hover:bg-white/20 transition-colors">
+              <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M12.395 2.553a1 1 0 00-1.45-.385c-.345.23-.614.558-.822.88-.214.33-.403.713-.57 1.116-.334.804-.614 1.768-.84 2.734a31.365 31.365 0 00-.613 3.58 2.64 2.64 0 01-.945-1.067c-.328-.68-.398-1.534-.398-2.654A1 1 0 005.05 6.05 6.981 6.981 0 003 11a7 7 0 1011.95-4.95c-.592-.591-.98-.985-1.348-1.467-.363-.476-.724-1.063-1.207-2.03zM12.12 15.12A3 3 0 017 13s.879.5 2.5.5c0-1 .5-4 1.25-4.5.5 1 .786 1.293 1.371 1.879A2.99 2.99 0 0113 13a2.99 2.99 0 01-.879 2.121z" clip-rule="evenodd"></path>
+              </svg>
+            </div>
+            <span class="font-medium">Arts & Crafts</span>
+          </a>
+        </nav>
+
+        <a href="/logout" class="flex items-center space-x-3 py-3 px-4 bg-gradient-to-r from-green-600 to-emerald-600 rounded-xl transform transition-all duration-300 hover:scale-105 hover:from-green-700 hover:to-emerald-700 shadow-lg group">
+          <div class="w-8 h-8 bg-white/20 rounded-lg flex items-center justify-center group-hover:bg-white/30 transition-colors">
+            <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M3 3a1 1 0 00-1 1v12a1 1 0 102 0V4a1 1 0 00-1-1zm10.293 9.293a1 1 0 001.414 1.414l3-3a1 1 0 000-1.414l-3-3a1 1 0 10-1.414 1.414L14.586 9H7a1 1 0 100 2h7.586l-1.293 1.293z" clip-rule="evenodd"></path>
+            </svg>
+          </div>
+          <span class="font-medium">Logout</span>
+        </a>
+      </div>
+    </aside>
+
+    <main class="flex-1 p-8">
+      <div class="max-w-4xl mx-auto bg-white rounded-2xl shadow p-8">
+        <div class="flex justify-between items-center mb-6">
+          <h1 class="text-2xl font-bold">Add Scenic Spot</h1>
+          <a href="/admin/scenic" class="text-sm px-3 py-2 bg-gray-200 rounded">Back</a>
+        </div>
+
+        <form action="/admin/scenic/add" method="POST" enctype="multipart/form-data" class="space-y-6">
+          <div>
+            <label class="block text-sm font-medium text-gray-700">Title</label>
+            <input name="title" required class="mt-1 block w-full border border-gray-300 rounded px-4 py-2" />
+          </div>
+
+          <div>
+            <label class="block text-sm font-medium text-gray-700">Location</label>
+            <input name="location" required class="mt-1 block w-full border border-gray-300 rounded px-4 py-2" />
+          </div>
+
+          <div>
+            <label class="block text-sm font-medium text-gray-700">Description</label>
+            <textarea name="description" rows="4" class="mt-1 block w-full border border-gray-300 rounded px-4 py-2"></textarea>
+          </div>
+
+          <div>
+            <label class="block text-sm font-medium text-gray-700">Image</label>
+            <div class="flex gap-3 items-center">
+              <input id="image_file" name="image_file" type="file" accept="image/*" class="mt-1" />
+              <input id="image_url" name="image_url" placeholder="Or paste image URL (https://...)" class="mt-1 block w-full border border-gray-300 rounded px-4 py-2" />
+            </div>
+            <div class="mt-3">
+              <div class="text-xs text-gray-500 mb-2">Preview</div>
+              <div class="w-full h-56 bg-gray-100 rounded overflow-hidden border border-gray-200 flex items-center justify-center">
+                <img id="image-preview" src="" alt="Image preview" class="w-full h-full object-contain" />
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2">Select Location on Map (Mansalay)</label>
+            <div class="flex items-center gap-2 mb-2">
+              <input id="loc-search" type="text" placeholder="Enter address or place (e.g. Barangay name)" class="flex-1 border border-gray-300 rounded px-3 py-2" />
+              <button id="loc-search-btn" type="button" class="px-4 py-2 bg-emerald-600 text-white rounded">Search</button>
+            </div>
+            <div id="map" style="height:360px; border-radius:12px; border:1px solid #e5e7eb;"></div>
+            <!-- confirmation bar -->
+            <div id="loc-confirm" class="fixed bottom-6 right-6 bg-white shadow-lg rounded-lg p-4 hidden z-50 border">
+              <div class="mb-2 text-sm text-gray-700">Use this location?</div>
+              <div class="flex gap-2">
+                <button id="confirm-loc" type="button" class="px-4 py-2 bg-emerald-600 text-white rounded">Confirm</button>
+                <button id="cancel-loc" type="button" class="px-4 py-2 bg-gray-200 rounded">Cancel</button>
+              </div>
+            </div>
+            <div class="mt-3 grid grid-cols-2 gap-2">
+              <input type="text" id="latitude" name="latitude" placeholder="Latitude" class="border border-gray-300 rounded px-3 py-2" />
+              <input type="text" id="longitude" name="longitude" placeholder="Longitude" class="border border-gray-300 rounded px-3 py-2" />
+            </div>
+            <p class="text-xs text-gray-500 mt-1">Click on the map to pick coordinates. Map language is English.</p>
+          </div>
+
+          <div class="flex gap-4">
+            <a href="/admin/scenic" class="px-6 py-3 rounded bg-gray-200">Cancel</a>
+            <button class="px-6 py-3 rounded bg-emerald-600 text-white">Add Scenic</button>
+          </div>
+        </form>
+      </div>
+    </main>
+  </div>
+
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script>
+    (function(){
+      // Mansalay center (approx)
+      const defaultCenter = [12.5833, 121.4500];
+      var map = L.map('map').setView(defaultCenter, 12);
+
+      // Use standard OSM tiles (labels in English where available)
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19,
+        attribution: '&copy; OpenStreetMap contributors'
+      }).addTo(map);
+
+      var marker;
+      var pendingMarker; // marker for search preview before confirm
+
+      function setMarker(lat, lng){
+        if(marker) map.removeLayer(marker);
+        marker = L.marker([lat, lng]).addTo(map);
+      }
+      function setPendingMarker(lat, lng){
+        if(pendingMarker) map.removeLayer(pendingMarker);
+        pendingMarker = L.marker([lat, lng], {opacity:0.8}).addTo(map);
+      }
+      function clearPending(){ if(pendingMarker){ map.removeLayer(pendingMarker); pendingMarker = null; } document.getElementById('loc-confirm').classList.add('hidden'); }
+
+      // click to pick (immediate pick without search)
+      map.on('click', function(e){
+        const lat = e.latlng.lat.toFixed(6);
+        const lng = e.latlng.lng.toFixed(6);
+        // show pending preview and ask confirm
+        setPendingMarker(lat, lng);
+        document.getElementById('loc-confirm').classList.remove('hidden');
+        // store temp values on confirm button dataset
+        document.getElementById('confirm-loc').dataset.lat = lat;
+        document.getElementById('confirm-loc').dataset.lng = lng;
+      });
+
+      // search flow using Nominatim
+      async function geocode(query){
+        if(!query) return null;
+        const url = 'https://nominatim.openstreetmap.org/search?format=json&q=' + encodeURIComponent(query);
+        try{
+          const resp = await fetch(url, { headers: { 'Accept-Language': 'en' } });
+          const json = await resp.json();
+          return json && json.length ? json[0] : null;
+        }catch(e){ console.warn('geocode error', e); return null; }
+      }
+
+      document.getElementById('loc-search-btn').addEventListener('click', async function(){
+        const q = document.getElementById('loc-search').value.trim();
+        if(!q) return;
+        const res = await geocode(q + ' Mansalay');
+        if(res){
+          const lat = parseFloat(res.lat).toFixed(6);
+          const lng = parseFloat(res.lon).toFixed(6);
+          map.setView([lat, lng], 14);
+          setPendingMarker(lat, lng);
+          document.getElementById('loc-confirm').classList.remove('hidden');
+          document.getElementById('confirm-loc').dataset.lat = lat;
+          document.getElementById('confirm-loc').dataset.lng = lng;
+        } else {
+          alert('Location not found. Try a different query.');
+        }
+      });
+
+      document.getElementById('confirm-loc').addEventListener('click', function(){
+        const lat = this.dataset.lat;
+        const lng = this.dataset.lng;
+        if(lat && lng){
+          document.getElementById('latitude').value = lat;
+          document.getElementById('longitude').value = lng;
+          setMarker(lat, lng);
+          clearPending();
+        }
+      });
+      document.getElementById('cancel-loc').addEventListener('click', function(){ clearPending(); });
+
+      // allow manual lat/lng editing
+      document.getElementById('latitude').addEventListener('change', function(){
+        const lat = parseFloat(this.value);
+        const lng = parseFloat(document.getElementById('longitude').value);
+        if(!isNaN(lat) && !isNaN(lng)){
+          setMarker(lat, lng);
+          map.setView([lat, lng], 14);
+        }
+      });
+      document.getElementById('longitude').addEventListener('change', function(){
+        const lng = parseFloat(this.value);
+        const lat = parseFloat(document.getElementById('latitude').value);
+        if(!isNaN(lat) && !isNaN(lng)){
+          setMarker(lat, lng);
+          map.setView([lat, lng], 14);
+        }
+      });
+    })();
+  </script>
+
+    <script>
+      // Image preview for scenic add (file or URL)
+      (function(){
+        const fileInput = document.getElementById('image_file');
+        const urlInput = document.getElementById('image_url');
+        const preview = document.getElementById('image-preview');
+        function showPreviewFromUrl(url){
+          if(!url) { preview.src = ''; return; }
+          preview.src = url;
+        }
+        fileInput && fileInput.addEventListener('change', function(e){
+          const f = e.target.files && e.target.files[0];
+          if(!f) return;
+          const reader = new FileReader();
+          reader.onload = function(ev){ preview.src = ev.target.result; };
+          reader.readAsDataURL(f);
+        });
+        urlInput && urlInput.addEventListener('input', function(e){
+          const v = e.target.value.trim();
+          if(v) showPreviewFromUrl(v);
+        });
+      })();
+    </script>
+
+  {{>footer}}
+</body>
+</html>
+
+

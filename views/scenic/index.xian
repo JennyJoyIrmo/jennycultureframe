@@ -1,0 +1,180 @@
+{{>head}}
+<body class="min-h-screen bg-cover bg-center bg-fixed" style="background-image: url('https://travelorientalmindoro.ph/Content/img/uploads/mansalay_1.jpg');">
+  <div class="absolute inset-0 bg-white/5 z-0"></div>
+  
+  <div class="relative z-10">
+    {{>nav}}
+
+    <div class="container mx-auto px-4 py-8">
+      <!-- Enhanced Header -->
+      <div class="bg-gradient-to-r from-emerald-600 to-green-700 backdrop-blur-sm rounded-xl shadow-lg p-8 mb-8 border border-emerald-500 text-center">
+        <h2 class="text-5xl font-bold text-white mb-4">
+          📸 Scenic Spots in Mansalay
+        </h2>
+        <p class="text-xl text-emerald-100 max-w-2xl mx-auto">
+          Discover the breathtaking beauty and natural wonders of Mansalay, Oriental Mindoro
+        </p>
+      </div>
+      <!-- Scenic Spots Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+        {{#each scenics}}
+        <div class="bg-white/95 backdrop-blur-sm rounded-xl shadow-lg overflow-hidden border border-emerald-100 transform transition duration-300 hover:-translate-y-2 hover:shadow-2xl group">
+          <!-- Image with Overlay -->
+          <div class="relative overflow-hidden">
+            {{#if this.image_url}}
+              <img src="{{this.image_url}}" alt="{{this.title}}" class="w-full h-48 object-cover transition duration-500 group-hover:scale-110">
+            {{else}}
+              <div class="w-full h-48 bg-gradient-to-br from-emerald-400 via-green-400 to-teal-400 flex items-center justify-center">
+                <svg class="w-16 h-16 text-white/40" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                </svg>
+              </div>
+            {{/if}}
+            <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition duration-300"></div>
+            <span class="absolute top-4 left-4 bg-gradient-to-r from-emerald-500 to-green-600 text-white text-xs px-3 py-1 rounded-full font-semibold shadow-lg">
+              📍 Scenic Spot
+            </span>
+            <div class="absolute bottom-4 left-4 opacity-0 group-hover:opacity-100 transition duration-300">
+              <span class="text-white text-sm flex items-center">
+                <span class="mr-1">📍</span>
+                {{this.location}}
+              </span>
+            </div>
+          </div>
+          
+          <!-- Content -->
+          <div class="p-6">
+            <h3 class="text-xl font-bold text-emerald-800 mb-3 group-hover:text-emerald-700 transition duration-200">
+              {{this.title}}
+            </h3>
+            <p class="text-gray-700 mb-4 line-clamp-3 leading-relaxed">
+              {{this.description}}
+            </p>
+            <a href="/scenic/{{this.id}}" 
+               class="inline-flex items-center text-emerald-600 hover:text-emerald-700 font-semibold transition duration-200 group/link">
+              Explore Location
+              <span class="ml-2 group-hover/link:translate-x-1 transition duration-200">→</span>
+            </a>
+          </div>
+        </div>
+        {{/each}}
+      </div>
+
+      <!-- Why Visit Section -->
+      <div class="bg-gradient-to-r from-emerald-50 to-green-50 rounded-xl p-8 border border-emerald-200 mb-12">
+        <div class="text-center mb-8">
+          <h3 class="text-3xl font-bold text-emerald-800 mb-4">Why Visit Mansalay's Scenic Spots?</h3>
+          <p class="text-emerald-700 text-lg max-w-3xl mx-auto">
+            Discover the natural beauty and breathtaking landscapes of Mansalay, Oriental Mindoro. 
+            From pristine beaches to lush mountains, experience the wonders that make our town a hidden paradise.
+          </p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+          <div class="text-center p-4">
+            <div class="w-16 h-16 bg-emerald-100 rounded-full flex items-center justify-center mx-auto mb-4">
+              <span class="text-2xl">🏖️</span>
+            </div>
+            <h4 class="font-bold text-emerald-700 mb-2">Natural Beauty</h4>
+            <p class="text-sm text-emerald-600">Pristine beaches and landscapes</p>
+          </div>
+          <div class="text-center p-4">
+            <div class="w-16 h-16 bg-emerald-100 rounded-full flex items-center justify-center mx-auto mb-4">
+              <span class="text-2xl">📸</span>
+            </div>
+            <h4 class="font-bold text-emerald-700 mb-2">Photo Opportunities</h4>
+            <p class="text-sm text-emerald-600">Instagram-worthy views</p>
+          </div>
+          <div class="text-center p-4">
+            <div class="w-16 h-16 bg-emerald-100 rounded-full flex items-center justify-center mx-auto mb-4">
+              <span class="text-2xl">🌿</span>
+            </div>
+            <h4 class="font-bold text-emerald-700 mb-2">Nature Therapy</h4>
+            <p class="text-sm text-emerald-600">Relax and reconnect with nature</p>
+          </div>
+          <div class="text-center p-4">
+            <div class="w-16 h-16 bg-emerald-100 rounded-full flex items-center justify-center mx-auto mb-4">
+              <span class="text-2xl">🗺️</span>
+            </div>
+            <h4 class="font-bold text-emerald-700 mb-2">Adventure</h4>
+            <p class="text-sm text-emerald-600">Explore hidden gems</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Call to Action -->
+      <div class="bg-white/90 backdrop-blur-sm rounded-xl p-8 border border-emerald-100 text-center">
+        <h3 class="text-2xl font-bold text-emerald-800 mb-4">Plan Your Visit</h3>
+        <p class="text-emerald-600 mb-6 max-w-2xl mx-auto">
+          Ready to explore the natural wonders of Mansalay? Check out upcoming events and discover local crafts to bring home as souvenirs.
+        </p>
+        <div class="space-x-4">
+          <a href="/events" 
+             class="inline-block bg-gradient-to-r from-emerald-600 to-green-700 hover:from-emerald-700 hover:to-green-800 text-white px-8 py-3 rounded-lg font-semibold transition duration-200 shadow-lg hover:shadow-xl">
+            🎪 View Events
+          </a>
+          <a href="/shop" 
+             class="inline-block bg-gradient-to-r from-emerald-500 to-green-600 hover:from-emerald-600 hover:to-green-700 text-white px-8 py-3 rounded-lg font-semibold transition duration-200 shadow-lg hover:shadow-xl">
+            🛍️ Shop Local Crafts
+          </a>
+        </div>
+      </div>
+    </div>
+
+    {{>footer}}
+  </div>
+
+  <style>
+    /* Smooth animations */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .container {
+      animation: fadeIn 0.8s ease-out;
+    }
+
+    /* Line clamp for description */
+    .line-clamp-3 {
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    /* Custom hover effects */
+    .group:hover .group-hover\:scale-110 {
+      transform: scale(1.1);
+    }
+  </style>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Add staggered animation to scenic cards
+      const cards = document.querySelectorAll('.grid > div');
+      cards.forEach((card, index) => {
+        card.style.animationDelay = `${index * 0.1}s`;
+      });
+
+      // Add intersection observer for scroll animations
+      const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+      };
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('animate-fadeIn');
+          }
+        });
+      }, observerOptions);
+
+      cards.forEach(card => {
+        observer.observe(card);
+      });
+    });
+  </script>
+</body>
+</html>

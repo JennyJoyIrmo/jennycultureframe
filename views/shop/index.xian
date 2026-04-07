@@ -1,0 +1,682 @@
+{{>head}}
+<body class="min-h-screen bg-cover bg-center bg-fixed" style="background-image: url('https://images.summitmedia-digital.com/spotph/images/2025/01/02/11-cebpac-spot-insert14-1735811639.jpg');">
+  <div class="absolute inset-0 bg-emerald-600/10 z-0"></div>
+  
+  <div class="relative z-10">
+    {{>nav}}
+    {{>messages}}
+
+    <div class="container mx-auto px-4 py-8">
+      <!-- Enhanced Header -->
+      <div class="bg-gradient-to-r from-emerald-600 to-green-700 backdrop-blur-sm rounded-xl shadow-lg p-8 mb-8 border border-emerald-500 text-center">
+        <h2 class="text-5xl font-bold text-white mb-4">
+          🛍️ Local Products Shop
+        </h2>
+        <p class="text-xl text-emerald-100 max-w-2xl mx-auto">
+          Support local artisans and discover authentic Mansalay crafts
+        </p>
+      </div>
+      <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+        
+        <!-- Sidebar filters -->
+        <aside class="lg:col-span-1 space-y-6">
+          <div class="bg-white/95 backdrop-blur-sm rounded-2xl p-6 shadow-2xl border border-emerald-100 sticky top-24">
+            <div class="flex items-center justify-between mb-6">
+              <h4 class="font-bold text-2xl text-emerald-900 flex items-center">
+                <i class="fas fa-filter mr-2 text-emerald-600"></i>
+                Filters
+              </h4>
+              <button id="filterResetBtn" class="text-sm text-emerald-600 hover:text-emerald-800 font-semibold transition-colors bg-emerald-50 px-3 py-1 rounded-lg hover:bg-emerald-100">
+                Reset
+              </button>
+            </div>
+            
+            <form method="GET" action="/shop" id="shopFiltersForm" class="space-y-6">
+              <!-- Hidden sort field to preserve sorting -->
+              <input type="hidden" name="sort" value="{{query.sort}}">
+
+              <!-- Price Range -->
+              <div class="bg-emerald-50/50 rounded-xl p-4 border border-emerald-200">
+                <div class="flex items-center mb-4">
+                  <i class="fas fa-peso-sign text-emerald-600 mr-2"></i>
+                  <div class="text-sm font-bold text-emerald-900">Price Range</div>
+                </div>
+                <div class="grid grid-cols-2 gap-3">
+                  <div>
+                    <label class="text-xs text-gray-600 block mb-2 font-medium">Minimum</label>
+                    <input type="number" name="price_min" placeholder="₱0" 
+                           class="w-full p-3 border-2 border-emerald-200 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all"
+                           value="{{query.price_min}}">
+                  </div>
+                  <div>
+                    <label class="text-xs text-gray-600 block mb-2 font-medium">Maximum</label>
+                    <input type="number" name="price_max" placeholder="No limit" 
+                           class="w-full p-3 border-2 border-emerald-200 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all"
+                           value="{{query.price_max}}">
+                  </div>
+                </div>
+              </div>
+
+              <!-- Additional Filters -->
+              <div class="bg-blue-50/50 rounded-xl p-4 border border-blue-200">
+                <div class="flex items-center mb-4">
+                  <i class="fas fa-sliders-h text-blue-600 mr-2"></i>
+                  <div class="text-sm font-bold text-blue-900">Quick Filters</div>
+                </div>
+                <div class="space-y-3">
+                  <label class="flex items-center gap-3 p-3 rounded-xl hover:bg-blue-100 transition-colors cursor-pointer border-2 border-transparent hover:border-blue-300">
+                    <input type="checkbox" name="free_shipping" value="1" 
+                           class="form-checkbox text-blue-600 rounded w-5 h-5" {{#ifEquals query.free_shipping "1"}}checked{{/ifEquals}}>
+                    <span class="text-sm font-semibold text-gray-700">🚚 Free Shipping</span>
+                  </label>
+                  <label class="flex items-center gap-3 p-3 rounded-xl hover:bg-blue-100 transition-colors cursor-pointer border-2 border-transparent hover:border-blue-300">
+                    <input type="checkbox" name="in_stock" value="1" 
+                           class="form-checkbox text-blue-600 rounded w-5 h-5" {{#ifEquals query.in_stock "1"}}checked{{/ifEquals}}>
+                    <span class="text-sm font-semibold text-gray-700">📦 In Stock Only</span>
+                  </label>
+                </div>
+              </div>
+
+              <button type="submit" class="w-full bg-gradient-to-r from-emerald-600 to-green-600 hover:from-emerald-700 hover:to-green-700 text-white p-4 rounded-xl font-bold text-lg shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-200 flex items-center justify-center">
+                <i class="fas fa-check-circle mr-2"></i>
+                Apply Filters
+              </button>
+            </form>
+          </div>
+        </aside>
+
+        <!-- Products Grid -->
+        <section class="lg:col-span-3">
+          <!-- Header -->
+          <div class="bg-white/95 backdrop-blur-sm rounded-2xl shadow-xl p-6 mb-6 border border-emerald-100">
+            <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between">
+              <div>
+                <h2 class="text-3xl font-bold text-emerald-900 mb-2 flex items-center">
+                  <i class="fas fa-shopping-bag text-emerald-600 mr-3"></i>
+                  Our Products
+                </h2>
+                <p class="text-emerald-600 text-lg">Authentic local crafts and products</p>
+              </div>
+              <div class="mt-4 lg:mt-0">
+                <div class="bg-gradient-to-r from-emerald-500 to-green-500 text-white px-6 py-3 rounded-xl shadow-lg">
+                  <div class="text-sm font-semibold">Showing</div>
+                  <div class="text-2xl font-bold">{{products.length}}</div>
+                  <div class="text-sm">Products</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Toolbar -->
+          <div class="sticky top-20 z-20 bg-white/95 backdrop-blur-lg rounded-2xl p-5 mb-8 shadow-2xl border border-emerald-100">
+            <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+              <!-- Mobile Filter Toggle -->
+              <button id="filterToggle" class="px-5 py-3 bg-gradient-to-r from-emerald-500 to-green-500 text-white rounded-xl hover:from-emerald-600 hover:to-green-600 transition-all font-semibold flex items-center justify-center gap-2 lg:hidden shadow-lg">
+                <i class="fas fa-filter"></i>
+                <span>Show Filters</span>
+              </button>
+              
+              <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 w-full sm:w-auto">
+                <!-- Sorting Form -->
+                <form method="GET" action="/shop" id="sortForm" class="flex-1 sm:flex-initial">
+                  <input type="hidden" name="price_min" value="{{query.price_min}}">
+                  <input type="hidden" name="price_max" value="{{query.price_max}}">
+                  <input type="hidden" name="free_shipping" value="{{query.free_shipping}}">
+                  <input type="hidden" name="in_stock" value="{{query.in_stock}}">
+                  
+                  <div class="relative">
+                    <i class="fas fa-sort absolute left-4 top-1/2 transform -translate-y-1/2 text-emerald-600"></i>
+                    <select name="sort" class="w-full sm:w-auto pl-12 pr-4 py-3 border-2 border-emerald-200 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 bg-white font-semibold text-gray-700 appearance-none cursor-pointer transition-all" onchange="this.form.submit()">
+                      <option value="popular" {{#ifEquals query.sort "popular"}}selected{{/ifEquals}}>🔥 Popular</option>
+                      <option value="new" {{#ifEquals query.sort "new"}}selected{{/ifEquals}}>🆕 Newest</option>
+                      <option value="price_asc" {{#ifEquals query.sort "price_asc"}}selected{{/ifEquals}}>💰 Price: Low to High</option>
+                      <option value="price_desc" {{#ifEquals query.sort "price_desc"}}selected{{/ifEquals}}>💎 Price: High to Low</option>
+                    </select>
+                  </div>
+                </form>
+                
+                <!-- View Toggle -->
+                <div class="flex items-center border-2 border-emerald-200 rounded-xl overflow-hidden bg-white shadow-md">
+                  <button id="gridViewBtn" class="px-5 py-3 bg-emerald-600 text-white transition-all font-semibold flex items-center gap-2">
+                    <i class="fas fa-th"></i>
+                    <span class="hidden sm:inline">Grid</span>
+                  </button>
+                  <button id="listViewBtn" class="px-5 py-3 hover:bg-emerald-50 transition-all font-semibold text-gray-700 flex items-center gap-2">
+                    <i class="fas fa-list"></i>
+                    <span class="hidden sm:inline">List</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Products -->
+          <div id="productsContainer" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+            {{#each products}}
+            <div class="product-card group bg-white rounded-xl shadow hover:shadow-xl transition-all duration-300 border border-gray-200 hover:border-emerald-300 overflow-hidden transform hover:-translate-y-1">
+              <div class="relative overflow-hidden">
+                <img src="{{this.image_url}}" alt="{{this.name}}" 
+                     class="w-full h-36 object-cover group-hover:scale-105 transition-transform duration-300">
+                
+                <!-- Action Buttons -->
+                <div class="absolute top-2 right-2 flex flex-col gap-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                  {{#if ../user.isAuthenticated}}
+                  <form method="post" action="/wishlist/add" class="wishlist-form">
+                    <input type="hidden" name="product_id" value="{{this.id}}">
+                    <button type="submit" class="wishlist-btn bg-white/90 backdrop-blur-sm p-1.5 rounded-lg shadow hover:scale-110 transition-transform text-sm" title="Add to Wishlist">
+                      ❤️
+                    </button>
+                  </form>
+                  {{/if}}
+                </div>
+
+                <!-- Discount Badge -->
+                {{#if this.discount}}
+                <div class="absolute top-2 left-2 bg-red-500 text-white px-2 py-0.5 rounded text-xs font-bold">
+                  -{{this.discount}}%
+                </div>
+                {{/if}}
+              </div>
+
+              <div class="p-2">
+                <!-- Product Name -->
+                <h3 class="font-normal text-gray-800 mb-1 line-clamp-2 text-xs leading-tight h-8">{{this.name}}</h3>
+                
+                <!-- Price & Sold -->
+                <div class="flex items-center justify-between mb-1">
+                  <div class="flex items-baseline gap-1">
+                    <span class="text-base font-semibold text-orange-600">₱{{this.price}}</span>
+                  </div>
+                  {{#if this.sold}}<div class="text-xs text-gray-500">{{this.sold}} sold</div>{{/if}}
+                </div>
+
+                <!-- Stock Info & Free Shipping -->
+                <div class="mb-2 space-y-1">
+                  {{#if this.stocks}}
+                  <div class="text-xs text-gray-500">Stock: {{this.stocks}}</div>
+                  {{else}}
+                  <div class="text-xs text-red-600">Out of Stock</div>
+                  {{/if}}
+                  
+                  {{#if this.free_shipping}}
+                  <div class="inline-block bg-blue-50 text-blue-600 text-xs font-semibold px-2 py-0.5 rounded">
+                    🚚 Free Ship
+                  </div>
+                  {{/if}}
+                </div>
+
+                <!-- Action Buttons -->
+                {{#if this.stocks}}
+                  {{#if ../user.isAuthenticated}}
+                  <div class="flex gap-1">
+                    <form method="POST" action="/cart/add" class="cart-form flex-1">
+                      <input type="hidden" name="product_id" value="{{this.id}}">
+                      <input type="hidden" name="quantity" value="1">
+                      <input type="hidden" name="return_url" value="/shop">
+                      <button type="submit" 
+                              class="add-to-cart-btn w-full bg-orange-500 hover:bg-orange-600 text-white py-1.5 rounded text-xs font-medium transition-colors">
+                        Add to Cart
+                      </button>
+                    </form>
+                    <form method="POST" action="/cart/add" class="buy-now-form">
+                      <input type="hidden" name="product_id" value="{{this.id}}">
+                      <input type="hidden" name="quantity" value="1">
+                      <input type="hidden" name="action" value="checkout">
+                      <button type="submit" 
+                              class="bg-emerald-500 hover:bg-emerald-600 text-white py-1.5 px-2 rounded text-xs font-medium transition-colors whitespace-nowrap">
+                        Buy Now
+                      </button>
+                    </form>
+                  </div>
+                  {{else}}
+                  <a href="/login" 
+                     class="block text-center bg-orange-500 hover:bg-orange-600 text-white py-1.5 rounded text-xs font-medium transition-colors">
+                    Login
+                  </a>
+                  {{/if}}
+                {{else}}
+                  <button type="button" disabled class="w-full bg-gray-200 text-gray-500 py-1.5 rounded text-xs font-medium cursor-not-allowed">
+                    Out of Stock
+                  </button>
+                {{/if}}
+              </div>
+            </div>
+            {{/each}}
+          </div>
+
+          <!-- Pagination - FIXED to preserve filters -->
+          {{#if pagination.pages.length}}
+          <div class="mt-12 flex justify-center">
+            <div class="flex items-center gap-2 bg-white rounded-2xl p-2 shadow-lg border border-emerald-100">
+              {{#if pagination.hasPrev}}
+              <a href="?page={{pagination.prev}}&sort={{query.sort}}&price_min={{query.price_min}}&price_max={{query.price_max}}&free_shipping={{query.free_shipping}}&in_stock={{query.in_stock}}" 
+                 class="px-4 py-2 bg-emerald-50 text-emerald-700 rounded-xl hover:bg-emerald-100 transition-colors font-medium">
+                ← Previous
+              </a>
+              {{/if}}
+
+              {{#each pagination.pages}}
+              <a href="?page={{this}}&sort={{../query.sort}}&price_min={{../query.price_min}}&price_max={{../query.price_max}}&free_shipping={{../query.free_shipping}}&in_stock={{../query.in_stock}}" 
+                 class="px-4 py-2 rounded-xl font-medium min-w-[44px] text-center transition-all duration-200 
+                        {{#ifEquals ../pagination.current this}}
+                        bg-gradient-to-r from-emerald-600 to-green-500 text-white shadow-lg
+                        {{else}}
+                        bg-white text-emerald-700 hover:bg-emerald-50
+                        {{/ifEquals}}">
+                {{this}}
+              </a>
+              {{/each}}
+
+              {{#if pagination.hasNext}}
+              <a href="?page={{pagination.next}}&sort={{query.sort}}&price_min={{query.price_min}}&price_max={{query.price_max}}&free_shipping={{query.free_shipping}}&in_stock={{query.in_stock}}" 
+                 class="px-4 py-2 bg-emerald-50 text-emerald-700 rounded-xl hover:bg-emerald-100 transition-colors font-medium">
+                Next →
+              </a>
+              {{/if}}
+            </div>
+          </div>
+          {{/if}}
+        </section>
+      </div>
+    </div>
+
+    {{>footer}}
+  </div>
+
+  {{>quickview}}
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+
+  <style>
+    .line-clamp-2 {
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    
+    /* Custom select arrow */
+    select {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3E%3Cpath stroke='%2310b981' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3E%3C/svg%3E");
+      background-position: right 0.5rem center;
+      background-repeat: no-repeat;
+      background-size: 1.5em 1.5em;
+      padding-right: 2.5rem;
+    }
+
+    .popup-message {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: linear-gradient(135deg, #059669, #10b981);
+      color: white;
+      padding: 16px 24px;
+      border-radius: 16px;
+      box-shadow: 0 12px 32px rgba(34, 197, 94, 0.4);
+      font-weight: 600;
+      opacity: 0;
+      transform: translateX(100px);
+      transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+      z-index: 9999;
+      border: 1px solid #10b981;
+      backdrop-filter: blur(10px);
+    }
+    .popup-show {
+      opacity: 1 !important;
+      transform: translateX(0) !important;
+    }
+    .popup-error {
+      background: linear-gradient(135deg, #dc2626, #ef4444);
+      border-color: #ef4444;
+    }
+
+    /* Mobile filter sidebar */
+    @media (max-width: 1023px) {
+      .filter-sidebar-mobile {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: white;
+        z-index: 40;
+        overflow-y: auto;
+        transform: translateX(-100%);
+        transition: transform 0.3s ease-in-out;
+      }
+      .filter-sidebar-mobile.show {
+        transform: translateX(0);
+      }
+    }
+  </style>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      // Enhanced Popup System
+      function showPopup(message, type = 'success') {
+        const popup = document.createElement("div");
+        popup.className = `popup-message ${type === 'error' ? 'popup-error' : ''}`;
+        
+        const icon = type === 'success' ? '✅' : type === 'error' ? '❌' : '❤️';
+        popup.textContent = `${icon} ${message}`;
+        
+        document.body.appendChild(popup);
+
+        setTimeout(() => popup.classList.add("popup-show"), 50);
+        setTimeout(() => popup.classList.remove("popup-show"), 3000);
+        setTimeout(() => popup.remove(), 3500);
+      }
+
+      // CART FUNCTIONALITY - COMPLETELY FIXED
+      document.querySelectorAll('.cart-form').forEach(form => {
+        form.addEventListener('submit', async (e) => {
+          e.preventDefault();
+          
+          const formData = new FormData(form);
+          const submitBtn = form.querySelector('.add-to-cart-btn');
+          const originalText = submitBtn.innerHTML;
+          
+          // Show loading state
+          submitBtn.innerHTML = '⏳';
+          submitBtn.disabled = true;
+          
+          try {
+            console.log('[Cart] Adding to cart...', Object.fromEntries(formData));
+            
+            const response = await fetch('/cart/add', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+                'Accept': 'application/json',
+                'X-Requested-With': 'XMLHttpRequest'
+              },
+              credentials: 'same-origin',
+              body: new URLSearchParams(formData)
+            });
+            
+            console.log('[Cart] Response status:', response.status);
+            
+            let result;
+            const contentType = response.headers.get("content-type");
+            if (contentType && contentType.includes("application/json")) {
+              result = await response.json();
+              console.log('[Cart] Response JSON:', result);
+            } else {
+              const text = await response.text();
+              console.error('[Cart] Non-JSON response:', text.substring(0, 200));
+              throw new Error('Invalid response from server');
+            }
+            
+            if (result.success) {
+              showPopup('✅ Added to Cart!', 'success');
+              console.log('[Cart] Updating count to:', result.cartCount);
+              // Update cart count in navbar
+              updateCartCount(result.cartCount || result.cart_count);
+            } else {
+              showPopup(result.message || 'Failed to add to cart', 'error');
+              console.error('[Cart] Error:', result.message);
+            }
+          } catch (error) {
+            console.error('[Cart] Network error:', error);
+            showPopup('❌ Network error. Please try again.', 'error');
+          } finally {
+            // Restore button state after a brief delay
+            setTimeout(() => {
+              submitBtn.innerHTML = originalText;
+              submitBtn.disabled = false;
+            }, 500);
+          }
+        });
+      });
+
+      // Update cart count in navbar
+      function updateCartCount(count) {
+        console.log('[Cart] Updating cart count to:', count);
+        
+        // Update by class (backwards compat)
+        const cartCounts = document.querySelectorAll('.cart-count');
+        cartCounts.forEach(element => {
+          if (count !== undefined && count !== null) element.textContent = count;
+        });
+        
+        // Update by id - this is the main cart badge in navbar
+        const cartBadge = document.getElementById('cartCount');
+        if (cartBadge) {
+          if (count !== undefined && count !== null) {
+            cartBadge.textContent = count;
+            if (Number(count) > 0) {
+              cartBadge.classList.remove('hidden');
+            } else {
+              cartBadge.classList.add('hidden');
+            }
+          }
+        }
+        
+        // Also update any other cart badges
+        const badges = document.querySelectorAll('.cart-badge');
+        badges.forEach(badge => {
+          if (count !== undefined && count !== null) {
+            badge.textContent = count;
+            if (Number(count) > 0) {
+              badge.classList.remove('hidden');
+            } else {
+              badge.classList.add('hidden');
+            }
+          }
+        });
+      }
+
+      function updateWishlistCount(count) {
+        console.log('[Wishlist] Updating wishlist count to:', count);
+        
+        const wEls = document.querySelectorAll('.wishlist-count');
+        wEls.forEach(el => { if (count !== undefined && count !== null) el.textContent = count; });
+        
+        const wishBadge = document.getElementById('wishlistCount');
+        if (wishBadge) {
+          if (count !== undefined && count !== null) {
+            wishBadge.textContent = count;
+            if (Number(count) > 0) {
+              wishBadge.classList.remove('hidden');
+            } else {
+              wishBadge.classList.add('hidden');
+            }
+          }
+        }
+      }
+
+      // Wishlist Functionality
+      document.querySelectorAll('.wishlist-form').forEach(form => {
+        form.addEventListener('submit', async (e) => {
+          e.preventDefault();
+          
+          const formData = new FormData(form);
+          const submitBtn = form.querySelector('.wishlist-btn');
+          const originalHTML = submitBtn.innerHTML;
+          
+          submitBtn.innerHTML = '⏳';
+          submitBtn.disabled = true;
+          
+          try {
+            const response = await fetch('/wishlist/add', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+                'Accept': 'application/json',
+                'X-Requested-With': 'XMLHttpRequest'
+              },
+              credentials: 'same-origin',
+              body: new URLSearchParams(formData)
+            });
+
+            if (!response.ok) {
+              // Try to parse JSON error body
+              let errBody = null;
+              try { errBody = await response.json(); } catch(e) { /* ignore */ }
+              throw new Error((errBody && errBody.message) ? errBody.message : `Status ${response.status}`);
+            }
+
+            const result = await response.json();
+
+            if (result.success) {
+              showPopup('Added to Wishlist!', 'success');
+              submitBtn.innerHTML = '💖';
+              submitBtn.style.color = '#dc2626';
+              // update wishlist count if provided
+              if (result.wishlistCount !== undefined) updateWishlistCount(result.wishlistCount);
+            } else {
+              // If already in wishlist, treat as success visually
+              if (result.message && result.message.toLowerCase().includes('already')) {
+                showPopup('Already in wishlist', 'success');
+                submitBtn.innerHTML = '💖';
+                submitBtn.style.color = '#dc2626';
+                if (result.wishlistCount !== undefined) updateWishlistCount(result.wishlistCount);
+              } else {
+                showPopup(result.message || 'Failed to add to wishlist', 'error');
+                submitBtn.innerHTML = originalHTML;
+              }
+            }
+          } catch (error) {
+            console.error('Wishlist error:', error);
+            showPopup('Error adding to wishlist', 'error');
+            submitBtn.innerHTML = originalHTML;
+          } finally {
+            submitBtn.disabled = false;
+          }
+        });
+      });
+
+      // Mobile Filter Toggle
+      const filterToggle = document.getElementById('filterToggle');
+      const filterSidebar = document.querySelector('aside');
+      
+      if (filterToggle && filterSidebar) {
+        // Only append a mobile clone on small screens to avoid showing a duplicate sidebar
+        const alreadyMobile = document.querySelector('.filter-sidebar-mobile');
+        const isMobile = window.innerWidth <= 1023;
+        if (!alreadyMobile && isMobile) {
+          // Clone sidebar for mobile (only when viewport is small)
+          const mobileSidebar = filterSidebar.cloneNode(true);
+          mobileSidebar.classList.add('filter-sidebar-mobile', 'p-6');
+          mobileSidebar.innerHTML += `
+            <button class="lg:hidden absolute top-4 right-4 p-2 bg-emerald-100 rounded-lg" onclick="closeMobileFilters()">
+              ✕
+            </button>
+          `;
+          document.body.appendChild(mobileSidebar);
+
+          filterToggle.addEventListener('click', () => {
+            mobileSidebar.classList.add('show');
+          });
+
+          window.closeMobileFilters = () => {
+            mobileSidebar.classList.remove('show');
+          };
+        } else {
+          // Fallback: toggle a class on the existing sidebar for small screens
+          filterToggle.addEventListener('click', () => {
+            filterSidebar.classList.toggle('show');
+          });
+          window.closeMobileFilters = () => {
+            filterSidebar.classList.remove('show');
+          };
+        }
+      }
+
+      // View Toggle
+      const productsContainer = document.getElementById('productsContainer');
+      const gridBtn = document.getElementById('gridViewBtn');
+      const listBtn = document.getElementById('listViewBtn');
+      
+      if (gridBtn && listBtn && productsContainer) {
+        const savedView = localStorage.getItem('productsView') || 'grid';
+        
+        if (savedView === 'list') {
+          productsContainer.className = 'flex flex-col gap-6';
+          listBtn.className = 'px-4 py-2 bg-emerald-600 text-white transition-colors';
+          gridBtn.className = 'px-4 py-2 hover:bg-emerald-50 transition-colors';
+        }
+        
+        gridBtn.addEventListener('click', () => {
+          productsContainer.className = 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6';
+          gridBtn.className = 'px-4 py-2 bg-emerald-600 text-white transition-colors';
+          listBtn.className = 'px-4 py-2 hover:bg-emerald-50 transition-colors';
+          localStorage.setItem('productsView', 'grid');
+        });
+        
+        listBtn.addEventListener('click', () => {
+          productsContainer.className = 'flex flex-col gap-6';
+          listBtn.className = 'px-4 py-2 bg-emerald-600 text-white transition-colors';
+          gridBtn.className = 'px-4 py-2 hover:bg-emerald-50 transition-colors';
+          localStorage.setItem('productsView', 'list');
+        });
+      }
+
+      // Filter Reset
+      const resetBtn = document.getElementById('filterResetBtn');
+      if (resetBtn) {
+        resetBtn.addEventListener('click', (e) => {
+          e.preventDefault();
+          window.location.href = '/shop';
+        });
+      }
+
+      // Quick View Modal
+      const qvModal = document.getElementById('quickViewModal');
+      const qvClose = document.getElementById('qvClose');
+      
+      document.querySelectorAll('.quick-view-btn').forEach(btn => {
+        btn.addEventListener('click', async () => {
+          const productId = btn.getAttribute('data-product-id');
+          
+          try {
+            // Show loading state
+            document.getElementById('qvTitle').textContent = 'Loading...';
+            
+            // In a real app, you'd fetch product details from an API
+            // For now, we'll use the existing product data
+            const productCard = btn.closest('.product-card');
+            const productName = productCard.querySelector('h3').textContent;
+            const productPrice = productCard.querySelector('.text-2xl').textContent;
+            const productImage = productCard.querySelector('img').src;
+            const productDesc = productCard.querySelector('p').textContent;
+            const productCategory = productCard.querySelector('.text-xs').textContent;
+            
+            // Update modal content
+            document.getElementById('qvTitle').textContent = productName;
+            document.getElementById('qvImage').src = productImage;
+            document.getElementById('qvPrice').textContent = productPrice;
+            document.getElementById('qvDescription').textContent = productDesc;
+            document.getElementById('qvCategory').textContent = productCategory;
+            
+            // Update quick view form
+            const qvForm = document.querySelector('#quickViewModal form');
+            if (qvForm) {
+              const productIdInput = qvForm.querySelector('input[name="product_id"]');
+              if (productIdInput) {
+                productIdInput.value = productId;
+              }
+            }
+            
+            qvModal.classList.add('show');
+          } catch (error) {
+            console.error('Quick view error:', error);
+            showPopup('Error loading product details', 'error');
+          }
+        });
+      });
+
+      if (qvClose) qvClose.addEventListener('click', () => qvModal.classList.remove('show'));
+      qvModal?.addEventListener('click', (e) => {
+        if (e.target === qvModal) qvModal.classList.remove('show');
+      });
+
+      // Initialize sorting select
+      const sortSelect = document.querySelector('select[name="sort"]');
+      if (sortSelect) {
+        // It's already handled by the form onchange
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,547 @@
+{{>head}}
+<body class="min-h-screen bg-gray-50">
+  <!-- Top Navigation Bar - Shopee Style -->
+  <div class="bg-emerald-600 text-white py-2 text-sm">
+    <div class="container mx-auto px-4">
+      <div class="flex justify-between items-center">
+        <div class="flex items-center space-x-6">
+
+        </div>
+          {{#if user}}
+          <div class="flex items-center space-x-2">
+            <span>👤</span>
+            <span>{{user.name}}</span>
+          </div>
+          {{else}}
+          <div class="flex items-center space-x-4">
+            <a href="/register" class="hover:text-emerald-200">Sign Up</a>
+            <a href="/login" class="hover:text-emerald-200">Login</a>
+          </div>
+          {{/if}}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Navigation Bar -->
+  <nav class="bg-white shadow-sm border-b sticky top-0 z-50">
+    <div class="container mx-auto px-4">
+      <div class="flex items-center justify-between py-3">
+        <!-- Logo -->
+        <div class="flex items-center space-x-2">
+          <a href="/" class="flex items-center space-x-2">
+            <span class="text-3xl text-emerald-600">🌿</span>
+            <div>
+              <h1 class="text-xl font-bold text-gray-800">CultureFrame</h1>
+              <p class="text-xs text-gray-600 -mt-1">Mansalay</p>
+            </div>
+          </a>
+        </div>
+
+        <!-- Search Bar -->
+        <div class="flex-1 max-w-2xl mx-8">
+          <div class="relative">
+            <input 
+              type="text" 
+              placeholder="Search products and brands..." 
+              class="w-full py-2 px-4 pr-12 bg-gray-100 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
+            >
+            <button class="absolute right-2 top-1/2 transform -translate-y-1/2 bg-emerald-600 text-white p-1 rounded-md hover:bg-emerald-700 transition duration-200">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- Right Side Icons -->
+        <div class="flex items-center space-x-6">
+          <!-- Cart Icon -->
+          <a href="/cart" class="relative text-gray-700 hover:text-emerald-600 transition duration-200">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path>
+            </svg>
+            {{#if cart.length}}
+            <span class="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
+              {{cart.length}}
+            </span>
+            {{/if}}
+          </a>
+
+          <!-- Wishlist Icon -->
+          <a href="/wishlist" class="text-gray-700 hover:text-emerald-600 transition duration-200">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+            </svg>
+          </a>
+
+          <!-- User Account -->
+          {{#if user}}
+          <div class="relative group">
+            <button class="flex items-center space-x-1 text-gray-700 hover:text-emerald-600 transition duration-200">
+              <div class="w-8 h-8 bg-emerald-100 rounded-full flex items-center justify-center">
+                <span class="text-emerald-600 font-semibold text-sm">
+                  {{#if user.name}}{{user.name.[0]}}{{else}}U{{/if}}
+                </span>
+            </div>
+          </div>
+          {{else}}
+          <div class="flex items-center space-x-4">
+            <a href="/login" class="text-gray-700 hover:text-emerald-600 font-medium text-sm">Login</a>
+            <a href="/register" class="bg-emerald-600 text-white px-4 py-2 rounded-lg hover:bg-emerald-700 transition duration-200 text-sm font-medium">
+              Sign Up
+            </a>
+          </div>
+          {{/if}}
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <div class="container mx-auto px-4 py-6 max-w-6xl">
+    <!-- Back to Product Detail Button -->
+    <div class="mb-4">
+      <a href="{{#if referer}}{{referer}}{{else}}/shop{{/if}}" class="inline-flex items-center text-emerald-600 hover:text-emerald-800 font-medium text-sm bg-white rounded-lg shadow px-3 py-2 transition duration-150 border border-gray-200 hover:bg-gray-50">
+        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
+        </svg>
+        Back to Product
+      </a>
+    </div>
+    <!-- Progress Steps -->
+    <div class="bg-white rounded-lg shadow-sm p-6 mb-6">
+      <div class="flex items-center justify-center">
+        <div class="flex items-center space-x-4">
+          <div class="flex items-center">
+            <div class="w-8 h-8 rounded-full bg-emerald-600 text-white flex items-center justify-center text-sm font-bold">1</div>
+            <span class="ml-2 text-sm font-medium text-emerald-600">Cart</span>
+          </div>
+          <div class="w-16 h-0.5 bg-emerald-600"></div>
+          <div class="flex items-center">
+            <div class="w-8 h-8 rounded-full bg-emerald-600 text-white flex items-center justify-center text-sm font-bold">2</div>
+            <span class="ml-2 text-sm font-medium text-emerald-600">Checkout</span>
+          </div>
+          <div class="w-16 h-0.5 bg-gray-300"></div>
+          <div class="flex items-center">
+            <div class="w-8 h-8 rounded-full bg-gray-300 text-gray-500 flex items-center justify-center text-sm font-bold">3</div>
+            <span class="ml-2 text-sm font-medium text-gray-500">Complete</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      <!-- Left Column - Checkout Form -->
+      <div class="lg:col-span-2 space-y-4">
+        <!-- Shipping Address -->
+        <div class="bg-white rounded-lg shadow-sm border">
+          <div class="p-4 border-b">
+            <h2 class="text-lg font-semibold text-gray-800 flex items-center">
+              <span class="w-6 h-6 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center text-sm mr-2">1</span>
+              Shipping Address
+            </h2>
+          </div>
+          <div class="p-4">
+            <form id="addressForm">
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                <div>
+                  <label class="block text-sm font-medium text-gray-700 mb-2">Full Name *</label>
+                  <input type="text" 
+                         name="customer_name" 
+                         required 
+                         class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
+                         placeholder="Enter your full name"
+                         value="{{customer_name}}">
+                </div>
+                <div>
+                  <label class="block text-sm font-medium text-gray-700 mb-2">Phone Number *</label>
+                  <input type="tel" 
+                         name="customer_phone" 
+                         required 
+                         class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
+                         placeholder="+63 XXX XXX XXXX"
+                         value="{{customer_phone}}">
+                </div>
+              </div>
+              
+              <div class="mb-4">
+                <label class="block text-sm font-medium text-gray-700 mb-2">Email Address *</label>
+                <input type="email" 
+                       name="customer_email" 
+                       required 
+                       class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
+                       placeholder="your@email.com"
+                       value="{{customer_email}}">
+              </div>
+              
+              <div class="mb-4">
+                <label class="block text-sm font-medium text-gray-700 mb-2">Complete Address *</label>
+                <textarea name="shipping_address" 
+                          required 
+                          rows="3" 
+                          class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 resize-none"
+                          placeholder="House/Building No., Street, Barangay, City/Municipality, Province">{{shipping_address}}</textarea>
+              </div>
+              
+              <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div>
+                  <label class="block text-sm font-medium text-gray-700 mb-2">City/Municipality</label>
+                  <input type="text" 
+                         name="city" 
+                         class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
+                         placeholder="Mansalay"
+                         value="{{city}}">
+                </div>
+                <div>
+                  <label class="block text-sm font-medium text-gray-700 mb-2">Province</label>
+                  <input type="text" 
+                         name="province" 
+                         class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
+                         placeholder="Oriental Mindoro"
+                         value="{{province}}">
+                </div>
+                <div>
+                  <label class="block text-sm font-medium text-gray-700 mb-2">ZIP Code</label>
+                  <input type="text" 
+                         name="zip_code" 
+                         class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
+                         placeholder="5210"
+                         value="{{zip_code}}">
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <!-- Shipping Method -->
+        <div class="bg-white rounded-lg shadow-sm border">
+          <div class="p-4 border-b">
+            <h2 class="text-lg font-semibold text-gray-800 flex items-center">
+              <span class="w-6 h-6 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center text-sm mr-2">2</span>
+              Shipping Method
+            </h2>
+          </div>
+          <div class="p-4">
+            <div class="space-y-3">
+              <label class="flex items-center justify-between p-3 border-2 border-emerald-500 rounded-lg bg-emerald-50 cursor-pointer">
+                <div class="flex items-center">
+                  <input type="radio" name="shipping_method" value="standard" class="w-4 h-4 text-emerald-600" checked>
+                  <div class="ml-3">
+                    <div class="font-medium text-gray-800">Standard Delivery</div>
+                    <div class="text-sm text-gray-600">3-7 business days</div>
+                  </div>
+                </div>
+                <div class="text-emerald-600 font-semibold">Free</div>
+              </label>
+              
+              <label class="flex items-center justify-between p-3 border border-gray-300 rounded-lg hover:border-gray-400 cursor-pointer">
+                <div class="flex items-center">
+                  <input type="radio" name="shipping_method" value="express" class="w-4 h-4 text-emerald-600">
+                  <div class="ml-3">
+                    <div class="font-medium text-gray-800">Express Delivery</div>
+                    <div class="text-sm text-gray-600">1-2 business days</div>
+                  </div>
+                </div>
+                <div class="text-gray-600 font-semibold">₱50</div>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <!-- Payment Method -->
+        <div class="bg-white rounded-lg shadow-sm border">
+          <div class="p-4 border-b">
+            <h2 class="text-lg font-semibold text-gray-800 flex items-center">
+              <span class="w-6 h-6 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center text-sm mr-2">3</span>
+              Payment Method
+            </h2>
+          </div>
+          <div class="p-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <label class="flex items-center p-4 border-2 border-emerald-500 rounded-lg bg-emerald-50 cursor-pointer">
+                <input type="radio" name="payment_method" value="cash_on_delivery" class="w-4 h-4 text-emerald-600" checked>
+                <div class="ml-3">
+                  <div class="font-medium text-gray-800">💰 Cash on Delivery</div>
+                  <div class="text-sm text-gray-600">Pay when item arrives</div>
+                </div>
+              </label>
+              
+              <label class="flex items-center p-4 border border-gray-300 rounded-lg hover:border-gray-400 cursor-pointer">
+                <input type="radio" name="payment_method" value="gcash" class="w-4 h-4 text-emerald-600">
+                <div class="ml-3">
+                  <div class="font-medium text-gray-800">📱 GCash</div>
+                  <div class="text-sm text-gray-600">Pay via GCash app</div>
+                </div>
+              </label>
+              
+              <label class="flex items-center p-4 border border-gray-300 rounded-lg hover:border-gray-400 cursor-pointer">
+                <input type="radio" name="payment_method" value="bank_transfer" class="w-4 h-4 text-emerald-600">
+                <div class="ml-3">
+                  <div class="font-medium text-gray-800">🏦 Bank Transfer</div>
+                  <div class="text-sm text-gray-600">BPI, BDO, Metrobank</div>
+                </div>
+              </label>
+              
+              <label class="flex items-center p-4 border border-gray-300 rounded-lg hover:border-gray-400 cursor-pointer">
+                <input type="radio" name="payment_method" value="credit_card" class="w-4 h-4 text-emerald-600">
+                <div class="ml-3">
+                  <div class="font-medium text-gray-800">💳 Credit/Debit Card</div>
+                  <div class="text-sm text-gray-600">Visa, Mastercard</div>
+                </div>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <!-- Order Items -->
+        <div class="bg-white rounded-lg shadow-sm border">
+          <div class="p-4 border-b">
+            <h2 class="text-lg font-semibold text-gray-800">Order Items ({{cart.length}})</h2>
+          </div>
+          <div class="p-4">
+            <div class="space-y-4">
+              {{#each cart}}
+              <div class="flex items-center space-x-4 p-3 border border-gray-200 rounded-lg">
+                <img src="{{this.image_url}}" alt="{{this.name}}" class="w-16 h-16 object-cover rounded-md">
+                <div class="flex-1 min-w-0">
+                  <h3 class="font-medium text-gray-800 truncate">{{this.name}}</h3>
+                  <p class="text-sm text-gray-600">Quantity: {{this.quantity}}</p>
+                  <p class="text-sm text-gray-600">₱{{this.price}} each</p>
+                </div>
+                <div class="text-right">
+                  <div class="font-semibold text-gray-800">₱{{this.total}}</div>
+                  <div class="text-sm text-emerald-600">In Stock</div>
+                </div>
+              </div>
+              {{/each}}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Column - Order Summary -->
+      <div class="lg:col-span-1">
+        <div class="bg-white rounded-lg shadow-sm border sticky top-24">
+          <div class="p-4 border-b">
+            <h3 class="text-lg font-semibold text-gray-800">Order Summary</h3>
+          </div>
+          
+          <div class="p-4 space-y-3">
+            <div class="flex justify-between text-sm">
+              <span class="text-gray-600">Subtotal ({{cart.length}} items)</span>
+              <span class="text-gray-800">₱{{cartTotal}}</span>
+            </div>
+            
+            <div class="flex justify-between text-sm">
+              <span class="text-gray-600">Shipping Fee</span>
+              <span class="text-emerald-600">Free</span>
+            </div>
+            
+            <div class="flex justify-between text-sm">
+              <span class="text-gray-600">Service Fee</span>
+              <span class="text-gray-800">₱0</span>
+            </div>
+            
+            <div class="flex justify-between text-sm">
+              <span class="text-gray-600">Voucher Discount</span>
+              <span class="text-red-600">-₱0</span>
+            </div>
+            
+            <div class="border-t pt-3 mt-3">
+              <div class="flex justify-between items-center">
+                <span class="font-semibold text-gray-800">Total Payment</span>
+                <span class="text-xl font-bold text-emerald-600">₱{{cartTotal}}</span>
+              </div>
+            </div>
+          </div>
+          
+          <div class="p-4 border-t">
+            <!-- Voucher Code -->
+            <div class="mb-4">
+              <label class="block text-sm font-medium text-gray-700 mb-2">Voucher Code</label>
+              <div class="flex space-x-2">
+                <input type="text" 
+                       placeholder="Enter voucher code" 
+                       class="flex-1 px-3 py-2 border border-gray-300 rounded-md text-sm">
+                <button type="button" class="px-4 py-2 bg-gray-100 text-gray-700 rounded-md text-sm font-medium hover:bg-gray-200">
+                  Apply
+                </button>
+              </div>
+            </div>
+            
+            <!-- Place Order Button -->
+            <form method="POST" action="/order/create" id="checkoutForm">
+              <input type="hidden" name="cart_items" value='{{{serverCartJSON}}}'>
+              <input type="hidden" name="total_amount" value="{{cartTotal}}">
+              <input type="hidden" name="customer_name" id="finalCustomerName">
+              <input type="hidden" name="customer_email" id="finalCustomerEmail">
+              <input type="hidden" name="customer_phone" id="finalCustomerPhone">
+              <input type="hidden" name="shipping_address" id="finalShippingAddress">
+              <input type="hidden" name="payment_method" id="finalPaymentMethod">
+              
+              <button type="submit" 
+                      class="w-full bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white py-3 rounded-md font-semibold text-lg transition duration-200 shadow-md hover:shadow-lg">
+                🚀 Place Order
+              </button>
+            </form>
+            
+            <!-- Trust Badges -->
+            <div class="mt-4 pt-4 border-t border-gray-200">
+              <div class="grid grid-cols-3 gap-4 text-center text-xs">
+                <div>
+                  <div class="text-gray-600 mb-1">🔒</div>
+                  <div class="text-gray-500">Secure Payment</div>
+                </div>
+                <div>
+                  <div class="text-gray-600 mb-1">🚚</div>
+                  <div class="text-gray-500">Free Shipping</div>
+                </div>
+                <div>
+                  <div class="text-gray-600 mb-1">↩️</div>
+                  <div class="text-gray-500">7-Day Returns</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <style>
+    /* Hide scrollbar for category navigation */
+    .hide-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+    .hide-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+
+    /* Custom styles for Shopee-like interface */
+    input[type="radio"]:checked + div {
+      border-color: #10b981;
+      background-color: #ecfdf5;
+    }
+    
+    .sticky {
+      position: sticky;
+    }
+    
+    /* Smooth transitions */
+    .transition-all {
+      transition: all 0.2s ease-in-out;
+    }
+    
+    /* Custom scrollbar */
+    ::-webkit-scrollbar {
+      width: 6px;
+    }
+    
+    ::-webkit-scrollbar-track {
+      background: #f1f1f1;
+    }
+    
+    ::-webkit-scrollbar-thumb {
+      background: #c1c1c1;
+      border-radius: 3px;
+    }
+    
+    ::-webkit-scrollbar-thumb:hover {
+      background: #a8a8a8;
+    }
+
+    /* Dropdown animation */
+    .group:hover .group-hover\:visible {
+      visibility: visible;
+    }
+    
+    .group:hover .group-hover\:opacity-100 {
+      opacity: 1;
+    }
+  </style>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const checkoutForm = document.getElementById('checkoutForm');
+      const addressForm = document.getElementById('addressForm');
+      const placeOrderBtn = checkoutForm.querySelector('button[type="submit"]');
+      
+      // Update final form data before submission
+      checkoutForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        // Get values from address form
+        const customerName = addressForm.querySelector('input[name="customer_name"]').value;
+        const customerEmail = addressForm.querySelector('input[name="customer_email"]').value;
+        const customerPhone = addressForm.querySelector('input[name="customer_phone"]').value;
+        const shippingAddress = addressForm.querySelector('textarea[name="shipping_address"]').value;
+        const city = addressForm.querySelector('input[name="city"]').value;
+        const province = addressForm.querySelector('input[name="province"]').value;
+        const zipCode = addressForm.querySelector('input[name="zip_code"]').value;
+        
+        // Construct complete address
+        const completeAddress = `${shippingAddress}, ${city}, ${province} ${zipCode}`;
+        
+        // Get selected payment method
+        const paymentMethod = document.querySelector('input[name="payment_method"]:checked').value;
+        
+        // Set final values
+        document.getElementById('finalCustomerName').value = customerName;
+        document.getElementById('finalCustomerEmail').value = customerEmail;
+        document.getElementById('finalCustomerPhone').value = customerPhone;
+        document.getElementById('finalShippingAddress').value = completeAddress;
+        document.getElementById('finalPaymentMethod').value = paymentMethod;
+        
+        // Validate required fields
+        if (!customerName || !customerEmail || !customerPhone || !shippingAddress) {
+          alert('Please fill in all required fields marked with *');
+          return;
+        }
+        
+        // Show loading state
+        placeOrderBtn.innerHTML = '⏳ Processing Order...';
+        placeOrderBtn.disabled = true;
+        
+        // Submit the form
+        this.submit();
+      });
+      
+      // Payment method selection
+      const paymentMethods = document.querySelectorAll('input[name="payment_method"]');
+      paymentMethods.forEach(method => {
+        method.addEventListener('change', function() {
+          paymentMethods.forEach(m => {
+            const parent = m.closest('label');
+            if (m.checked) {
+              parent.classList.add('border-emerald-500', 'bg-emerald-50');
+              parent.classList.remove('border-gray-300', 'hover:border-gray-400');
+            } else {
+              parent.classList.remove('border-emerald-500', 'bg-emerald-50');
+              parent.classList.add('border-gray-300');
+            }
+          });
+        });
+      });
+      
+      // Shipping method selection
+      const shippingMethods = document.querySelectorAll('input[name="shipping_method"]');
+      shippingMethods.forEach(method => {
+        method.addEventListener('change', function() {
+          shippingMethods.forEach(m => {
+            const parent = m.closest('label');
+            if (m.checked) {
+              parent.classList.add('border-emerald-500', 'bg-emerald-50');
+              parent.classList.remove('border-gray-300', 'hover:border-gray-400');
+            } else {
+              parent.classList.remove('border-emerald-500', 'bg-emerald-50');
+              parent.classList.add('border-gray-300');
+            }
+          });
+        });
+      });
+    });
+  </script>
+</body>
+</html>

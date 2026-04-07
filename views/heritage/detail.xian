@@ -1,0 +1,186 @@
+{{>head}}
+<body class="min-h-screen bg-cover bg-center bg-fixed" style="background-image: url('https://www.travelorientalmindoro.ph/Content/img/uploads/ab840107-7993-4a21-849c-eeae4c81f742.jpg');">
+  <!-- Green gradient overlay -->
+  <div class="absolute inset-0 bg-white/5 z-0"></div>
+  
+  <div class="relative z-10">
+    {{>nav}}
+
+    <div class="container mx-auto px-4 py-8">
+      <!-- Back Button -->
+      <a href="/heritage" class="inline-flex items-center text-emerald-600 hover:text-emerald-700 font-semibold mb-6 transition duration-200 group">
+        <span class="mr-2 group-hover:-translate-x-1 transition duration-200">←</span>
+        Back to Heritage Sites
+      </a>
+      
+      <!-- Heritage Detail Card -->
+      <div class="bg-white/95 backdrop-blur-sm rounded-xl shadow-2xl overflow-hidden border border-emerald-100 transform transition duration-300 hover:shadow-3xl">
+        <!-- Hero Image -->
+        <div class="relative">
+          <img src="{{heritage.image_url}}" alt="{{heritage.title}}" class="w-full h-96 object-cover">
+          <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+          <div class="absolute bottom-4 left-8">
+            <span class="inline-block bg-gradient-to-r from-emerald-500 to-green-600 text-white px-4 py-2 rounded-full text-sm font-semibold shadow-lg">
+              {{heritage.category}}
+            </span>
+          </div>
+        </div>
+        
+        <!-- Content -->
+        <div class="p-8">
+          <!-- Title and Location -->
+          <div class="mb-6">
+            <h1 class="text-4xl font-bold text-emerald-800 mb-3 [text-shadow:_0_2px_4px_rgb(34_197_94_/_10%)]">
+              {{heritage.title}}
+            </h1>
+            <div class="flex items-center text-emerald-600 text-lg">
+              <span class="mr-2">📍</span>
+              <span class="font-semibold">{{heritage.location}}</span>
+            </div>
+          </div>
+          
+          <!-- Description -->
+          <div class="mb-8">
+            <div class="flex items-center mb-4">
+              <div class="w-8 h-8 bg-emerald-100 rounded-full flex items-center justify-center mr-3">
+                <span class="text-emerald-600 font-bold">📖</span>
+              </div>
+              <h3 class="text-2xl font-bold text-emerald-800">Description</h3>
+            </div>
+            <p class="text-gray-700 leading-relaxed text-lg bg-emerald-50/50 p-6 rounded-xl border border-emerald-100">
+              {{heritage.description}}
+            </p>
+          </div>
+
+          <!-- Historical Significance -->
+          {{#if heritage.historical_significance}}
+          <div class="mb-8">
+            <div class="flex items-center mb-4">
+              <div class="w-8 h-8 bg-emerald-100 rounded-full flex items-center justify-center mr-3">
+                <span class="text-emerald-600 font-bold">⚡</span>
+              </div>
+              <h3 class="text-2xl font-bold text-emerald-800">Historical Significance</h3>
+            </div>
+            <p class="text-gray-700 leading-relaxed text-lg bg-emerald-50/50 p-6 rounded-xl border border-emerald-100">
+              {{heritage.historical_significance}}
+            </p>
+          </div>
+          {{/if}}
+
+          <!-- Year Established -->
+          {{#if heritage.year_established}}
+          <div class="mb-8">
+            <div class="flex items-center mb-4">
+              <div class="w-8 h-8 bg-emerald-100 rounded-full flex items-center justify-center mr-3">
+                <span class="text-emerald-600 font-bold">📅</span>
+              </div>
+              <h3 class="text-2xl font-bold text-emerald-800">Year Established</h3>
+            </div>
+            <div class="bg-emerald-50/50 p-6 rounded-xl border border-emerald-100">
+              <p class="text-3xl font-bold text-emerald-700 text-center">
+                {{heritage.year_established}}
+              </p>
+            </div>
+          </div>
+          {{/if}}
+
+          <!-- Related Heritage Sites -->
+          {{#if relatedHeritage.length}}
+          <div class="mb-8">
+            <div class="flex items-center mb-6">
+              <div class="w-8 h-8 bg-emerald-100 rounded-full flex items-center justify-center mr-3">
+                <span class="text-emerald-600 font-bold">🏛️</span>
+              </div>
+              <h3 class="text-2xl font-bold text-emerald-800">Related Heritage Sites</h3>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {{#each relatedHeritage}}
+              <a href="/heritage/{{this.id}}" class="group">
+                <div class="bg-white rounded-xl shadow-md overflow-hidden border border-emerald-100 hover:shadow-xl transition duration-300 transform hover:-translate-y-1">
+                  <img src="{{this.image_url}}" alt="{{this.title}}" class="w-full h-40 object-cover group-hover:scale-105 transition duration-300">
+                  <div class="p-4">
+                    <h4 class="font-bold text-emerald-800 mb-2 group-hover:text-emerald-600 transition duration-200">{{this.title}}</h4>
+                    <p class="text-sm text-gray-600 flex items-center">
+                      <span class="mr-1">📍</span>
+                      {{this.location}}
+                    </p>
+                  </div>
+                </div>
+              </a>
+              {{/each}}
+            </div>
+          </div>
+          {{/if}}
+
+          <!-- Call to Action -->
+          <div class="bg-gradient-to-r from-emerald-600 to-green-700 rounded-xl p-8 text-center text-white">
+            <h3 class="text-2xl font-bold mb-4">Explore More Heritage Sites</h3>
+            <p class="mb-6 text-emerald-100">
+              Discover more cultural treasures and historical landmarks of Mansalay
+            </p>
+            <a href="/heritage" 
+               class="inline-block bg-white text-emerald-600 px-8 py-3 rounded-lg font-semibold hover:bg-emerald-50 transition duration-200 shadow-lg">
+              View All Heritage Sites
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    {{>footer}}
+  </div>
+
+  <style>
+    /* Smooth animations */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .container {
+      animation: fadeIn 0.8s ease-out;
+    }
+
+    /* Custom hover effects */
+    .hover-lift:hover {
+      transform: translateY(-5px);
+      transition: transform 0.3s ease;
+    }
+
+    /* Gradient text for emphasis */
+    .gradient-text {
+      background: linear-gradient(135deg, #059669, #10b981);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+  </style>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Add smooth scrolling to page load
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+
+      // Add hover effects to cards
+      const cards = document.querySelectorAll('.bg-white\\/95');
+      cards.forEach(card => {
+        card.addEventListener('mouseenter', function() {
+          this.classList.add('transform', 'scale-[1.02]');
+        });
+        card.addEventListener('mouseleave', function() {
+          this.classList.remove('transform', 'scale-[1.02]');
+        });
+      });
+
+      // Back button animation
+      const backButton = document.querySelector('a[href="/heritage"]');
+      backButton.addEventListener('mouseenter', function() {
+        this.querySelector('span').style.transform = 'translateX(-4px)';
+      });
+      backButton.addEventListener('mouseleave', function() {
+        this.querySelector('span').style.transform = 'translateX(0)';
+      });
+    });
+  </script>
+</body>
+</html>

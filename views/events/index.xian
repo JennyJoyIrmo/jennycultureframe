@@ -1,0 +1,193 @@
+{{>head}}
+<body class="min-h-screen bg-cover bg-center bg-fixed" style="background-image: url('https://travelorientalmindoro.ph/Content/img/uploads/bbe943fb-8e55-44cb-88de-5033898e6e63.jpg');">
+  <div class="absolute inset-0 bg-white/5 z-0"></div>
+  
+  <div class="relative z-10">
+    {{>nav}}
+
+    <div class="container mx-auto px-4 py-8">
+      <!-- Enhanced Header -->
+      <div class="bg-gradient-to-r from-emerald-600 to-green-700 backdrop-blur-sm rounded-xl shadow-lg p-8 mb-8 border border-emerald-500 text-center">
+        <h2 class="text-5xl font-bold text-white mb-4">
+          🎉 Upcoming Events & Festivals
+        </h2>
+        <p class="text-xl text-emerald-100 max-w-2xl mx-auto">
+          Immerse yourself in the vibrant cultural celebrations and community gatherings of Mansalay
+        </p>
+      </div>
+
+  <!-- Events Grid -->
+  <div class="relative z-20">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      {{#each events}}
+      <div class="group bg-white rounded-2xl shadow-xl overflow-hidden transform transition-all duration-700 hover:scale-105 hover:shadow-2xl animate-slide-up relative">
+        <!-- Decorative corner accent -->
+        <div class="absolute top-0 right-0 w-16 h-16 bg-gradient-to-br from-emerald-500 to-green-600 rounded-bl-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+        
+        <!-- Image container with overlay -->
+        <div class="relative overflow-hidden">
+          <img src="{{this.image_url}}" alt="{{this.title}}" class="w-full h-56 object-cover transition-transform duration-700 group-hover:scale-110">
+          <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+          <div class="absolute bottom-4 left-4 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500 opacity-0 group-hover:opacity-100">
+            <span class="inline-block bg-gradient-to-r from-emerald-500 to-green-500 text-white text-xs font-bold px-4 py-2 rounded-full shadow-lg">
+              {{this.category}}
+            </span>
+          </div>
+        </div>
+        
+        <!-- Content -->
+        <div class="p-6 relative">
+          <h3 class="text-xl font-bold mb-3 text-gray-800 transition-colors duration-300 group-hover:text-emerald-700 line-clamp-1">{{this.title}}</h3>
+          
+          <div class="space-y-3 mb-4">
+            <div class="flex items-center text-gray-600 group-hover:text-gray-700 transition-colors duration-300">
+              <div class="w-8 h-8 bg-emerald-100 rounded-full flex items-center justify-center mr-3 group-hover:bg-emerald-200 transition-colors duration-300">
+                <svg class="w-4 h-4 text-emerald-600" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"></path>
+                </svg>
+              </div>
+              <span class="font-medium">{{this.event_date}}</span>
+            </div>
+            
+            <div class="flex items-center text-gray-600 group-hover:text-gray-700 transition-colors duration-300">
+              <div class="w-8 h-8 bg-emerald-100 rounded-full flex items-center justify-center mr-3 group-hover:bg-emerald-200 transition-colors duration-300">
+                <svg class="w-4 h-4 text-emerald-600" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"></path>
+                </svg>
+              </div>
+              <span class="font-medium">{{this.location}}</span>
+            </div>
+          </div>
+          
+          <p class="text-gray-600 mb-6 line-clamp-2 group-hover:text-gray-700 transition-colors duration-300">{{this.description}}</p>
+          
+          <a href="/events/{{this.id}}" class="inline-flex items-center justify-between w-full bg-gradient-to-r from-emerald-500 to-green-500 text-white px-6 py-3 rounded-xl font-semibold transition-all duration-300 group/btn hover:from-emerald-600 hover:to-green-600 hover:shadow-lg transform hover:-translate-y-1">
+            <span>Learn More</span>
+            <svg class="w-5 h-5 transform transition-transform duration-300 group-hover/btn:translate-x-1" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+            </svg>
+          </a>
+        </div>
+      </div>
+      {{/each}}
+    </div>
+  </div>
+
+  <style>
+    @keyframes fade-in-up {
+      from { 
+        opacity: 0; 
+        transform: translateY(30px); 
+      }
+      to { 
+        opacity: 1; 
+        transform: translateY(0); 
+      }
+    }
+    
+    @keyframes slide-up {
+      from { 
+        opacity: 0; 
+        transform: translateY(40px) scale(0.95); 
+      }
+      to { 
+        opacity: 1; 
+        transform: translateY(0) scale(1); 
+      }
+    }
+    
+    @keyframes float {
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      50% { transform: translateY(-20px) rotate(5deg); }
+    }
+    
+    @keyframes grow-width {
+      from { width: 0; opacity: 0; }
+      to { width: 80px; opacity: 1; }
+    }
+    
+    @keyframes shimmer {
+      0% { background-position: -200px 0; }
+      100% { background-position: 200px 0; }
+    }
+    
+    .animate-fade-in-up {
+      animation: fade-in-up 1s ease-out forwards;
+    }
+    
+    .animate-fade-in-up-delayed {
+      animation: fade-in-up 1s ease-out 0.3s both;
+    }
+    
+    .animate-slide-up {
+      animation: slide-up 0.8s ease-out forwards;
+    }
+    
+    .animate-float {
+      animation: float 6s ease-in-out infinite;
+    }
+    
+    .animate-float-delayed {
+      animation: float 7s ease-in-out 1s infinite;
+    }
+    
+    .animate-float-slow {
+      animation: float 8s ease-in-out 2s infinite;
+    }
+    
+    .animate-grow-width {
+      animation: grow-width 1.5s ease-out 0.8s forwards;
+    }
+    
+    .animate-shimmer {
+      animation: shimmer 2s infinite linear;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+      background-size: 200px 100%;
+    }
+    
+    .line-clamp-1 {
+      display: -webkit-box;
+      -webkit-line-clamp: 1;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    
+    .line-clamp-2 {
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    
+    /* Stagger animation for cards with more precision */
+    .grid > div:nth-child(1) { animation-delay: 0.1s; }
+    .grid > div:nth-child(2) { animation-delay: 0.2s; }
+    .grid > div:nth-child(3) { animation-delay: 0.3s; }
+    .grid > div:nth-child(4) { animation-delay: 0.4s; }
+    .grid > div:nth-child(5) { animation-delay: 0.5s; }
+    .grid > div:nth-child(6) { animation-delay: 0.6s; }
+    
+    /* Smooth scrolling */
+    html {
+      scroll-behavior: smooth;
+    }
+    
+    /* Custom scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    
+    ::-webkit-scrollbar-track {
+      background: #f1f1f1;
+    }
+    
+    ::-webkit-scrollbar-thumb {
+      background: linear-gradient(to bottom, #10b981, #059669);
+      border-radius: 10px;
+    }
+    
+    ::-webkit-scrollbar-thumb:hover {
+      background: linear-gradient(to bottom, #059669, #047857);
+    }
+  </style>
+{{>footer}}

@@ -1,0 +1,428 @@
+{{>head}}
+<body class="bg-gray-50">
+  {{>nav}}
+  {{>messages}}
+
+  <div class="container mx-auto px-4 py-6">
+    <!-- Breadcrumb -->
+    <div class="mb-4 text-sm">
+      <a href="/" class="text-gray-600 hover:text-emerald-600">Home</a>
+      <span class="mx-2 text-gray-400">/</span>
+      <span class="text-emerald-600 font-medium">Shop</span>
+    </div>
+
+    <div class="flex gap-6">
+      <!-- Sidebar Filters - Shopee Style -->
+      <aside class="hidden lg:block w-64 flex-shrink-0">
+        <div class="bg-white rounded-lg shadow-sm sticky top-20">
+          <!-- Filter Header -->
+          <div class="p-4 border-b">
+            <div class="flex items-center justify-between">
+              <h3 class="font-semibold text-gray-800 flex items-center gap-2">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"></path>
+                </svg>
+                All Filters
+              </h3>
+              <button id="resetFilters" class="text-xs text-emerald-600 hover:text-emerald-700 font-medium">
+                Reset
+              </button>
+            </div>
+          </div>
+
+          <form method="GET" action="/shop" id="filterForm" class="divide-y">
+            <!-- Category Filter -->
+            <div class="p-4">
+              <h4 class="font-medium text-gray-800 mb-3 text-sm">Category</h4>
+              <div class="space-y-2">
+                <label class="flex items-center gap-2 cursor-pointer hover:text-emerald-600">
+                  <input type="radio" name="category" value="" class="text-emerald-600 focus:ring-emerald-500" {{#unless query.category}}checked{{/unless}}>
+                  <span class="text-sm">All Categories</span>
+                </label>
+                <label class="flex items-center gap-2 cursor-pointer hover:text-emerald-600">
+                  <input type="radio" name="category" value="handicrafts" class="text-emerald-600 focus:ring-emerald-500" {{#ifEquals query.category "handicrafts"}}checked{{/ifEquals}}>
+                  <span class="text-sm">Handicrafts</span>
+                </label>
+                <label class="flex items-center gap-2 cursor-pointer hover:text-emerald-600">
+                  <input type="radio" name="category" value="textiles" class="text-emerald-600 focus:ring-emerald-500" {{#ifEquals query.category "textiles"}}checked{{/ifEquals}}>
+                  <span class="text-sm">Textiles</span>
+                </label>
+                <label class="flex items-center gap-2 cursor-pointer hover:text-emerald-600">
+                  <input type="radio" name="category" value="accessories" class="text-emerald-600 focus:ring-emerald-500" {{#ifEquals query.category "accessories"}}checked{{/ifEquals}}>
+                  <span class="text-sm">Accessories</span>
+                </label>
+              </div>
+            </div>
+
+            <!-- Price Range -->
+            <div class="p-4">
+              <h4 class="font-medium text-gray-800 mb-3 text-sm">Price Range</h4>
+              <div class="flex items-center gap-2 mb-2">
+                <input type="number" name="price_min" placeholder="₱ Min" value="{{query.price_min}}"
+                       class="w-full px-3 py-2 border border-gray-300 rounded text-sm focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500">
+                <span class="text-gray-400">-</span>
+                <input type="number" name="price_max" placeholder="₱ Max" value="{{query.price_max}}"
+                       class="w-full px-3 py-2 border border-gray-300 rounded text-sm focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500">
+              </div>
+              <button type="submit" class="w-full mt-2 px-4 py-2 bg-emerald-600 text-white text-sm rounded hover:bg-emerald-700 transition-colors">
+                Apply
+              </button>
+            </div>
+
+            <!-- Service & Shipping -->
+            <div class="p-4">
+              <h4 class="font-medium text-gray-800 mb-3 text-sm">Service & Shipping</h4>
+              <div class="space-y-2">
+                <label class="flex items-center gap-2 cursor-pointer">
+                  <input type="checkbox" name="free_shipping" value="1" class="text-emerald-600 focus:ring-emerald-500 rounded" {{#ifEquals query.free_shipping "1"}}checked{{/ifEquals}}>
+                  <span class="text-sm">Free Shipping</span>
+                </label>
+              </div>
+            </div>
+
+            <!-- Stock Status -->
+            <div class="p-4">
+              <h4 class="font-medium text-gray-800 mb-3 text-sm">Stock Status</h4>
+              <div class="space-y-2">
+                <label class="flex items-center gap-2 cursor-pointer">
+                  <input type="checkbox" name="in_stock" value="1" class="text-emerald-600 focus:ring-emerald-500 rounded" {{#ifEquals query.in_stock "1"}}checked{{/ifEquals}}>
+                  <span class="text-sm">In Stock Only</span>
+                </label>
+              </div>
+            </div>
+
+            <!-- Hidden sort field -->
+            <input type="hidden" name="sort" value="{{query.sort}}">
+          </form>
+        </div>
+      </aside>
+
+      <!-- Main Content -->
+      <main class="flex-1 min-w-0">
+        <!-- Sort Bar - Shopee Style -->
+        <div class="bg-white rounded-lg shadow-sm p-4 mb-4">
+          <div class="flex items-center justify-between flex-wrap gap-3">
+            <div class="flex items-center gap-2 text-sm text-gray-600">
+              <span>Sort By</span>
+            </div>
+            
+            <div class="flex items-center gap-2 flex-wrap">
+              <button class="sort-btn px-4 py-2 text-sm rounded {{#unless query.sort}}bg-emerald-600 text-white{{else}}bg-white text-gray-700 hover:bg-gray-50{{/unless}} border" data-sort="">
+                Popular
+              </button>
+              <button class="sort-btn px-4 py-2 text-sm rounded {{#ifEquals query.sort "new"}}bg-emerald-600 text-white{{else}}bg-white text-gray-700 hover:bg-gray-50{{/ifEquals}} border" data-sort="new">
+                Latest
+              </button>
+              <button class="sort-btn px-4 py-2 text-sm rounded {{#ifEquals query.sort "price_asc"}}bg-emerald-600 text-white{{else}}bg-white text-gray-700 hover:bg-gray-50{{/ifEquals}} border" data-sort="price_asc">
+                Price: Low to High
+              </button>
+              <button class="sort-btn px-4 py-2 text-sm rounded {{#ifEquals query.sort "price_desc"}}bg-emerald-600 text-white{{else}}bg-white text-gray-700 hover:bg-gray-50{{/ifEquals}} border" data-sort="price_desc">
+                Price: High to Low
+              </button>
+            </div>
+
+            <div class="flex items-center gap-2 text-sm text-gray-600">
+              <span>{{products.length}} Products</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Products Grid - Shopee Style -->
+        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3">
+          {{#each products}}
+          <div class="bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow duration-200 overflow-hidden group cursor-pointer">
+            <a href="/shop/product/{{this.id}}" class="block">
+              <!-- Product Image -->
+              <div class="relative aspect-square overflow-hidden bg-gray-100">
+                <img src="{{this.image_url}}" alt="{{this.name}}" 
+                     class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                     onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22200%22 height=%22200%22%3E%3Crect fill=%22%23f3f4f6%22 width=%22200%22 height=%22200%22/%3E%3Ctext fill=%22%239ca3af%22 font-family=%22sans-serif%22 font-size=%2214%22 x=%2250%25%22 y=%2250%25%22 text-anchor=%22middle%22 dy=%22.3em%22%3ENo Image%3C/text%3E%3C/svg%3E'">
+                
+                <!-- Badges -->
+                <div class="absolute top-0 left-0 right-0 p-2 flex justify-between items-start">
+                  {{#if this.discount}}
+                  <span class="bg-red-500 text-white text-xs px-2 py-0.5 rounded">-{{this.discount}}%</span>
+                  {{/if}}
+                  {{#if this.free_shipping}}
+                  <span class="bg-emerald-500 text-white text-xs px-2 py-0.5 rounded ml-auto">Free Ship</span>
+                  {{/if}}
+                </div>
+
+                <!-- Quick Actions (Hidden on mobile, shown on hover for desktop) -->
+                <div class="absolute bottom-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity hidden md:flex flex-col gap-2">
+                  {{#if ../user.isAuthenticated}}
+                  <button class="wishlist-btn bg-white rounded-full p-2 shadow-lg hover:bg-red-50 transition-colors" 
+                          data-product-id="{{this.id}}" 
+                          onclick="event.preventDefault(); event.stopPropagation();">
+                    <svg class="w-5 h-5 text-gray-600 hover:text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+                    </svg>
+                  </button>
+                  {{/if}}
+                </div>
+              </div>
+
+              <!-- Product Info -->
+              <div class="p-3">
+                <!-- Product Name -->
+                <h3 class="text-sm text-gray-800 line-clamp-2 mb-2 min-h-[2.5rem]">{{this.name}}</h3>
+                
+                <!-- Price & Sales -->
+                <div class="flex items-baseline gap-2 mb-2">
+                  <span class="text-emerald-600 font-semibold text-lg">₱{{this.price}}</span>
+                  {{#if this.old_price}}
+                  <span class="text-gray-400 text-xs line-through">₱{{this.old_price}}</span>
+                  {{/if}}
+                </div>
+
+                <!-- Rating & Sold -->
+                <div class="flex items-center justify-between text-xs text-gray-500">
+                  <div class="flex items-center gap-1">
+                    <svg class="w-3 h-3 text-amber-400 fill-current" viewBox="0 0 20 20">
+                      <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/>
+                    </svg>
+                    <span>{{#if this.rating}}{{this.rating}}{{else}}4.5{{/if}}</span>
+                  </div>
+                  {{#if this.sold}}
+                  <span>{{this.sold}} sold</span>
+                  {{/if}}
+                </div>
+
+                <!-- Stock Status -->
+                {{#unless this.stocks}}
+                <div class="mt-2 text-xs text-red-500 font-medium">Out of Stock</div>
+                {{/unless}}
+              </div>
+            </a>
+
+            <!-- Add to Cart Button (Mobile) -->
+            {{#if this.stocks}}
+            <div class="p-3 pt-0 md:hidden">
+              {{#if ../user.isAuthenticated}}
+              <button class="add-to-cart-mobile w-full bg-emerald-600 text-white text-sm py-2 rounded hover:bg-emerald-700 transition-colors"
+                      data-product-id="{{this.id}}"
+                      onclick="event.preventDefault(); event.stopPropagation();">
+                Add to Cart
+              </button>
+              {{else}}
+              <a href="/login" class="block w-full bg-emerald-600 text-white text-sm py-2 rounded hover:bg-emerald-700 transition-colors text-center">
+                Login to Buy
+              </a>
+              {{/if}}
+            </div>
+            {{/if}}
+          </div>
+          {{/each}}
+        </div>
+
+        <!-- Empty State -->
+        {{#unless products.length}}
+        <div class="bg-white rounded-lg shadow-sm p-12 text-center">
+          <svg class="w-24 h-24 mx-auto text-gray-300 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4"></path>
+          </svg>
+          <h3 class="text-xl font-semibold text-gray-800 mb-2">No Products Found</h3>
+          <p class="text-gray-600 mb-4">Try adjusting your filters or search terms</p>
+          <button onclick="window.location.href='/shop'" class="px-6 py-2 bg-emerald-600 text-white rounded hover:bg-emerald-700 transition-colors">
+            Clear Filters
+          </button>
+        </div>
+        {{/unless}}
+
+        <!-- Pagination -->
+        {{#if pagination.pages.length}}
+        <div class="mt-6 flex justify-center">
+          <div class="flex items-center gap-1">
+            {{#if pagination.hasPrev}}
+            <a href="?page={{pagination.prev}}&sort={{query.sort}}&price_min={{query.price_min}}&price_max={{query.price_max}}&category={{query.category}}&free_shipping={{query.free_shipping}}&in_stock={{query.in_stock}}" 
+               class="px-3 py-2 border rounded hover:bg-gray-50 transition-colors">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+              </svg>
+            </a>
+            {{/if}}
+
+            {{#each pagination.pages}}
+            <a href="?page={{this}}&sort={{../query.sort}}&price_min={{../query.price_min}}&price_max={{../query.price_max}}&category={{../query.category}}&free_shipping={{../query.free_shipping}}&in_stock={{../query.in_stock}}" 
+               class="px-4 py-2 border rounded transition-colors {{#ifEquals ../pagination.current this}}bg-emerald-600 text-white border-emerald-600{{else}}hover:bg-gray-50{{/ifEquals}}">
+              {{this}}
+            </a>
+            {{/each}}
+
+            {{#if pagination.hasNext}}
+            <a href="?page={{pagination.next}}&sort={{query.sort}}&price_min={{query.price_min}}&price_max={{query.price_max}}&category={{query.category}}&free_shipping={{query.free_shipping}}&in_stock={{query.in_stock}}" 
+               class="px-3 py-2 border rounded hover:bg-gray-50 transition-colors">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+              </svg>
+            </a>
+            {{/if}}
+          </div>
+        </div>
+        {{/if}}
+      </main>
+    </div>
+  </div>
+
+  {{>footer}}
+
+  <!-- Toast Notification -->
+  <div id="toast" class="fixed top-20 right-4 bg-white rounded-lg shadow-lg p-4 transform translate-x-full transition-transform duration-300 z-50 max-w-sm">
+    <div class="flex items-center gap-3">
+      <div id="toastIcon" class="flex-shrink-0"></div>
+      <div class="flex-1">
+        <p id="toastMessage" class="text-sm font-medium text-gray-800"></p>
+      </div>
+      <button onclick="hideToast()" class="text-gray-400 hover:text-gray-600">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <style>
+    .line-clamp-2 {
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+  </style>
+
+  <script>
+    // Toast Notification
+    function showToast(message, type = 'success') {
+      const toast = document.getElementById('toast');
+      const toastMessage = document.getElementById('toastMessage');
+      const toastIcon = document.getElementById('toastIcon');
+      
+      toastMessage.textContent = message;
+      
+      if (type === 'success') {
+        toastIcon.innerHTML = '<svg class="w-6 h-6 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>';
+      } else {
+        toastIcon.innerHTML = '<svg class="w-6 h-6 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>';
+      }
+      
+      toast.classList.remove('translate-x-full');
+      setTimeout(() => hideToast(), 3000);
+    }
+
+    function hideToast() {
+      document.getElementById('toast').classList.add('translate-x-full');
+    }
+
+    // Sort buttons
+    document.querySelectorAll('.sort-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const sort = btn.dataset.sort;
+        const url = new URL(window.location);
+        if (sort) {
+          url.searchParams.set('sort', sort);
+        } else {
+          url.searchParams.delete('sort');
+        }
+        window.location.href = url.toString();
+      });
+    });
+
+    // Filter form auto-submit on change
+    const filterForm = document.getElementById('filterForm');
+    if (filterForm) {
+      filterForm.querySelectorAll('input[type="radio"], input[type="checkbox"]').forEach(input => {
+        input.addEventListener('change', () => {
+          filterForm.submit();
+        });
+      });
+    }
+
+    // Reset filters
+    document.getElementById('resetFilters')?.addEventListener('click', () => {
+      window.location.href = '/shop';
+    });
+
+    // Add to Cart (Mobile)
+    document.querySelectorAll('.add-to-cart-mobile').forEach(btn => {
+      btn.addEventListener('click', async () => {
+        const productId = btn.dataset.productId;
+        const originalText = btn.innerHTML;
+        
+        btn.innerHTML = 'Adding...';
+        btn.disabled = true;
+        
+        try {
+          const response = await fetch('/cart/add', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/x-www-form-urlencoded',
+              'Accept': 'application/json'
+            },
+            body: new URLSearchParams({
+              product_id: productId,
+              quantity: 1,
+              return_url: '/shop'
+            })
+          });
+          
+          const result = await response.json();
+          
+          if (result.success) {
+            showToast('Added to cart!', 'success');
+            // Update cart count
+            const cartCount = document.getElementById('cartCount');
+            if (cartCount && result.cartCount) {
+              cartCount.textContent = result.cartCount;
+            }
+          } else {
+            showToast(result.message || 'Failed to add to cart', 'error');
+          }
+        } catch (error) {
+          console.error('Cart error:', error);
+          showToast('Network error. Please try again.', 'error');
+        } finally {
+          btn.innerHTML = originalText;
+          btn.disabled = false;
+        }
+      });
+    });
+
+    // Wishlist
+    document.querySelectorAll('.wishlist-btn').forEach(btn => {
+      btn.addEventListener('click', async () => {
+        const productId = btn.dataset.productId;
+        
+        try {
+          const response = await fetch('/wishlist/add', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/x-www-form-urlencoded',
+              'Accept': 'application/json'
+            },
+            body: new URLSearchParams({
+              product_id: productId
+            })
+          });
+          
+          const result = await response.json();
+          
+          if (result.success) {
+            showToast('Added to wishlist!', 'success');
+            btn.querySelector('svg').classList.add('text-red-500', 'fill-current');
+            // Update wishlist count
+            const wishlistCount = document.getElementById('wishlistCount');
+            if (wishlistCount && result.wishlistCount) {
+              wishlistCount.textContent = result.wishlistCount;
+            }
+          } else {
+            showToast(result.message || 'Failed to add to wishlist', 'error');
+          }
+        } catch (error) {
+          console.error('Wishlist error:', error);
+          showToast('Network error. Please try again.', 'error');
+        }
+      });
+    });
+  </script>
+</body>
+</html>

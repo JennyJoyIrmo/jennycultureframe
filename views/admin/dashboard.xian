@@ -1,0 +1,422 @@
+{{> head}}
+<body class="min-h-screen">
+  <!-- Background with New Image and Overlay -->
+  <div class="fixed inset-0 bg-center bg-no-repeat" style="background-image: url('https://images.summitmedia-digital.com/spotph/images/2025/01/02/8-cebpac-spot-insert11-1735811639.jpg'); background-size: cover;">
+    <div class="absolute inset-0 bg-gray-900/50 backdrop-blur-[1px]"></div>
+  </div>
+
+  <div class="flex relative z-10">
+    <!-- Enhanced Sidebar -->
+    <aside class="w-72 bg-gradient-to-b from-emerald-800/95 via-emerald-700/95 to-emerald-900/95 text-white min-h-screen p-6 shadow-2xl relative overflow-hidden backdrop-blur-lg">
+      <!-- Animated Background Pattern -->
+      <div class="absolute inset-0 bg-white/5 bg-[linear-gradient(45deg,transparent_25%,rgba(255,255,255,.1)_50%,transparent_75%,transparent_100%)] bg-[length:10px_10px] animate-pulse-slow"></div>
+      
+      <div class="relative z-10">
+        <!-- Logo Section with Animation -->
+        <div class="flex items-center space-x-3 mb-10 p-4 bg-white/10 rounded-2xl backdrop-blur-sm border border-white/20 transform transition-all duration-500 hover:scale-105 animate-fade-in">
+          <div class="w-12 h-12 bg-gradient-to-r from-emerald-400 to-green-400 rounded-xl flex items-center justify-center shadow-lg animate-bounce-slow">
+            <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M11.3 1.046A1 1 0 0112 2v5h4a1 1 0 01.82 1.573l-7 10A1 1 0 018 18v-5H4a1 1 0 01-.82-1.573l7-10a1 1 0 011.12-.38z" clip-rule="evenodd"></path>
+            </svg>
+          </div>
+          <div>
+            <h2 class="text-xl font-bold bg-gradient-to-r from-emerald-200 to-green-200 bg-clip-text text-transparent">CultureFrame</h2>
+            <p class="text-emerald-200 text-xs">Admin Panel</p>
+          </div>
+        </div>
+
+        <!-- Navigation with Staggered Animation -->
+        <nav class="space-y-2 mb-8">
+          <a href="/admin" class="flex items-center space-x-3 py-3 px-4 bg-white/20 rounded-xl border border-white/20 backdrop-blur-sm transform transition-all duration-300 hover:scale-105 hover:bg-white/25 group animate-slide-in-left delay-100">
+            <div class="w-8 h-8 bg-white/20 rounded-lg flex items-center justify-center group-hover:bg-white/30 transition-colors duration-300 group-hover:animate-pulse">
+              <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"></path>
+              </svg>
+            </div>
+            <span class="font-medium">Dashboard</span>
+          </a>
+          
+          <a href="/admin/heritage" class="flex items-center space-x-3 py-3 px-4 rounded-xl transform transition-all duration-300 hover:scale-105 hover:bg-white/15 group animate-slide-in-left delay-200">
+            <div class="w-8 h-8 bg-white/10 rounded-lg flex items-center justify-center group-hover:bg-white/20 transition-colors duration-300 group-hover:rotate-12">
+              <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M4 4a2 2 0 012-2h8a2 2 0 012 2v12a1 1 0 110 2h-3a1 1 0 01-1-1v-2a1 1 0 00-1-1H9a1 1 0 00-1 1v2a1 1 0 01-1 1H4a1 1 0 110-2V4zm3 1h2v2H7V5zm2 4H7v2h2V9zm2-4h2v2h-2V5zm2 4h-2v2h2V9z" clip-rule="evenodd"></path>
+              </svg>
+            </div>
+            <span class="font-medium">Heritage</span>
+          </a>
+          
+          <a href="/admin/products" class="flex items-center space-x-3 py-3 px-4 rounded-xl transform transition-all duration-300 hover:scale-105 hover:bg-white/15 group animate-slide-in-left delay-300">
+            <div class="w-8 h-8 bg-white/10 rounded-lg flex items-center justify-center group-hover:bg-white/20 transition-colors duration-300 group-hover:rotate-12">
+              <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M3 1a1 1 0 000 2h1.22l.305 1.222a.997.997 0 00.01.042l1.358 5.43-.893.892C3.74 11.846 4.632 14 6.414 14H15a1 1 0 000-2H6.414l1-1H14a1 1 0 00.894-.553l3-6A1 1 0 0017 3H6.28l-.31-1.243A1 1 0 005 1H3z"></path>
+              </svg>
+            </div>
+            <span class="font-medium">Products</span>
+          </a>
+          
+          <a href="/admin/orders" class="flex items-center space-x-3 py-3 px-4 rounded-xl transform transition-all duration-300 hover:scale-105 hover:bg-white/15 group animate-slide-in-left delay-400">
+            <div class="w-8 h-8 bg-white/10 rounded-lg flex items-center justify-center group-hover:bg-white/20 transition-colors duration-300 group-hover:rotate-12">
+              <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 2a4 4 0 00-4 4v1H5a1 1 0 00-.994.89l-1 9A1 1 0 004 18h12a1 1 0 00.994-1.11l-1-9A1 1 0 0015 7h-1V6a4 4 0 00-4-4zm2 5V6a2 2 0 10-4 0v1h4zm-6 3a1 1 0 112 0 1 1 0 01-2 0zm7-1a1 1 0 100 2 1 1 0 000-2z" clip-rule="evenodd"></path>
+              </svg>
+            </div>
+            <span class="font-medium">Orders</span>
+          </a>
+          
+          <a href="/admin/events" class="flex items-center space-x-3 py-3 px-4 rounded-xl transform transition-all duration-300 hover:scale-105 hover:bg-white/15 group animate-slide-in-left delay-500">
+            <div class="w-8 h-8 bg-white/10 rounded-lg flex items-center justify-center group-hover:bg-white/20 transition-colors duration-300 group-hover:rotate-12">
+              <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"></path>
+              </svg>
+            </div>
+            <span class="font-medium">Events</span>
+          </a>
+
+          <a href="/admin/scenic" class="flex items-center space-x-3 py-3 px-4 rounded-xl transform transition-all duration-300 hover:scale-105 hover:bg-white/15 group animate-slide-in-left delay-600">
+            <div class="w-8 h-8 bg-white/10 rounded-lg flex items-center justify-center group-hover:bg-white/20 transition-colors duration-300 group-hover:rotate-12">
+              <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M10 2a6 6 0 00-6 6v6a2 2 0 002 2h8a2 2 0 002-2V8a6 6 0 00-6-6zM8 10a2 2 0 114 0 2 2 0 01-4 0z"></path>
+              </svg>
+            </div>
+            <span class="font-medium">Scenic</span>
+          </a>
+
+          <a href="/admin/crafts" class="flex items-center space-x-3 py-3 px-4 rounded-xl transform transition-all duration-300 hover:scale-105 hover:bg-white/15 group animate-slide-in-left delay-700">
+            <div class="w-8 h-8 bg-white/10 rounded-lg flex items-center justify-center group-hover:bg-white/20 transition-colors duration-300 group-hover:rotate-12">
+              <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M4 3a1 1 0 000 2h12a1 1 0 100-2H4zm0 5a1 1 0 000 2h12a1 1 0 100-2H4zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"></path>
+              </svg>
+            </div>
+            <span class="font-medium">Crafts</span>
+          </a>
+        </nav>
+
+        <!-- Logout Button with Animation -->
+        <a href="/logout" class="flex items-center space-x-3 py-3 px-4 bg-gradient-to-r from-green-600 to-emerald-600 rounded-xl transform transition-all duration-300 hover:scale-105 hover:from-green-700 hover:to-emerald-700 shadow-lg group animate-fade-in-up delay-700">
+          <div class="w-8 h-8 bg-white/20 rounded-lg flex items-center justify-center group-hover:bg-white/30 transition-colors duration-300 group-hover:animate-pulse">
+            <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M3 3a1 1 0 00-1 1v12a1 1 0 102 0V4a1 1 0 00-1-1zm10.293 9.293a1 1 0 001.414 1.414l3-3a1 1 0 000-1.414l-3-3a1 1 0 10-1.414 1.414L14.586 9H7a1 1 0 100 2h7.586l-1.293 1.293z" clip-rule="evenodd"></path>
+            </svg>
+          </div>
+          <span class="font-medium">Logout</span>
+        </a>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="flex-1 p-8">
+      <!-- Header with Animation -->
+      <div class="mb-8 animate-fade-in-down">
+        <h1 class="text-4xl font-bold text-white mb-2 bg-gradient-to-r from-emerald-300 to-green-300 bg-clip-text text-transparent drop-shadow-lg">Dashboard Overview</h1>
+        <p class="text-gray-200 text-lg drop-shadow">Welcome back! Here's what's happening with your site today.</p>
+      </div>
+
+      <!-- Stats Grid with Staggered Animation -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+        <!-- Heritage Sites Card -->
+        <div class="bg-white/90 backdrop-blur-lg rounded-2xl shadow-2xl p-6 transform transition-all duration-500 hover:scale-105 hover:shadow-xl border border-emerald-100/50 animate-fade-in-up delay-100 group cursor-pointer">
+          <div class="flex items-center justify-between mb-4">
+            <h3 class="text-gray-600 text-sm font-semibold uppercase tracking-wide">Heritage Sites</h3>
+            <div class="w-12 h-12 bg-gradient-to-r from-emerald-100 to-green-100 rounded-xl flex items-center justify-center group-hover:animate-bounce">
+              <svg class="w-6 h-6 text-emerald-600" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M4 4a2 2 0 012-2h8a2 2 0 012 2v12a1 1 0 110 2h-3a1 1 0 01-1-1v-2a1 1 0 00-1-1H9a1 1 0 00-1 1v2a1 1 0 01-1 1H4a1 1 0 110-2V4zm3 1h2v2H7V5zm2 4H7v2h2V9zm2-4h2v2h-2V5zm2 4h-2v2h2V9z" clip-rule="evenodd"></path>
+              </svg>
+            </div>
+          </div>
+          <p class="text-3xl font-bold text-emerald-600 mb-2 animate-count-up">{{heritageCount}}</p>
+          <p class="text-sm text-gray-500">Total cultural sites</p>
+        </div>
+
+        <!-- Products Card -->
+        <div class="bg-white/90 backdrop-blur-lg rounded-2xl shadow-2xl p-6 transform transition-all duration-500 hover:scale-105 hover:shadow-xl border border-blue-100/50 animate-fade-in-up delay-200 group cursor-pointer">
+          <div class="flex items-center justify-between mb-4">
+            <h3 class="text-gray-600 text-sm font-semibold uppercase tracking-wide">Products</h3>
+            <div class="w-12 h-12 bg-gradient-to-r from-blue-100 to-cyan-100 rounded-xl flex items-center justify-center group-hover:animate-bounce">
+              <svg class="w-6 h-6 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M3 1a1 1 0 000 2h1.22l.305 1.222a.997.997 0 00.01.042l1.358 5.43-.893.892C3.74 11.846 4.632 14 6.414 14H15a1 1 0 000-2H6.414l1-1H14a1 1 0 00.894-.553l3-6A1 1 0 0017 3H6.28l-.31-1.243A1 1 0 005 1H3z"></path>
+              </svg>
+            </div>
+          </div>
+          <p class="text-3xl font-bold text-blue-600 mb-2 animate-count-up">{{productCount}}</p>
+          <p class="text-sm text-gray-500">Items in shop</p>
+        </div>
+
+        <!-- Orders Card -->
+        <div class="bg-white/90 backdrop-blur-lg rounded-2xl shadow-2xl p-6 transform transition-all duration-500 hover:scale-105 hover:shadow-xl border border-amber-100/50 animate-fade-in-up delay-300 group cursor-pointer">
+          <div class="flex items-center justify-between mb-4">
+            <h3 class="text-gray-600 text-sm font-semibold uppercase tracking-wide">Orders</h3>
+            <div class="w-12 h-12 bg-gradient-to-r from-amber-100 to-yellow-100 rounded-xl flex items-center justify-center group-hover:animate-bounce">
+              <svg class="w-6 h-6 text-amber-600" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 2a4 4 0 00-4 4v1H5a1 1 0 00-.994.89l-1 9A1 1 0 004 18h12a1 1 0 00.994-1.11l-1-9A1 1 0 0015 7h-1V6a4 4 0 00-4-4zm2 5V6a2 2 0 10-4 0v1h4zm-6 3a1 1 0 112 0 1 1 0 01-2 0zm7-1a1 1 0 100 2 1 1 0 000-2z" clip-rule="evenodd"></path>
+              </svg>
+            </div>
+          </div>
+          <p class="text-3xl font-bold text-amber-600 mb-2 animate-count-up">{{orderCount}}</p>
+          <p class="text-sm text-gray-500">Total orders</p>
+        </div>
+
+        <!-- Events Card -->
+        <div class="bg-white/90 backdrop-blur-lg rounded-2xl shadow-2xl p-6 transform transition-all duration-500 hover:scale-105 hover:shadow-xl border border-purple-100/50 animate-fade-in-up delay-400 group cursor-pointer">
+          <div class="flex items-center justify-between mb-4">
+            <h3 class="text-gray-600 text-sm font-semibold uppercase tracking-wide">Events</h3>
+            <div class="w-12 h-12 bg-gradient-to-r from-purple-100 to-pink-100 rounded-xl flex items-center justify-center group-hover:animate-bounce">
+              <svg class="w-6 h-6 text-purple-600" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"></path>
+              </svg>
+            </div>
+          </div>
+          <p class="text-3xl font-bold text-purple-600 mb-2 animate-count-up">{{eventCount}}</p>
+          <p class="text-sm text-gray-500">Upcoming events</p>
+        </div>
+      </div>
+
+      <!-- Quick Actions with Animation -->
+      <div class="bg-white/90 backdrop-blur-lg rounded-2xl shadow-2xl p-6 border border-gray-100/50 animate-fade-in-up delay-500">
+        <h3 class="text-xl font-bold text-gray-800 mb-4">Quick Actions</h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+          <a href="/admin/heritage" class="p-4 bg-emerald-50/80 backdrop-blur-sm rounded-xl border border-emerald-200 transform transition-all duration-300 hover:scale-105 hover:bg-emerald-100 group animate-pulse-once delay-600">
+            <div class="flex items-center space-x-3">
+              <div class="w-10 h-10 bg-emerald-500 rounded-lg flex items-center justify-center group-hover:bg-emerald-600 transition-colors group-hover:animate-pulse">
+                <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd"></path>
+                </svg>
+              </div>
+              <span class="font-medium text-emerald-700">Add Heritage</span>
+            </div>
+          </a>
+          
+          <a href="/admin/products" class="p-4 bg-blue-50/80 backdrop-blur-sm rounded-xl border border-blue-200 transform transition-all duration-300 hover:scale-105 hover:bg-blue-100 group animate-pulse-once delay-700">
+            <div class="flex items-center space-x-3">
+              <div class="w-10 h-10 bg-blue-500 rounded-lg flex items-center justify-center group-hover:bg-blue-600 transition-colors group-hover:animate-pulse">
+                <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd"></path>
+                </svg>
+              </div>
+              <span class="font-medium text-blue-700">Add Product</span>
+            </div>
+          </a>
+          
+          <a href="/admin/events" class="p-4 bg-purple-50/80 backdrop-blur-sm rounded-xl border border-purple-200 transform transition-all duration-300 hover:scale-105 hover:bg-purple-100 group animate-pulse-once delay-800">
+            <div class="flex items-center space-x-3">
+              <div class="w-10 h-10 bg-purple-500 rounded-lg flex items-center justify-center group-hover:bg-purple-600 transition-colors group-hover:animate-pulse">
+                <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd"></path>
+                </svg>
+              </div>
+              <span class="font-medium text-purple-700">Add Event</span>
+            </div>
+          </a>
+          
+          <a href="/admin/orders" class="p-4 bg-amber-50/80 backdrop-blur-sm rounded-xl border border-amber-200 transform transition-all duration-300 hover:scale-105 hover:bg-amber-100 group animate-pulse-once delay-900">
+            <div class="flex items-center space-x-3">
+              <div class="w-10 h-10 bg-amber-500 rounded-lg flex items-center justify-center group-hover:bg-amber-600 transition-colors group-hover:animate-pulse">
+                <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z"></path>
+                  <path fill-rule="evenodd" d="M4 5a2 2 0 012-2 3 3 0 003 3h2a3 3 0 003-3 2 2 0 012 2v11a2 2 0 01-2 2H6a2 2 0 01-2-2V5zm3 4a1 1 0 000 2h.01a1 1 0 100-2H7zm3 0a1 1 0 000 2h3a1 1 0 100-2h-3zm-3 4a1 1 0 100 2h.01a1 1 0 100-2H7zm3 0a1 1 0 100 2h3a1 1 0 100-2h-3z" clip-rule="evenodd"></path>
+                </svg>
+              </div>
+              <span class="font-medium text-amber-700">View Orders</span>
+            </div>
+          </a>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <style>
+    /* Custom Animations */
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fadeInDown {
+      from {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes slideInLeft {
+      from {
+        opacity: 0;
+        transform: translateX(-20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    @keyframes bounceSlow {
+      0%, 100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-10px);
+      }
+    }
+
+    @keyframes pulseSlow {
+      0%, 100% {
+        opacity: 1;
+      }
+      50% {
+        opacity: 0.8;
+      }
+    }
+
+    @keyframes countUp {
+      from {
+        transform: scale(0.5);
+        opacity: 0;
+      }
+      to {
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
+
+    @keyframes pulseOnce {
+      0% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.05);
+      }
+      100% {
+        transform: scale(1);
+      }
+    }
+
+    /* Animation Classes */
+    .animate-fade-in {
+      animation: fadeIn 0.6s ease-out forwards;
+    }
+
+    .animate-fade-in-down {
+      animation: fadeInDown 0.8s ease-out forwards;
+    }
+
+    .animate-fade-in-up {
+      animation: fadeInUp 0.8s ease-out forwards;
+    }
+
+    .animate-slide-in-left {
+      animation: slideInLeft 0.6s ease-out forwards;
+    }
+
+    .animate-bounce-slow {
+      animation: bounceSlow 3s ease-in-out infinite;
+    }
+
+    .animate-pulse-slow {
+      animation: pulseSlow 4s ease-in-out infinite;
+    }
+
+    .animate-count-up {
+      animation: countUp 1s ease-out forwards;
+    }
+
+    .animate-pulse-once {
+      animation: pulseOnce 0.5s ease-in-out;
+    }
+
+    /* Delay Utilities */
+    .delay-100 {
+      animation-delay: 0.1s;
+    }
+
+    .delay-200 {
+      animation-delay: 0.2s;
+    }
+
+    .delay-300 {
+      animation-delay: 0.3s;
+    }
+
+    .delay-400 {
+      animation-delay: 0.4s;
+    }
+
+    .delay-500 {
+      animation-delay: 0.5s;
+    }
+
+    .delay-600 {
+      animation-delay: 0.6s;
+    }
+
+    .delay-700 {
+      animation-delay: 0.7s;
+    }
+
+    .delay-800 {
+      animation-delay: 0.8s;
+    }
+
+    .delay-900 {
+      animation-delay: 0.9s;
+    }
+
+    /* Smooth scrolling */
+    html {
+      scroll-behavior: smooth;
+    }
+
+    /* Custom scrollbar for sidebar */
+    aside::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    aside::-webkit-scrollbar-track {
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    aside::-webkit-scrollbar-thumb {
+      background: rgba(255, 255, 255, 0.3);
+      border-radius: 3px;
+    }
+
+    aside::-webkit-scrollbar-thumb:hover {
+      background: rgba(255, 255, 255, 0.5);
+    }
+
+    /* Hover effects */
+    .group:hover .group-hover\:rotate-12 {
+      transform: rotate(12deg);
+    }
+
+    /* Text shadow for better readability on background */
+    .drop-shadow {
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    }
+
+    .drop-shadow-lg {
+      text-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+    }
+  </style>
+
+{{>footer}}
+

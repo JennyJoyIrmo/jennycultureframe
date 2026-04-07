@@ -1,0 +1,28 @@
+{{>head}}
+<body class="bg-white">
+  <div class="min-h-screen flex items-center justify-center bg-gray-50">
+    <div class="bg-white p-8 rounded shadow text-center">
+      <h2 class="text-xl font-semibold mb-4">You are being logged out</h2>
+      <p class="text-sm text-gray-600 mb-6">Clearing local session data...</p>
+      <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-emerald-600 mx-auto"></div>
+    </div>
+  </div>
+
+  <script>
+    (function() {
+      try {
+        const uid = '{{userId}}' || 'current-user';
+        localStorage.removeItem(`userData_${uid}`);
+        // Also attempt to clear any generic userData key
+        localStorage.removeItem('userData_current-user');
+      } catch (e) {
+        console.warn('Failed to clear localStorage during logout', e);
+      }
+      // Redirect to homepage after a short delay so user sees message
+      setTimeout(function(){ window.location = '/'; }, 250);
+    })();
+  </script>
+
+  {{>footer}}
+</body>
+</html>

@@ -1,0 +1,533 @@
+{{>head}}
+<body class="min-h-screen relative overflow-x-hidden">
+  <!-- Background Photo with Overlay -->
+  <div class="fixed inset-0 z-0">
+    <img 
+      src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQv8j7MNXWRRcprBq-vE1MrICDVBvZ5KtCtWw&s" 
+      alt="Traditional Filipino Cultural Background" 
+      class="w-full h-full object-cover"
+    >
+    <div class="absolute inset-0 bg-gradient-to-br from-emerald-900/85 via-emerald-800/75 to-teal-900/90 backdrop-blur-[1px]"></div>
+  </div>
+
+  <div class="flex relative z-10">
+    <!-- Enhanced Sidebar -->
+    <aside class="w-72 bg-gradient-to-b from-emerald-800/95 via-emerald-700/90 to-emerald-900/95 text-white min-h-screen p-6 shadow-2xl relative overflow-hidden backdrop-blur-sm">
+      <!-- Animated Background Pattern -->
+      <div class="absolute inset-0 bg-white/5 bg-[linear-gradient(45deg,transparent_25%,rgba(255,255,255,.1)_50%,transparent_75%,transparent_100%)] bg-[length:10px_10px] animate-pulse-slow"></div>
+      
+      <div class="relative z-10">
+        <!-- Logo Section -->
+        <div class="flex items-center space-x-3 mb-10 p-4 bg-white/10 rounded-2xl backdrop-blur-sm border border-white/20">
+          <div class="w-12 h-12 bg-gradient-to-r from-emerald-400 to-green-400 rounded-xl flex items-center justify-center shadow-lg">
+            <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M3 1a1 1 0 000 2h1.22l.305 1.222a.997.997 0 00.01.042l1.358 5.43-.893.892C3.74 11.846 4.632 14 6.414 14H15a1 1 0 000-2H6.414l1-1H14a1 1 0 00.894-.553l3-6A1 1 0 0017 3H6.28l-.31-1.243A1 1 0 005 1H3z"></path>
+            </svg>
+          </div>
+          <div>
+            <h2 class="text-xl font-bold bg-gradient-to-r from-emerald-200 to-green-200 bg-clip-text text-transparent">CultureFrame</h2>
+            <p class="text-emerald-200 text-xs">Admin Panel</p>
+          </div>
+        </div>
+
+        <!-- Navigation -->
+        <nav class="space-y-2 mb-8">
+          <a href="/admin" class="flex items-center space-x-3 py-3 px-4 rounded-xl transform transition-all duration-300 hover:scale-105 hover:bg-white/15 group">
+            <div class="w-8 h-8 bg-white/10 rounded-lg flex items-center justify-center group-hover:bg-white/20 transition-colors">
+              <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"></path>
+              </svg>
+            </div>
+            <span class="font-medium">Dashboard</span>
+          </a>
+          
+          <a href="/admin/heritage" class="flex items-center space-x-3 py-3 px-4 rounded-xl transform transition-all duration-300 hover:scale-105 hover:bg-white/15 group">
+            <div class="w-8 h-8 bg-white/10 rounded-lg flex items-center justify-center group-hover:bg-white/20 transition-colors">
+              <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M4 4a2 2 0 012-2h8a2 2 0 012 2v12a1 1 0 110 2h-3a1 1 0 01-1-1v-2a1 1 0 00-1-1H9a1 1 0 00-1 1v2a1 1 0 01-1 1H4a1 1 0 110-2V4zm3 1h2v2H7V5zm2 4H7v2h2V9zm2-4h2v2h-2V5zm2 4h-2v2h2V9z" clip-rule="evenodd"></path>
+              </svg>
+            </div>
+            <span class="font-medium">Heritage</span>
+          </a>
+          
+          <a href="/admin/products" class="flex items-center space-x-3 py-3 px-4 bg-white/20 rounded-xl border border-white/20 backdrop-blur-sm transform transition-all duration-300 hover:scale-105 hover:bg-white/25 group">
+            <div class="w-8 h-8 bg-white/20 rounded-lg flex items-center justify-center group-hover:bg-white/30 transition-colors">
+              <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M3 1a1 1 0 000 2h1.22l.305 1.222a.997.997 0 00.01.042l1.358 5.43-.893.892C3.74 11.846 4.632 14 6.414 14H15a1 1 0 000-2H6.414l1-1H14a1 1 0 00.894-.553l3-6A1 1 0 0017 3H6.28l-.31-1.243A1 1 0 005 1H3z"></path>
+              </svg>
+            </div>
+            <span class="font-medium">Products</span>
+          </a>
+          
+          <a href="/admin/orders" class="flex items-center space-x-3 py-3 px-4 rounded-xl transform transition-all duration-300 hover:scale-105 hover:bg-white/15 group">
+            <div class="w-8 h-8 bg-white/10 rounded-lg flex items-center justify-center group-hover:bg-white/20 transition-colors">
+              <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 2a4 4 0 00-4 4v1H5a1 1 0 00-.994.89l-1 9A1 1 0 004 18h12a1 1 0 00.994-1.11l-1-9A1 1 0 0015 7h-1V6a4 4 0 00-4-4zm2 5V6a2 2 0 10-4 0v1h4zm-6 3a1 1 0 112 0 1 1 0 01-2 0zm7-1a1 1 0 100 2 1 1 0 000-2z" clip-rule="evenodd"></path>
+              </svg>
+            </div>
+            <span class="font-medium">Orders</span>
+          </a>
+          
+          <a href="/admin/events" class="flex items-center space-x-3 py-3 px-4 rounded-xl transform transition-all duration-300 hover:scale-105 hover:bg-white/15 group">
+            <div class="w-8 h-8 bg-white/10 rounded-lg flex items-center justify-center group-hover:bg-white/20 transition-colors">
+              <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"></path>
+              </svg>
+            </div>
+            <span class="font-medium">Events</span>
+          </a>
+
+          <a href="/admin/scenic" class="flex items-center space-x-3 py-3 px-4 rounded-xl transform transition-all duration-300 hover:scale-105 hover:bg-white/15 group">
+            <div class="w-8 h-8 bg-white/10 rounded-lg flex items-center justify-center group-hover:bg-white/20 transition-colors">
+              <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M10 2a6 6 0 00-6 6v6a2 2 0 002 2h8a2 2 0 002-2V8a6 6 0 00-6-6zM8 10a2 2 0 114 0 2 2 0 01-4 0z"></path>
+              </svg>
+            </div>
+            <span class="font-medium">Scenic</span>
+          </a>
+
+          <a href="/admin/crafts" class="flex items-center space-x-3 py-3 px-4 rounded-xl transform transition-all duration-300 hover:scale-105 hover:bg-white/15 group">
+            <div class="w-8 h-8 bg-white/10 rounded-lg flex items-center justify-center group-hover:bg-white/20 transition-colors">
+              <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M4 3a1 1 0 000 2h12a1 1 0 100-2H4zm0 5a1 1 0 000 2h12a1 1 0 100-2H4zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"></path>
+              </svg>
+            </div>
+            <span class="font-medium">Crafts</span>
+          </a>
+        </nav>
+
+        <!-- Logout Button -->
+        <a href="/logout" class="flex items-center space-x-3 py-3 px-4 bg-gradient-to-r from-green-600 to-emerald-600 rounded-xl transform transition-all duration-300 hover:scale-105 hover:from-green-700 hover:to-emerald-700 shadow-lg group">
+          <div class="w-8 h-8 bg-white/20 rounded-lg flex items-center justify-center group-hover:bg-white/30 transition-colors">
+            <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M3 3a1 1 0 00-1 1v12a1 1 0 102 0V4a1 1 0 00-1-1zm10.293 9.293a1 1 0 001.414 1.414l3-3a1 1 0 000-1.414l-3-3a1 1 0 10-1.414 1.414L14.586 9H7a1 1 0 100 2h7.586l-1.293 1.293z" clip-rule="evenodd"></path>
+            </svg>
+          </div>
+          <span class="font-medium">Logout</span>
+        </a>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="flex-1 p-8">
+      <!-- Header -->
+      <div class="mb-8">
+        <div class="flex items-center justify-between">
+          <div>
+            <h1 class="text-4xl font-bold text-white mb-2 bg-gradient-to-r from-white to-emerald-100 bg-clip-text text-transparent drop-shadow-lg">Add New Product</h1>
+            <p class="text-emerald-100 text-lg drop-shadow">Expand your cultural product offerings</p>
+          </div>
+          <a href="/admin/products" class="bg-gradient-to-r from-gray-600 to-gray-700 text-white px-6 py-3 rounded-xl transform transition-all duration-300 hover:scale-105 hover:shadow-lg active:scale-95 flex items-center space-x-2 group border border-white/20 backdrop-blur-sm">
+            <svg class="w-5 h-5 text-white group-hover:animate-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+            </svg>
+            <span>Back to Products</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Enhanced Form -->
+      <div class="rounded-2xl shadow-2xl overflow-hidden transform transition-all duration-500 hover:shadow-2xl border border-white/20 backdrop-blur-md max-w-4xl mx-auto">
+        <div class="bg-white/95 p-8">
+          <!-- Form Header -->
+          <div class="flex items-center space-x-3 mb-8 pb-6 border-b border-emerald-100">
+            <div class="w-12 h-12 bg-gradient-to-r from-emerald-100 to-green-100 rounded-xl flex items-center justify-center">
+              <svg class="w-6 h-6 text-emerald-600" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M11 3a1 1 0 10-2 0v1a1 1 0 102 0V3zM15.657 5.757a1 1 0 00-1.414-1.414l-.707.707a1 1 0 001.414 1.414l.707-.707zM18 10a1 1 0 01-1 1h-1a1 1 0 110-2h1a1 1 0 011 1zM5.05 6.464A1 1 0 106.464 5.05l-.707-.707a1 1 0 00-1.414 1.414l.707.707zM5 10a1 1 0 01-1 1H3a1 1 0 110-2h1a1 1 0 011 1zM8 16v-1h4v1a2 2 0 11-4 0zM12 14c.015-.34.208-.646.477-.859a4 4 0 10-4.954 0c.27.213.462.519.476.859h4.002z"></path>
+              </svg>
+            </div>
+            <div>
+              <h2 class="text-2xl font-bold text-emerald-800">Create New Product</h2>
+              <p class="text-emerald-600">Add a new cultural product to your inventory</p>
+            </div>
+          </div>
+
+          <form action="/admin/products/add" method="POST" enctype="multipart/form-data" class="space-y-8">
+            <!-- Product Name -->
+            <div class="space-y-3">
+              <label class="block text-sm font-semibold text-emerald-800 flex items-center space-x-2">
+                <svg class="w-4 h-4 text-emerald-600" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M17.707 9.293a1 1 0 010 1.414l-7 7a1 1 0 01-1.414 0l-7-7A1 1 0 013.707 9.293L10 15.586l6.293-6.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                </svg>
+                <span>Product Name</span>
+                <span class="text-red-500">*</span>
+              </label>
+              <input 
+                type="text" 
+                name="name" 
+                required 
+                class="w-full px-4 py-3 border-2 border-emerald-100 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transform transition-all duration-300 hover:border-emerald-300 focus:scale-[1.02] bg-white/80 backdrop-blur-sm"
+                placeholder="Enter product name"
+              >
+            </div>
+
+            <!-- Category -->
+            <div class="space-y-3">
+              <label class="block text-sm font-semibold text-emerald-800 flex items-center space-x-2">
+                <svg class="w-4 h-4 text-emerald-600" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M17.707 9.293a1 1 0 010 1.414l-7 7a1 1 0 01-1.414 0l-7-7A1 1 0 013.707 9.293L10 15.586l6.293-6.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                </svg>
+                <span>Category</span>
+                <span class="text-red-500">*</span>
+              </label>
+              <select 
+                name="category" 
+                required 
+                class="w-full px-4 py-3 border-2 border-emerald-100 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transform transition-all duration-300 hover:border-emerald-300 focus:scale-[1.02] bg-white/80 backdrop-blur-sm cursor-pointer"
+              >
+                <option value="" disabled selected>Select Category</option>
+                <option value="Handicrafts">Handicrafts</option>
+                <option value="Clothing">Clothing</option>
+                <option value="Accessories">Accessories</option>
+                <option value="Art">Art</option>
+                <option value="Home Decor">Home Decor</option>
+                <option value="Other">Other</option>
+              </select>
+            </div>
+
+            <!-- Description -->
+            <div class="space-y-3">
+              <label class="block text-sm font-semibold text-emerald-800 flex items-center space-x-2">
+                <svg class="w-4 h-4 text-emerald-600" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M17.707 9.293a1 1 0 010 1.414l-7 7a1 1 0 01-1.414 0l-7-7A1 1 0 013.707 9.293L10 15.586l6.293-6.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                </svg>
+                <span>Description</span>
+                <span class="text-red-500">*</span>
+              </label>
+              <textarea 
+                name="description" 
+                rows="4" 
+                required 
+                class="w-full px-4 py-3 border-2 border-emerald-100 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transform transition-all duration-300 hover:border-emerald-300 focus:scale-[1.02] bg-white/80 backdrop-blur-sm resize-none"
+                placeholder="Describe the product features and cultural significance..."
+              ></textarea>
+            </div>
+
+            <!-- Price & Stock -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div class="space-y-3">
+                <label class="block text-sm font-semibold text-emerald-800 flex items-center space-x-2">
+                  <svg class="w-4 h-4 text-emerald-600" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M17.707 9.293a1 1 0 010 1.414l-7 7a1 1 0 01-1.414 0l-7-7A1 1 0 013.707 9.293L10 15.586l6.293-6.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                  </svg>
+                  <span>Price (₱)</span>
+                  <span class="text-red-500">*</span>
+                </label>
+                <div class="relative">
+                  <span class="absolute left-4 top-1/2 transform -translate-y-1/2 text-emerald-600 font-medium">₱</span>
+                  <input 
+                    type="number" 
+                    name="price" 
+                    step="0.01" 
+                    min="0" 
+                    required 
+                    class="w-full pl-10 pr-4 py-3 border-2 border-emerald-100 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transform transition-all duration-300 hover:border-emerald-300 focus:scale-[1.02] bg-white/80 backdrop-blur-sm"
+                    placeholder="0.00"
+                  >
+                </div>
+              </div>
+
+              <div class="space-y-3">
+                <label class="block text-sm font-semibold text-emerald-800 flex items-center space-x-2">
+                  <svg class="w-4 h-4 text-emerald-600" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M17.707 9.293a1 1 0 010 1.414l-7 7a1 1 0 01-1.414 0l-7-7A1 1 0 013.707 9.293L10 15.586l6.293-6.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                  </svg>
+                  <span>Stock Quantity</span>
+                  <span class="text-red-500">*</span>
+                </label>
+                <input 
+                  type="number" 
+                  name="stocks" 
+                  min="0" 
+                  required 
+                  class="w-full px-4 py-3 border-2 border-emerald-100 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transform transition-all duration-300 hover:border-emerald-300 focus:scale-[1.02] bg-white/80 backdrop-blur-sm"
+                  placeholder="0"
+                >
+              </div>
+            </div>
+
+            <!-- Free Shipping -->
+            <div class="space-y-3">
+              <label class="flex items-center space-x-3 p-4 bg-blue-50 rounded-xl border-2 border-blue-200 cursor-pointer hover:bg-blue-100 transition-all duration-300 group">
+                <input 
+                  type="checkbox" 
+                  name="free_shipping" 
+                  value="1"
+                  class="w-5 h-5 text-blue-600 rounded focus:ring-2 focus:ring-blue-500 cursor-pointer"
+                >
+                <div class="flex-1">
+                  <div class="flex items-center space-x-2">
+                    <svg class="w-5 h-5 text-blue-600 group-hover:animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4"></path>
+                    </svg>
+                    <span class="font-semibold text-blue-800">Free Shipping</span>
+                  </div>
+                  <p class="text-sm text-blue-600 mt-1">Enable free shipping for this product</p>
+                </div>
+              </label>
+            </div>
+
+            <!-- Image Upload or URL -->
+            <div class="space-y-3">
+              <label class="block text-sm font-semibold text-emerald-800 flex items-center space-x-2">
+                <svg class="w-4 h-4 text-emerald-600" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M17.707 9.293a1 1 0 010 1.414l-7 7a1 1 0 01-1.414 0l-7-7A1 1 0 013.707 9.293L10 15.586l6.293-6.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                </svg>
+                <span>Product Image</span>
+                <span class="text-red-500">*</span>
+              </label>
+              <div class="space-y-4">
+                <div class="p-4 bg-emerald-50 rounded-xl border-2 border-emerald-200">
+                  <p class="text-emerald-700 font-medium mb-3 flex items-center space-x-2">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"></path>
+                    </svg>
+                    <span>Upload image file or enter URL:</span>
+                  </p>
+                  <input type="file" name="image_file" accept="image/*" class="block w-full mb-2 p-2 border-2 border-emerald-100 rounded-xl bg-white/80 backdrop-blur-sm" id="imageFileInput">
+                  <input type="text" name="image_url" class="w-full px-4 py-3 border-2 border-emerald-100 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transform transition-all duration-300 hover:border-emerald-300 focus:scale-[1.02] bg-white/80 backdrop-blur-sm" placeholder="https://example.com/product-image.jpg" id="imageUrlInput">
+                  <small class="text-emerald-600">If you upload a file, it will be used. If not, the URL will be used.</small>
+                </div>
+                <!-- Image Preview -->
+                <div id="imagePreview" class="hidden rounded-xl overflow-hidden shadow-lg border-2 border-emerald-200 animate-fade-in">
+                  <img id="previewImage" class="w-full h-64 object-cover" alt="Product preview">
+                  <div class="bg-white p-4 flex justify-between items-center">
+                    <span class="text-emerald-700 font-medium">Image Preview</span>
+                    <button type="button" onclick="removeImage()" class="text-red-500 hover:text-red-700 font-medium flex items-center space-x-1 px-3 py-2 rounded-lg hover:bg-red-50 transition-colors">
+                      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+                      </svg>
+                      <span>Remove</span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Form Actions -->
+            <div class="flex gap-4 pt-8 border-t border-emerald-100">
+              <button 
+                type="submit" 
+                class="flex-1 bg-gradient-to-r from-emerald-500 to-green-500 text-white py-4 px-6 rounded-xl transform transition-all duration-300 hover:scale-105 hover:shadow-lg active:scale-95 flex items-center justify-center space-x-3 group border border-white/20"
+              >
+                <svg class="w-5 h-5 text-white group-hover:animate-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+                </svg>
+                <span class="font-semibold text-lg">Add Product</span>
+              </button>
+              
+              <a 
+                href="/admin/products" 
+                class="flex-1 bg-gradient-to-r from-gray-500 to-gray-600 text-white py-4 px-6 rounded-xl transform transition-all duration-300 hover:scale-105 hover:shadow-lg active:scale-95 flex items-center justify-center space-x-3 group border border-white/20"
+              >
+                <svg class="w-5 h-5 text-white group-hover:animate-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+                <span class="font-semibold text-lg">Cancel</span>
+              </a>
+            </div>
+          </form>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    // Image preview for file or URL
+    const fileInput = document.getElementById('imageFileInput');
+    const urlInput = document.getElementById('imageUrlInput');
+    const preview = document.getElementById('imagePreview');
+    const previewImage = document.getElementById('previewImage');
+
+    fileInput.addEventListener('change', function(e) {
+      const file = e.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function(evt) {
+          previewImage.src = evt.target.result;
+          preview.classList.remove('hidden');
+          preview.classList.add('animate-fade-in');
+        };
+        reader.readAsDataURL(file);
+      } else {
+        preview.classList.add('hidden');
+      }
+    });
+
+    urlInput.addEventListener('input', function(e) {
+      const url = e.target.value.trim();
+      if (url && isValidUrl(url)) {
+        previewImage.src = url;
+        preview.classList.remove('hidden');
+        preview.classList.add('animate-fade-in');
+      } else if (!fileInput.value) {
+        preview.classList.add('hidden');
+      }
+    });
+
+    function isValidUrl(string) {
+      try {
+        new URL(string);
+        return true;
+      } catch (_) {
+        return false;
+      }
+    }
+
+    function removeImage() {
+      preview.classList.add('hidden');
+      urlInput.value = '';
+      fileInput.value = '';
+    }
+
+    // Enhanced form validation
+    document.querySelector('form').addEventListener('submit', function(e) {
+      const name = this.name.value.trim();
+      const category = this.category.value;
+      const description = this.description.value.trim();
+      const price = this.price.value;
+      const stocks = this.stocks.value;
+      const imageFile = this.image_file.value;
+      const imageUrl = this.image_url.value.trim();
+      
+      // Check required fields
+      if (!name || !category || !description || !price || !stocks) {
+        e.preventDefault();
+        alert('Please fill in all required fields.');
+        return;
+      }
+      
+      // Check if at least one image source is provided
+      if (!imageFile && !imageUrl) {
+        e.preventDefault();
+        alert('Please provide either an image file or an image URL.');
+        return;
+      }
+      
+      // Validate price
+      if (price <= 0) {
+        e.preventDefault();
+        alert('Price must be greater than 0.');
+        return;
+      }
+      
+      // Validate stocks
+      if (stocks < 0) {
+        e.preventDefault();
+        alert('Stock quantity cannot be negative.');
+        return;
+      }
+    });
+
+    // Enhanced form interactions
+    document.addEventListener('DOMContentLoaded', function() {
+      const inputs = document.querySelectorAll('input, textarea, select');
+      
+      inputs.forEach(input => {
+        // Add focus animations
+        input.addEventListener('focus', function() {
+          this.style.backdropFilter = 'blur(8px)';
+          this.parentElement.classList.add('transform', 'scale-[1.02]');
+        });
+        
+        input.addEventListener('blur', function() {
+          this.style.backdropFilter = 'blur(4px)';
+          this.parentElement.classList.remove('transform', 'scale-[1.02]');
+        });
+        
+        // Add typing animation with color feedback
+        input.addEventListener('input', function() {
+          if (this.value) {
+            this.classList.add('border-emerald-300', 'bg-white/90');
+          } else {
+            this.classList.remove('border-emerald-300', 'bg-white/90');
+          }
+        });
+      });
+    });
+  </script>
+
+  <style>
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes pulseSlow {
+      0%, 100% {
+        opacity: 1;
+      }
+      50% {
+        opacity: 0.8;
+      }
+    }
+
+    .animate-fade-in {
+      animation: fadeIn 0.6s ease-out forwards;
+    }
+
+    .animate-pulse-slow {
+      animation: pulseSlow 4s ease-in-out infinite;
+    }
+
+    /* Custom select arrow */
+    select {
+      background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%2310b981' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3e%3c/svg%3e");
+      background-position: right 12px center;
+      background-repeat: no-repeat;
+      background-size: 16px 16px;
+      padding-right: 40px;
+    }
+
+    select:focus {
+      background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%23059669' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m6 8 4 4 4-4'/%3e%3c/svg%3e");
+    }
+
+    /* Smooth transitions */
+    * {
+      transition-property: color, background-color, border-color, transform, box-shadow;
+      transition-duration: 200ms;
+      transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    /* Custom scrollbar */
+    ::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: #f1f5f9;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: #10b981;
+      border-radius: 3px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: #059669;
+    }
+
+    /* Enhanced backdrop blur effects */
+    .backdrop-blur-sm {
+      backdrop-filter: blur(4px);
+    }
+
+    .backdrop-blur-md {
+      backdrop-filter: blur(8px);
+    }
+
+    /* Text shadow for better readability on background */
+    .drop-shadow {
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    }
+  </style>
+
+{{>footer}}
+

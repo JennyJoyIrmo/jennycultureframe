@@ -1,0 +1,66 @@
+<!-- Quick View Modal (shared partial) -->
+<div id="quickViewModal" class="fixed inset-0 bg-black/50 hidden items-center justify-center z-50">
+  <div class="bg-white rounded-xl w-11/12 md:w-3/4 lg:w-2/3 overflow-hidden shadow-2xl">
+    <div class="flex justify-between items-center p-4 border-b">
+      <h3 id="qvTitle" class="text-lg font-bold"></h3>
+      <button id="qvClose" class="text-gray-600">✕</button>
+    </div>
+    <div class="p-4 grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div>
+        <img id="qvImage" src="" alt="" class="w-full h-64 object-cover rounded-lg">
+      </div>
+      <div>
+        <div id="qvCategory" class="text-sm text-emerald-600 font-semibold mb-2"></div>
+        <div id="qvPrice" class="text-2xl font-bold text-emerald-700 mb-3"></div>
+        <p id="qvDescription" class="text-gray-700 mb-4"></p>
+        <div class="flex gap-2">
+          <form method="POST" action="/cart/add" id="qvAddForm">
+            <input type="hidden" name="product_id" id="qvProductId">
+            <input type="hidden" name="quantity" value="1">
+            <button type="submit" class="bg-emerald-600 text-white px-4 py-2 rounded-lg">Add to Cart</button>
+          </form>
+          <a id="qvDetailsLink" href="#" class="px-4 py-2 border rounded-lg">View Details</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  #quickViewModal { display: none; align-items: center; justify-content: center; }
+  #quickViewModal.show { display: flex; }
+</style>
+
+<script>
+  if (!window.__quickviewInitialized) {
+    window.__quickviewInitialized = true;
+    document.addEventListener('click', function (e) {
+      const btn = e.target.closest && e.target.closest('.quick-view-btn');
+      if (btn) {
+        const card = btn.closest('.product-card');
+        if (!card) return;
+        const id = card.getAttribute('data-id');
+        const img = card.querySelector('img');
+        const title = card.querySelector('h3') ? card.querySelector('h3').textContent : '';
+        const price = card.querySelector('.text-emerald-700') ? card.querySelector('.text-emerald-700').textContent : '';
+        const category = card.querySelector('.text-emerald-600') ? card.querySelector('.text-emerald-600').textContent : '';
+        const desc = card.querySelector('p') ? card.querySelector('p').textContent : '';
+
+        const qvModal = document.getElementById('quickViewModal');
+        document.getElementById('qvTitle').textContent = title;
+        document.getElementById('qvImage').src = img ? img.src : '';
+        document.getElementById('qvPrice').textContent = price;
+        document.getElementById('qvDescription').textContent = desc;
+        document.getElementById('qvCategory').textContent = category;
+        document.getElementById('qvProductId').value = id;
+        document.getElementById('qvDetailsLink').href = '/shop/product/' + id;
+        qvModal.classList.add('show');
+      }
+    });
+
+    const qvClose = document.getElementById('qvClose');
+    const qvModalEl = document.getElementById('quickViewModal');
+    if (qvClose) qvClose.addEventListener('click', () => qvModalEl.classList.remove('show'));
+    if (qvModalEl) qvModalEl.addEventListener('click', (e) => { if (e.target === qvModalEl) qvModalEl.classList.remove('show'); });
+  }
+</script>

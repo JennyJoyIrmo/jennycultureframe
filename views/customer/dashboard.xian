@@ -1,0 +1,295 @@
+{{> head}}
+<body class="min-h-screen bg-gray-50 relative">
+  <!-- Background Image with Overlay -->
+  <div class="fixed inset-0 z-0">
+    <img src="https://travelorientalmindoro.ph/Content/img/uploads/mansalay_1.jpg" alt="Mansalay Background" class="w-full h-full object-cover" />
+    <div class="absolute inset-0 bg-emerald-600/10"></div>
+  </div>
+
+  <div class="relative z-50">
+    {{>nav}}
+  </div>
+
+  <!-- Main Content -->
+  <div class="relative z-10 container mx-auto px-6 py-8">
+    <!-- Welcome Section with Mansalay Scenery -->
+    <div class="text-center mb-12 relative">
+      <div class="absolute inset-0 rounded-3xl opacity-30" style="background-image: url('https://tse1.mm.bing.net/th/id/OIP.QDX0trTpBsmiyduaVLCMywHaEK?rs=1&pid=ImgDetMain&o=7&rm=3'); background-size: cover; background-position: center; background-repeat: no-repeat;"></div>
+      <div class="relative bg-gradient-to-r from-emerald-600/90 to-green-700/90 text-white py-8 px-12 rounded-3xl shadow-2xl border border-emerald-500/30 backdrop-blur-sm">
+        <div class="flex items-center justify-center space-x-4 mb-4">
+          <div class="w-16 h-16 rounded-full bg-white/20 flex items-center justify-center border border-white/30">
+            <i class="fas fa-compass text-white text-2xl"></i>
+          </div>
+          <h1 class="text-4xl font-bold">Welcome to Your Dashboard</h1>
+        </div>
+        <p class="text-xl text-emerald-100 max-w-2xl mx-auto leading-relaxed">
+          Discover the rich cultural heritage of Mansalay, explore Hanunuo Mangyan traditions, and support local artisans.
+        </p>
+      </div>
+    </div>
+
+    <!-- Main Dashboard Grid -->
+    <div class="grid grid-cols-1 xl:grid-cols-4 gap-8 mb-12">
+      <!-- Left Sidebar - Profile & Quick Stats -->
+      <div class="xl:col-span-1 space-y-8">
+        <!-- Profile Card -->
+        <div class="bg-white rounded-2xl shadow-xl p-6 border border-emerald-200/50 backdrop-blur-sm">
+          <div class="flex items-center mb-6">
+            <div class="w-20 h-20 bg-gradient-to-r from-emerald-500 to-green-500 rounded-2xl flex items-center justify-center text-white text-2xl font-bold mr-4 shadow-lg overflow-hidden">
+              {{#if user.profileImage}}
+                <img src="/uploads/{{user.profileImage}}" alt="Profile Image" class="w-20 h-20 object-cover rounded-2xl border-2 border-white shadow" />
+              {{else}}
+                <i class="fas fa-user-circle text-3xl"></i>
+              {{/if}}
+            </div>
+            <div>
+              <a href="/customer/moment/new" class="text-xl font-bold text-gray-800 hover:text-emerald-600 transition-colors duration-200 cursor-pointer">{{user.name}}</a>
+              <p class="text-emerald-600 font-medium">CultureFrame Explorer</p>
+              <div class="flex items-center mt-1">
+                <i class="fas fa-map-marker-alt text-emerald-500 text-sm mr-1"></i>
+                <span class="text-gray-600 text-sm">Mansalay, Oriental Mindoro</span>
+              </div>
+            </div>
+          </div>
+          
+          <div class="space-y-4 mb-6">
+            <div class="flex justify-between items-center p-3 bg-emerald-50 rounded-xl">
+              <div class="flex items-center">
+                <i class="fas fa-shopping-cart text-emerald-600 mr-2"></i>
+                <span class="text-gray-700 font-medium">Cart Items:</span>
+              </div>
+              <span class="font-semibold text-emerald-700" data-dashboard-cart-count>{{cartCount}}</span>
+            </div>
+            <div class="flex justify-between items-center p-3 bg-emerald-50 rounded-xl">
+              <div class="flex items-center">
+                <i class="fas fa-heart text-emerald-600 mr-2"></i>
+                <span class="text-gray-700 font-medium">Wishlist:</span>
+              </div>
+              <span class="font-semibold text-emerald-700" data-dashboard-wishlist-count>{{wishlistCount}}</span>
+            </div>
+            <div class="flex justify-between items-center p-3 bg-emerald-50 rounded-xl">
+              <div class="flex items-center">
+                <i class="fas fa-box text-emerald-600 mr-2"></i>
+                <span class="text-gray-700 font-medium">Orders:</span>
+              </div>
+              <span class="font-semibold text-emerald-700" data-dashboard-order-count>{{orderCount}}</span>
+            </div>
+          </div>
+          
+          <div class="space-y-3">
+            <a href="/customer/profile/edit" class="w-full bg-gradient-to-r from-emerald-500 to-green-500 text-white py-3 rounded-xl font-semibold hover:from-emerald-600 hover:to-green-600 transition-all shadow-lg hover:shadow-xl transform hover:scale-105 flex items-center justify-center">
+              <i class="fas fa-user-edit mr-2"></i> Edit Profile
+            </a>
+            <a href="/customer/events" class="w-full bg-gradient-to-r from-blue-500 to-blue-600 text-white py-3 rounded-xl font-semibold hover:from-blue-600 hover:to-blue-700 transition-all shadow-lg hover:shadow-xl transform hover:scale-105 flex items-center justify-center">
+              <i class="fas fa-calendar-check mr-2"></i> My Events
+            </a>
+            <a href="/logout" class="w-full bg-gradient-to-r from-red-500 to-red-600 text-white py-3 rounded-xl font-semibold hover:from-red-600 hover:to-red-700 transition-all shadow-lg hover:shadow-xl transform hover:scale-105 flex items-center justify-center">
+              <i class="fas fa-sign-out-alt mr-2"></i> Logout
+            </a>
+          </div>
+        </div>
+
+        <!-- Quick Stats Card -->
+      </div>
+
+      <!-- Main Content Area -->
+      <div class="xl:col-span-3 space-y-8">
+        <!-- Stats Overview -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <!-- Cart Items Stats -->
+          <div class="group relative">
+            <div class="absolute inset-0 bg-gradient-to-r from-emerald-500 to-green-600 rounded-2xl blur opacity-20 group-hover:opacity-30 transition duration-300"></div>
+            <div class="relative bg-white rounded-2xl shadow-xl p-6 border border-emerald-200/50 backdrop-blur-sm transform group-hover:-translate-y-1 transition-all duration-300">
+              <div class="flex items-center justify-between mb-4">
+                <div class="w-14 h-14 bg-gradient-to-br from-emerald-500 to-green-600 rounded-2xl flex items-center justify-center shadow-lg">
+                  <span class="text-white text-3xl">🛒</span>
+                </div>
+                <span class="text-3xl font-bold text-emerald-600">{{cartCount}}</span>
+              </div>
+              <h3 class="text-lg font-bold text-gray-800 mb-2">Cart Items</h3>
+              <p class="text-gray-600 text-sm mb-4">Ready to checkout</p>
+              <a href="/cart" class="w-full bg-emerald-500 text-white py-2.5 rounded-xl hover:bg-emerald-600 transition-all font-medium text-center block shadow-md hover:shadow-lg flex items-center justify-center">
+                <i class="fas fa-shopping-cart mr-2"></i> View Cart
+              </a>
+            </div>
+          </div>
+
+          <!-- Wishlist Stats -->
+          <div class="group relative">
+            <div class="absolute inset-0 bg-gradient-to-r from-emerald-500 to-emerald-600 rounded-2xl blur opacity-20 group-hover:opacity-30 transition duration-300"></div>
+            <div class="relative bg-white rounded-2xl shadow-xl p-6 border border-emerald-200/50 backdrop-blur-sm transform group-hover:-translate-y-1 transition-all duration-300">
+                <div class="flex items-center justify-between mb-4">
+                <div class="w-14 h-14 bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-2xl flex items-center justify-center shadow-lg">
+                  <span class="text-white text-3xl">❤️</span>
+                </div>
+                <span class="text-3xl font-bold text-emerald-600">{{wishlistCount}}</span>
+              </div>
+              <h3 class="text-lg font-bold text-gray-800 mb-2">Wishlist</h3>
+              <p class="text-gray-600 text-sm mb-4">Saved for later</p>
+              <a href="/shop" class="w-full bg-emerald-500 text-white py-2.5 rounded-xl hover:bg-emerald-600 transition-all font-medium text-center block shadow-md hover:shadow-lg flex items-center justify-center">
+                <i class="fas fa-search mr-2"></i> Browse Products
+              </a>
+            </div>
+          </div>
+
+          <!-- Orders Stats -->
+          <div class="group relative">
+            <div class="absolute inset-0 bg-gradient-to-r from-emerald-500 to-green-600 rounded-2xl blur opacity-20 group-hover:opacity-30 transition duration-300"></div>
+            <div class="relative bg-white rounded-2xl shadow-xl p-6 border border-emerald-200/50 backdrop-blur-sm transform group-hover:-translate-y-1 transition-all duration-300">
+                <div class="flex items-center justify-between mb-4">
+                <div class="w-14 h-14 bg-gradient-to-br from-emerald-500 to-green-600 rounded-2xl flex items-center justify-center shadow-lg">
+                  <span class="text-white text-3xl">📦</span>
+                </div>
+                <span class="text-3xl font-bold text-emerald-600">{{orderCount}}</span>
+              </div>
+              <h3 class="text-lg font-bold text-gray-800 mb-2">Orders</h3>
+              <p class="text-gray-600 text-sm mb-4">Recent purchases</p>
+              <a href="/customer/orders" class="w-full bg-emerald-500 text-white py-2.5 rounded-xl hover:bg-emerald-600 transition-all font-medium text-center block shadow-md hover:shadow-lg flex items-center justify-center">
+                <i class="fas fa-clipboard-list mr-2"></i> Track Orders
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- My Moments -->
+        <div class="bg-white rounded-2xl shadow-xl p-8 border border-emerald-200/50 backdrop-blur-sm mb-8">
+          <div class="flex justify-between items-center mb-8">
+            <h2 class="text-2xl font-bold text-gray-800 flex items-center">
+              <i class="fas fa-camera text-emerald-600 mr-3 text-2xl"></i>
+              My Moments
+            </h2>
+            <a href="/customer/moment/new" class="bg-emerald-500 text-white px-6 py-2.5 rounded-xl hover:bg-emerald-600 transition-all font-medium flex items-center shadow-md hover:shadow-lg">
+              <i class="fas fa-plus mr-2"></i>
+              Post Moment
+            </a>
+          </div>
+          
+          <div id="myMoments" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+            <!-- Moments will be loaded here -->
+          </div>
+
+          <div class="mt-6 text-center">
+            <a href="/customer/profile" class="text-emerald-600 hover:text-emerald-800 font-semibold inline-flex items-center justify-center">
+              View All Moments <i class="fas fa-arrow-right ml-2"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- Recent Activity -->
+        <div class="bg-white rounded-2xl shadow-xl p-8 border border-emerald-200/50 backdrop-blur-sm">
+          <div class="flex justify-between items-center mb-8">
+            <h2 class="text-2xl font-bold text-gray-800 flex items-center">
+              <i class="fas fa-history text-emerald-600 mr-3 text-2xl"></i>
+              Recent Activity
+            </h2>
+            <button id="refreshActivityBtn" class="bg-emerald-500 text-white px-6 py-2.5 rounded-xl hover:bg-emerald-600 transition-all font-medium flex items-center shadow-md hover:shadow-lg">
+              <i class="fas fa-sync-alt mr-2"></i>
+              Refresh
+            </button>
+          </div>
+          
+          <div id="recentActivityList" class="space-y-4">
+            <!-- recent activity will be loaded here by dashboard-realtime.js -->
+          </div>
+
+          <div class="mt-6 text-center">
+            <a href="/customer/activity" class="text-emerald-600 hover:text-emerald-800 font-semibold inline-flex items-center justify-center">
+              View All Activity <i class="fas fa-arrow-right ml-2"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  {{>footer}}
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+  <script src="/dashboard-realtime.js"></script>
+  
+  <script>
+    // Load user moments
+    async function loadMoments() {
+      try {
+        const response = await fetch('/customer/photos');
+        const data = await response.json();
+        
+        if (data.success && data.photos) {
+          const momentsContainer = document.getElementById('myMoments');
+          
+          if (data.photos.length === 0) {
+            momentsContainer.innerHTML = `
+              <div class="col-span-full text-center py-12">
+                <i class="fas fa-camera text-gray-300 text-6xl mb-4"></i>
+                <p class="text-gray-500 text-lg mb-4">No moments yet</p>
+                <a href="/customer/moment/new" class="inline-block bg-emerald-500 text-white px-6 py-3 rounded-xl hover:bg-emerald-600 transition-all font-medium">
+                  <i class="fas fa-plus mr-2"></i> Post Your First Moment
+                </a>
+              </div>
+            `;
+          } else {
+            momentsContainer.innerHTML = data.photos.slice(0, 8).map(photo => `
+              <div class="relative group bg-gray-100 rounded-xl overflow-hidden border-2 border-emerald-100 hover:border-emerald-400 transition-all shadow-md hover:shadow-xl transform hover:-translate-y-1">
+                ${photo.url ? `
+                  <img src="${photo.url}" alt="moment" class="w-full h-48 object-cover cursor-pointer group-hover:scale-110 transition-transform duration-300" />
+                  <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                ` : `
+                  <div class="w-full h-48 flex items-center justify-center bg-emerald-50">
+                    <i class="fas fa-comment text-emerald-300 text-4xl"></i>
+                  </div>
+                `}
+                ${photo.caption ? `
+                  <div class="absolute bottom-0 left-0 right-0 bg-black/70 text-white p-2 text-xs text-center backdrop-blur-sm">
+                    ${photo.caption}
+                  </div>
+                ` : ''}
+              </div>
+            `).join('');
+          }
+        }
+      } catch (error) {
+        console.error('Error loading moments:', error);
+      }
+    }
+    
+    // Load moments on page load
+    document.addEventListener('DOMContentLoaded', loadMoments);
+  </script>
+
+  <!-- Floating Elements -->
+  <div class="fixed inset-0 overflow-hidden pointer-events-none z-0">
+    <div class="absolute top-20 left-10 w-6 h-6 bg-emerald-400/20 rounded-full animate-float">
+      <i class="fas fa-leaf text-emerald-500/50 text-xs absolute inset-0 flex items-center justify-center"></i>
+    </div>
+    <div class="absolute top-40 right-20 w-8 h-8 bg-green-400/20 rounded-full animate-float-delayed">
+      <i class="fas fa-mountain text-green-500/50 text-sm absolute inset-0 flex items-center justify-center"></i>
+    </div>
+    <div class="absolute bottom-40 left-20 w-5 h-5 bg-teal-400/20 rounded-full animate-float-slow">
+      <i class="fas fa-star text-teal-500/50 text-xs absolute inset-0 flex items-center justify-center"></i>
+    </div>
+  </div>
+
+  <style>
+    @keyframes float {
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      50% { transform: translateY(-20px) rotate(180deg); }
+    }
+    @keyframes float-delayed {
+      0%, 100% { transform: translateY(0px) scale(1); }
+      50% { transform: translateY(-15px) scale(1.1); }
+    }
+    @keyframes float-slow {
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      50% { transform: translateY(-25px) rotate(180deg); }
+    }
+    
+    .animate-float {
+      animation: float 8s ease-in-out infinite;
+    }
+    .animate-float-delayed {
+      animation: float-delayed 10s ease-in-out infinite;
+    }
+    .animate-float-slow {
+      animation: float-slow 12s ease-in-out infinite;
+    }
+  </style>
+</body>
+</html>

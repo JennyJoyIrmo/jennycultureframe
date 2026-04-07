@@ -1,0 +1,151 @@
+{{>head}}
+<body class="min-h-screen bg-cover bg-center bg-fixed" style="background-image: url('https://c8.alamy.com/comp/B28RJE/mangyan-crafts-created-in-the-panaytayan-community-near-mansalay-oriental-B28RJE.jpg');">
+  <div class="absolute inset-0 bg-white/5 z-0"></div>
+  
+  <div class="relative z-10">
+    {{>nav}}
+    
+    <div class="container mx-auto px-6 py-8">
+      <!-- Back Button -->
+      <a href="/crafts" class="inline-flex items-center text-emerald-600 hover:text-green-600 font-medium mb-6 transition-colors">
+        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+        </svg>
+        Back to Arts & Crafts
+      </a>
+
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <!-- Main Content -->
+        <div class="lg:col-span-2 space-y-6">
+          <!-- Header Card -->
+          <div class="bg-white rounded-2xl shadow-xl p-8 border border-amber-200/50">
+            <div class="flex items-start justify-between mb-4">
+              <div>
+                <h1 class="text-4xl font-bold text-gray-800 mb-3">{{craft.title}}</h1>
+                {{#if craft.location}}
+                <div class="flex items-center text-gray-600 mb-4">
+                  <svg class="w-5 h-5 text-amber-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 12.414a2 2 0 010-2.828l4.243-4.243a2 2 0 012.828 0l4.243 4.243a2 2 0 010 2.828l-4.243 4.243a2 2 0 01-2.828 0z"></path>
+                  </svg>
+                  <span class="text-lg">{{craft.location}}</span>
+                </div>
+                {{/if}}
+              </div>
+              
+              <!-- Craft Icon -->
+              <div class="w-16 h-16 bg-gradient-to-br from-emerald-500 to-green-500 rounded-2xl flex items-center justify-center shadow-lg">
+                <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"></path>
+                </svg>
+              </div>
+            </div>
+            
+            <!-- Description -->
+            <div class="prose max-w-none">
+              <p class="text-gray-700 text-lg leading-relaxed">{{craft.description}}</p>
+            </div>
+          </div>
+
+          <!-- Image Gallery Card -->
+          <div class="bg-white rounded-2xl shadow-xl overflow-hidden border border-amber-200/50">
+            <div class="bg-gradient-to-r from-emerald-600 to-green-600 p-4">
+              <h3 class="text-white font-bold text-lg flex items-center">
+                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                </svg>
+                Craft Gallery
+              </h3>
+            </div>
+            
+            {{#if craft.image_url}}
+              <img src="{{craft.image_url}}" alt="{{craft.title}}" class="w-full h-96 object-cover" />
+            {{else}}
+              <div class="w-full h-96 bg-gradient-to-r from-emerald-400 to-green-400 flex items-center justify-center">
+                <svg class="w-32 h-32 text-white/50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                </svg>
+              </div>
+            {{/if}}
+          </div>
+
+          <!-- Additional Info Card -->
+          {{#if craft.latitude}}
+          <div class="bg-white rounded-2xl shadow-xl p-6 border border-amber-200/50">
+            <h3 class="text-xl font-bold text-gray-800 mb-4 flex items-center">
+              <svg class="w-6 h-6 text-amber-600 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+              </svg>
+              Location Information
+            </h3>
+            <div class="bg-amber-50 rounded-xl p-4 border border-amber-200">
+              <div class="grid grid-cols-2 gap-4">
+                <div>
+                  <p class="text-sm text-gray-600 mb-1">Latitude</p>
+                  <p class="font-mono text-lg font-semibold text-amber-700">{{craft.latitude}}</p>
+                </div>
+                <div>
+                  <p class="text-sm text-gray-600 mb-1">Longitude</p>
+                  <p class="font-mono text-lg font-semibold text-orange-700">{{craft.longitude}}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          {{/if}}
+        </div>
+
+        <!-- Sidebar -->
+        <div class="lg:col-span-1">
+          <!-- About Hanunuo Mangyan Crafts -->
+          <div class="bg-white rounded-2xl shadow-xl p-6 border border-amber-200/50 sticky top-24">
+            <div class="text-center mb-6">
+              <div class="w-20 h-20 bg-gradient-to-br from-emerald-500 to-green-500 rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg">
+                <span class="text-4xl">🎨</span>
+              </div>
+              <h3 class="text-xl font-bold text-gray-800 mb-2">Traditional Crafts</h3>
+              <p class="text-gray-600 text-sm">Preserving Hanunuo Mangyan Heritage</p>
+            </div>
+            
+            <div class="space-y-4">
+              <div class="bg-amber-50 rounded-xl p-4 border border-amber-200">
+                <div class="flex items-start">
+                  <svg class="w-5 h-5 text-amber-600 mr-3 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                  </svg>
+                  <div>
+                    <p class="font-semibold text-gray-800 mb-1">Authentic</p>
+                    <p class="text-sm text-gray-600">Made by local artisans using traditional methods</p>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="bg-amber-50 rounded-xl p-4 border border-amber-200">
+                <div class="flex items-start">
+                  <svg class="w-5 h-5 text-amber-600 mr-3 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                  </svg>
+                  <div>
+                    <p class="font-semibold text-gray-800 mb-1">Heritage</p>
+                    <p class="text-sm text-gray-600">Centuries-old techniques passed down through generations</p>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="bg-amber-50 rounded-xl p-4 border border-amber-200">
+                <div class="flex items-start">
+                  <svg class="w-5 h-5 text-amber-600 mr-3 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+                  </svg>
+                  <div>
+                    <p class="font-semibold text-gray-800 mb-1">Support Local</p>
+                    <p class="text-sm text-gray-600">Help preserve indigenous culture and support communities</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+{{>footer}}

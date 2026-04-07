@@ -1,0 +1,198 @@
+{{>head}}
+<body class="min-h-screen relative overflow-x-hidden">
+  <!-- Background Photo with Overlay -->
+  <div class="fixed inset-0 z-0">
+    <img 
+      src="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/16/e2/a9/62/up-on-the-bluff.jpg?w=1000&h=-1&s=1" 
+      alt="Oriental Mindoro Background" 
+      class="w-full h-full object-cover"
+    >
+    <div class="absolute inset-0 bg-gradient-to-br from-emerald-900/85 via-emerald-800/75 to-teal-900/90 backdrop-blur-[1px]"></div>
+  </div>
+
+  <div class="relative z-10">
+    {{>nav}}
+
+    <div class="container mx-auto px-6 py-12">
+      <!-- Header -->
+      <div class="bg-white/70 backdrop-blur-lg rounded-2xl shadow-2xl p-8 border border-white/30 mb-8 animate-fade-in-down">
+        <div class="flex items-center justify-between">
+          <div class="flex items-center space-x-4">
+            <div class="w-16 h-16 bg-gradient-to-r from-emerald-500 to-green-500 rounded-2xl flex items-center justify-center shadow-lg">
+              <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z" clip-rule="evenodd"></path>
+              </svg>
+            </div>
+            <div>
+              <h1 class="text-4xl font-bold text-white drop-shadow-lg">My Moments</h1>
+              <p class="text-emerald-100 text-lg drop-shadow">Your captured memories and experiences</p>
+            </div>
+          </div>
+          <div class="flex gap-3">
+            <a href="/customer/moment/new" class="inline-flex items-center bg-gradient-to-r from-emerald-500 to-green-600 hover:from-emerald-600 hover:to-green-700 text-white px-6 py-3 rounded-xl font-bold transition-all duration-300 shadow-xl hover:shadow-2xl transform hover:-translate-y-1">
+              <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+              </svg>
+              Post Moment
+            </a>
+            <a href="/customer/dashboard" class="inline-flex items-center bg-white/80 hover:bg-white text-gray-700 px-6 py-3 rounded-xl font-semibold transition-all duration-300 shadow-lg">
+              <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+              </svg>
+              Back
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Moments Gallery -->
+      <div id="momentsGallery" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 animate-fade-in-up">
+        {{#each photos}}
+          <div class="bg-white/80 backdrop-blur-lg rounded-2xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 group" data-moment-id="{{this.id}}">
+            <!-- Image -->
+            <div class="relative h-64 overflow-hidden bg-gradient-to-br from-emerald-400 to-green-500">
+              {{#if this.url}}
+                <img src="{{this.url}}" alt="moment" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500 cursor-pointer" onclick="viewImage('{{this.url}}')"/>
+              {{else}}
+                <div class="w-full h-full flex items-center justify-center">
+                  <svg class="w-20 h-20 text-white/40" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                  </svg>
+                </div>
+              {{/if}}
+              
+              <!-- Overlay Actions -->
+              <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-between p-4">
+                <button onclick="viewImage('{{this.url}}')" class="bg-white/90 hover:bg-white text-emerald-700 px-4 py-2 rounded-lg font-semibold transition-all flex items-center shadow-lg">
+                  <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+                  </svg>
+                  View
+                </button>
+                <button onclick="deleteMoment('{{this.id}}')" class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg font-semibold transition-all flex items-center shadow-lg">
+                  <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+                  </svg>
+                  Delete
+                </button>
+              </div>
+            </div>
+
+            <!-- Caption -->
+            {{#if this.caption}}
+              <div class="p-4 bg-white/90">
+                <p class="text-gray-700 text-sm line-clamp-2">{{this.caption}}</p>
+                <p class="text-xs text-gray-500 mt-2">{{this.createdAt}}</p>
+              </div>
+            {{/if}}
+          </div>
+        {{/each}}
+      </div>
+
+      <!-- Empty State -->
+      {{#unless photos.length}}
+        <div class="bg-white/80 backdrop-blur-lg rounded-2xl shadow-2xl p-16 text-center border border-white/30">
+          <div class="w-32 h-32 bg-gradient-to-br from-emerald-100 to-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
+            <svg class="w-16 h-16 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+            </svg>
+          </div>
+          <h3 class="text-3xl font-bold text-gray-800 mb-4">No Moments Yet</h3>
+          <p class="text-gray-600 text-lg mb-8">Start capturing and sharing your experiences!</p>
+          <a href="/customer/moment/new" class="inline-flex items-center bg-gradient-to-r from-emerald-500 to-green-600 hover:from-emerald-600 hover:to-green-700 text-white px-8 py-4 rounded-xl font-bold text-lg transition-all duration-300 shadow-xl hover:shadow-2xl transform hover:-translate-y-1">
+            <svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+            </svg>
+            Post Your First Moment
+          </a>
+        </div>
+      {{/unless}}
+    </div>
+
+    {{>footer}}
+  </div>
+
+  <!-- Lightbox -->
+  <div id="lightbox" class="hidden fixed inset-0 z-50 bg-black/95 backdrop-blur-sm items-center justify-center">
+    <button onclick="closeLightbox()" class="absolute top-6 right-6 bg-white/20 hover:bg-white/30 text-white px-6 py-3 rounded-xl font-semibold backdrop-blur-sm transition-all flex items-center">
+      <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+      </svg>
+      Close
+    </button>
+    <img id="lightboxImg" src="" class="max-w-5xl max-h-[85vh] object-contain rounded-2xl shadow-2xl" />
+  </div>
+
+  <style>
+    @keyframes fadeInDown {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .animate-fade-in-down { animation: fadeInDown 0.6s ease-out forwards; }
+    .animate-fade-in-up { animation: fadeInUp 0.6s ease-out forwards; }
+    .line-clamp-2 {
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+  </style>
+
+  <script>
+    function viewImage(url) {
+      const lightbox = document.getElementById('lightbox');
+      const lightboxImg = document.getElementById('lightboxImg');
+      if (lightbox && lightboxImg && url) {
+        lightboxImg.src = url;
+        lightbox.classList.remove('hidden');
+        lightbox.classList.add('flex');
+      }
+    }
+
+    function closeLightbox() {
+      const lightbox = document.getElementById('lightbox');
+      if (lightbox) {
+        lightbox.classList.add('hidden');
+        lightbox.classList.remove('flex');
+      }
+    }
+
+    async function deleteMoment(momentId) {
+      if (!confirm('Are you sure you want to delete this moment?')) return;
+      
+      try {
+        const response = await fetch(`/customer/moment/${momentId}`, {
+          method: 'DELETE',
+          headers: { 'Content-Type': 'application/json' }
+        });
+        const data = await response.json();
+        
+        if (data.success) {
+          const momentCard = document.querySelector(`[data-moment-id="${momentId}"]`);
+          if (momentCard) {
+            momentCard.style.opacity = '0';
+            momentCard.style.transform = 'scale(0.8)';
+            setTimeout(() => momentCard.remove(), 300);
+          }
+          alert('Moment deleted successfully!');
+        } else {
+          alert(data.message || 'Failed to delete moment');
+        }
+      } catch (error) {
+        console.error('Delete error:', error);
+        alert('Failed to delete moment. Please try again.');
+      }
+    }
+
+    // Close lightbox on click outside
+    document.getElementById('lightbox')?.addEventListener('click', (e) => {
+      if (e.target.id === 'lightbox') closeLightbox();
+    });
+  </script>
+</body>
+</html>

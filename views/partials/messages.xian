@@ -1,0 +1,8 @@
+<div class="container mx-auto px-4 mt-4">
+  {{#if error_msg}}
+    <div class="mb-4 p-3 bg-red-100 text-red-800 rounded">{{error_msg}}</div>
+  {{/if}}
+  {{#if success_msg}}
+    <div class="mb-4 p-3 bg-emerald-100 text-emerald-800 rounded">{{success_msg}}</div>
+  {{/if}}
+</div>

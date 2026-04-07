@@ -1,0 +1,97 @@
+<div id="shopHeader" class="w-full bg-white/50 backdrop-blur-sm border-b">
+  <style>
+    /* Animated search bar and sticky header styles */
+    #shopHeader { transition: box-shadow .2s ease, backdrop-filter .2s ease; }
+    #shopHeader.shopHeader--sticky { position: sticky; top: 0; z-index: 50; box-shadow: 0 6px 18px rgba(0,0,0,0.08); backdrop-filter: blur(6px); }
+
+    .shop-search-wrap { transition: transform .18s ease, box-shadow .18s ease; }
+    #shopSearchInput { transition: width .22s ease, box-shadow .18s ease, transform .12s ease; width: 100%; }
+    .shop-search-wrap.search-focused #shopSearchInput { box-shadow: 0 10px 30px rgba(16,185,129,0.12); transform: translateY(-2px); }
+
+    /* subtle search icon pulse on focus */
+    .search-icon-pulse { transition: transform .18s ease; }
+    .shop-search-wrap.search-focused .search-icon-pulse { transform: scale(1.06); }
+
+    /* chips hover */
+    .shop-category-chip { transition: transform .14s ease, box-shadow .14s ease; }
+    .shop-category-chip:hover { transform: translateY(-4px); box-shadow: 0 6px 18px rgba(0,0,0,0.08); }
+
+    @media (min-width: 768px) {
+      #shopSearchInput { width: 36rem; }
+      .shop-search-wrap.search-focused #shopSearchInput { width: 44rem; }
+    }
+  </style>
+
+  <div class="container mx-auto px-4 py-3 flex items-center justify-between gap-4">
+
+    <form id="shopSearchForm" method="GET" action="/shop" class="flex items-center gap-3 flex-1 max-w-2xl">
+      <div class="relative shop-search-wrap">
+        <svg class="w-5 h-5 absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 search-icon-pulse" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-4.35-4.35M11 19a8 8 0 100-16 8 8 0 000 16z"/></svg>
+        <input id="shopSearchInput" name="search" type="search" placeholder="Search handicrafts, clothing, accessories, art, home decor..." value="{{search}}" class="pl-10 pr-4 py-2 rounded-full border bg-white/90" autocomplete="off" list="categorySuggestions">
+      </div>
+      
+      <!-- Category Filter - INIYOS NA: Dinagdagan ng mga categories -->
+      <select name="category" id="shopCategory" class="hidden sm:inline-block p-2 border rounded-full bg-white">
+        <option value="">All Categories</option>
+        <option value="handicrafts" {{#ifEquals query.category "handicrafts"}}selected{{/ifEquals}}>Handicrafts</option>
+        <option value="clothing" {{#ifEquals query.category "clothing"}}selected{{/ifEquals}}>Clothing</option>
+        <option value="accessories" {{#ifEquals query.category "accessories"}}selected{{/ifEquals}}>Accessories</option>
+        <option value="art" {{#ifEquals query.category "art"}}selected{{/ifEquals}}>Art</option>
+        <option value="home decor" {{#ifEquals query.category "home decor"}}selected{{/ifEquals}}>Home Decor</option>
+        <option value="other" {{#ifEquals query.category "other"}}selected{{/ifEquals}}>Other</option>
+      </select>
+      
+      <button type="submit" class="px-4 py-2 bg-black text-white rounded-full">Search</button>
+    </form>
+
+    <!-- right quick actions - INIYOS NA: Tinanggal ang Live button -->
+    <div class="flex items-center gap-3">
+      <a href="/wishlist" class="px-3 py-2 bg-white border rounded-full">Wishlist (<span id="wishlistCount">{{wishlistCount}}</span>)</a>
+      <a href="/cart" class="px-3 py-2 bg-white border rounded-full">Cart (<span id="cartCount">{{cartCount}}</span>)</a>
+    </div>
+  </div>
+
+  <!-- INIYOS NA: Tinanggal na ang horizontal category chips section -->
+
+  <datalist id="categorySuggestions">
+    <option value="handicrafts">
+    <option value="clothing">
+    <option value="accessories">
+    <option value="art">
+    <option value="home decor">
+    <option value="other">
+  </datalist>
+
+  <script>
+    if (!window.__shopHeaderInitialized) {
+      window.__shopHeaderInitialized = true;
+      (function(){
+        const input = document.getElementById('shopSearchInput');
+        const form = document.getElementById('shopSearchForm');
+        const wrapper = document.querySelector('.shop-search-wrap');
+        const header = document.getElementById('shopHeader');
+        const STORAGE_KEY = 'cf_recent_searches';
+
+        try { const last = localStorage.getItem('cf_last_search'); if (input && last && !input.value) input.value = last; } catch(e){}
+
+        if (form) form.addEventListener('submit', () => {
+          try { if (input && input.value && input.value.trim()) { localStorage.setItem('cf_last_search', input.value.trim()); let r = JSON.parse(localStorage.getItem(STORAGE_KEY)||'[]'); const v = input.value.trim(); r = r.filter(x=>x!==v); r.unshift(v); if (r.length>6) r.pop(); localStorage.setItem(STORAGE_KEY, JSON.stringify(r)); } } catch(e){}
+        });
+
+        // focus animation
+        if (input && wrapper) {
+          input.addEventListener('focus', () => wrapper.classList.add('search-focused'));
+          input.addEventListener('blur', () => wrapper.classList.remove('search-focused'));
+        }
+
+        // sticky behavior: add class when scrolled beyond header top
+        let stickyThreshold = header ? header.getBoundingClientRect().bottom : 80;
+        window.addEventListener('scroll', () => {
+          try {
+            if (window.scrollY > stickyThreshold) header.classList.add('shopHeader--sticky'); else header.classList.remove('shopHeader--sticky');
+          } catch (e) {}
+        });
+      })();
+    }
+  </script>
+</div>

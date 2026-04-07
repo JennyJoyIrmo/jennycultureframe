@@ -1,0 +1,12 @@
+<footer class="bg-gradient-to-r from-emerald-900 via-green-900 to-emerald-900 text-white mt-16">
+  <div class="container mx-auto px-6 py-8 text-center">
+    <p class="text-emerald-300 text-sm mb-2">
+      &copy; 2025 CultureFrame Mansalay. All rights reserved.
+    </p>
+    <p class="text-emerald-400 text-xs">
+      Built with <i class="fas fa-heart text-red-400"></i> using XianFire Framework | Mindoro State University
+    </p>
+  </div>
+</footer>
+</body>
+</html>

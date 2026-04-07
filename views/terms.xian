@@ -1,0 +1,98 @@
+{{>head}}
+<body class="min-h-screen bg-gradient-to-br from-emerald-50 via-green-50 to-teal-50">
+  <div class="container mx-auto px-6 py-12">
+    <div class="max-w-4xl mx-auto bg-white rounded-2xl shadow-2xl p-8 border border-emerald-200/50">
+      <div class="mb-8">
+        <h1 class="text-4xl font-bold text-emerald-700 mb-2">Terms and Conditions</h1>
+        <p class="text-gray-600">Last updated: November 25, 2025</p>
+      </div>
+
+      <div class="prose prose-emerald max-w-none space-y-6 text-gray-700">
+        <section>
+          <h2 class="text-2xl font-bold text-emerald-700 mb-4">1. Acceptance of Terms</h2>
+          <p>By accessing and using CultureFrame, you accept and agree to be bound by the terms and provision of this agreement. If you do not agree to these terms, please do not use our service.</p>
+        </section>
+
+        <section>
+          <h2 class="text-2xl font-bold text-emerald-700 mb-4">2. Use of Service</h2>
+          <p>CultureFrame is a platform dedicated to promoting and preserving the cultural heritage of Oriental Mindoro. You agree to use this service only for lawful purposes and in accordance with these terms.</p>
+          <ul class="list-disc pl-6 space-y-2 mt-3">
+            <li>You must be at least 13 years old to use this service</li>
+            <li>You are responsible for maintaining the confidentiality of your account</li>
+            <li>You agree not to misuse or abuse the platform</li>
+            <li>You will not post inappropriate or offensive content</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2 class="text-2xl font-bold text-emerald-700 mb-4">3. User Accounts</h2>
+          <p>When you create an account with us, you must provide accurate and complete information. You are responsible for safeguarding your password and for all activities that occur under your account.</p>
+        </section>
+
+        <section>
+          <h2 class="text-2xl font-bold text-emerald-700 mb-4">4. Content</h2>
+          <p>Our service allows you to post, link, store, share and otherwise make available certain information, text, graphics, or other material. You are responsible for the content that you post on or through the service.</p>
+        </section>
+
+        <section>
+          <h2 class="text-2xl font-bold text-emerald-700 mb-4">5. E-Commerce</h2>
+          <p>When purchasing products through our shop:</p>
+          <ul class="list-disc pl-6 space-y-2 mt-3">
+            <li>All prices are in Philippine Pesos (₱)</li>
+            <li>Payment must be completed before order processing</li>
+            <li>Shipping fees may apply based on location</li>
+            <li>Orders are subject to product availability</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2 class="text-2xl font-bold text-emerald-700 mb-4">6. Event Registration</h2>
+          <p>When registering for events:</p>
+          <ul class="list-disc pl-6 space-y-2 mt-3">
+            <li>Registration is subject to availability</li>
+            <li>You must provide accurate contact information</li>
+            <li>Event details may change; we will notify registered participants</li>
+            <li>Cancellation policies apply as specified per event</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2 class="text-2xl font-bold text-emerald-700 mb-4">7. Intellectual Property</h2>
+          <p>The service and its original content, features, and functionality are owned by CultureFrame and are protected by international copyright, trademark, and other intellectual property laws.</p>
+        </section>
+
+        <section>
+          <h2 class="text-2xl font-bold text-emerald-700 mb-4">8. Privacy</h2>
+          <p>Your privacy is important to us. We collect and use your personal information in accordance with our Privacy Policy. By using our service, you consent to our collection and use of personal data.</p>
+        </section>
+
+        <section>
+          <h2 class="text-2xl font-bold text-emerald-700 mb-4">9. Limitation of Liability</h2>
+          <p>CultureFrame shall not be liable for any indirect, incidental, special, consequential or punitive damages resulting from your use of or inability to use the service.</p>
+        </section>
+
+        <section>
+          <h2 class="text-2xl font-bold text-emerald-700 mb-4">10. Changes to Terms</h2>
+          <p>We reserve the right to modify or replace these terms at any time. We will provide notice of any changes by posting the new terms on this page. Your continued use of the service after any changes constitutes acceptance of the new terms.</p>
+        </section>
+
+        <section>
+          <h2 class="text-2xl font-bold text-emerald-700 mb-4">11. Contact Us</h2>
+          <p>If you have any questions about these Terms and Conditions, please contact us through our platform or visit us at Oriental Mindoro, Philippines.</p>
+        </section>
+      </div>
+
+      <div class="mt-8 pt-6 border-t border-emerald-200">
+        <a href="/register" class="inline-flex items-center text-emerald-600 hover:text-emerald-700 font-semibold transition-colors">
+          <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+          </svg>
+          Back to Registration
+        </a>
+      </div>
+    </div>
+  </div>
+
+  {{>footer}}
+</body>
+</html>

@@ -1,0 +1,179 @@
+<nav class="relative bg-cover bg-center shadow-2xl sticky top-0 z-50 border-b-4 border-emerald-500" style="background-image: url('https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=116050766671131');">
+  <!-- Dark overlay for text readability -->
+  <div class="absolute inset-0 bg-gradient-to-r from-emerald-900/85 via-green-900/85 to-emerald-900/85 backdrop-blur-[2px]"></div>
+  
+  <div class="container mx-auto px-4 py-3 relative z-10">
+    <div class="flex items-center justify-between">
+      <!-- Logo Section -->
+      <div class="flex items-center space-x-4">
+        <a href="/" class="flex items-center space-x-2 group">
+          <div class="w-10 h-10 bg-white rounded-lg flex items-center justify-center shadow-lg transform group-hover:scale-110 transition-transform duration-300">
+            <span class="text-lg">🌿</span>
+          </div>
+          <div class="hidden lg:block">
+            <div class="text-white font-bold text-lg tracking-tight">CultureFrame</div>
+            <div class="text-emerald-200 text-xs font-medium">Mansalay Heritage</div>
+          </div>
+        </a>
+
+        <!-- Main Navigation -->
+        <div class="hidden lg:flex items-center space-x-1">
+          <a href="/" class="px-3 py-2 text-white hover:bg-white/20 rounded-lg transition-all duration-200 font-medium flex items-center text-sm">
+            <i class="fas fa-home mr-1"></i> Home
+          </a>
+          <a href="/heritage" class="px-3 py-2 text-white hover:bg-white/20 rounded-lg transition-all duration-200 font-medium flex items-center text-sm">
+            <i class="fas fa-landmark mr-1"></i> Heritage
+          </a>
+          <a href="/events" class="px-3 py-2 text-white hover:bg-white/20 rounded-lg transition-all duration-200 font-medium flex items-center text-sm">
+            <i class="fas fa-calendar-alt mr-1"></i> Events
+          </a>
+          <a href="/scenic" class="px-3 py-2 text-white hover:bg-white/20 rounded-lg transition-all duration-200 font-medium flex items-center text-sm">
+            <i class="fas fa-camera mr-1"></i> Scenic
+          </a>
+          <a href="/crafts" class="px-3 py-2 text-white hover:bg-white/20 rounded-lg transition-all duration-200 font-medium flex items-center text-sm">
+            <i class="fas fa-paint-brush mr-1"></i> Crafts
+          </a>
+          <a href="/shop" class="px-3 py-2 text-white hover:bg-white/20 rounded-lg transition-all duration-200 font-medium flex items-center text-sm">
+            <i class="fas fa-shopping-bag mr-1"></i> Shop
+          </a>
+        </div>
+      </div>
+
+      <!-- Right Section -->
+      <div class="flex items-center space-x-2">
+        <!-- Search Bar (Desktop) -->
+        <form action="/shop" method="GET" class="hidden xl:flex items-center bg-white/20 backdrop-blur-md rounded-lg overflow-hidden border border-white/30">
+          <input name="search" 
+                 class="px-3 py-2 w-48 bg-transparent outline-none placeholder-white/80 text-white text-sm"
+                 placeholder="Search..." />
+          <button type="submit" class="px-3 py-2 bg-emerald-600 hover:bg-emerald-700 text-white transition-colors">
+            <i class="fas fa-search text-sm"></i>
+          </button>
+        </form>
+
+        {{#if user.isAuthenticated}}
+          <!-- Cart & Wishlist -->
+          <a href="/cart" class="relative p-1.5 text-white hover:bg-white/20 rounded-lg transition-all">
+            <i class="fas fa-shopping-cart text-lg"></i>
+            <span id="cartCount" class="cart-badge absolute -top-1 -right-1 bg-red-500 text-white text-xs font-bold rounded-full w-4 h-4 flex items-center justify-center {{#unless cartCount}}hidden{{/unless}}">{{cartCount}}</span>
+          </a>
+          <a href="/wishlist" class="relative p-1.5 text-white hover:bg-white/20 rounded-lg transition-all">
+            <i class="fas fa-heart text-lg"></i>
+            <span id="wishlistCount" class="wishlist-badge absolute -top-1 -right-1 bg-pink-500 text-white text-xs font-bold rounded-full w-4 h-4 flex items-center justify-center {{#unless wishlistCount}}hidden{{/unless}}">{{wishlistCount}}</span>
+          </a>
+
+          <!-- User Profile Button -->
+          <a href="/customer/profile" class="p-1.5 text-white hover:bg-white/20 rounded-lg transition-all" title="Profile">
+            {{#if user.profileImage}}
+              <img src="/uploads/{{user.profileImage}}" class="w-7 h-7 rounded-full object-cover border-2 border-white" />
+            {{else}}
+              <div class="w-7 h-7 rounded-full bg-emerald-500 flex items-center justify-center text-white font-bold text-sm">
+                {{user.name.[0]}}
+              </div>
+            {{/if}}
+          </a>
+          
+          <!-- Logout Button -->
+          <a href="/logout" class="inline-flex items-center px-3 py-2 text-white hover:bg-red-500/20 border border-red-400/30 rounded-lg transition-all font-medium text-sm" title="Logout">
+            <i class="fas fa-sign-out-alt mr-1"></i> Logout
+          </a>
+        {{else}}
+          <!-- Login & Register Buttons -->
+          <a href="/login" class="inline-flex items-center px-4 py-2 text-white hover:bg-white/20 border border-white/30 rounded-lg transition-all font-medium text-sm shadow-md">
+            <i class="fas fa-sign-in-alt mr-1"></i> Login
+          </a>
+          <a href="/register" class="inline-flex items-center px-4 py-2 bg-gradient-to-r from-emerald-500 to-green-600 hover:from-emerald-600 hover:to-green-700 text-white rounded-lg transition-all font-semibold shadow-lg text-sm transform hover:scale-105">
+            <i class="fas fa-user-plus mr-1"></i> Register
+          </a>
+        {{/if}}
+
+        <!-- Mobile Menu Toggle -->
+        <button id="mobileMenuToggle" class="lg:hidden p-2 text-white hover:bg-white/20 rounded-lg">
+          <i class="fas fa-bars text-2xl"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mobile Menu -->
+  <div id="mobileMenu" class="hidden lg:hidden relative bg-cover bg-center border-t border-emerald-600" style="background-image: url('https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=116050766671131');">
+    <div class="absolute inset-0 bg-emerald-900/90 backdrop-blur-sm"></div>
+    <div class="container mx-auto px-6 py-4 space-y-2 relative z-10">
+      <a href="/" class="block px-4 py-3 text-white hover:bg-white/20 rounded-lg transition-all font-medium">
+        <i class="fas fa-home mr-3"></i> Home
+      </a>
+      <a href="/heritage" class="block px-4 py-3 text-white hover:bg-white/20 rounded-lg transition-all font-medium">
+        <i class="fas fa-landmark mr-3"></i> Heritage
+      </a>
+      <a href="/events" class="block px-4 py-3 text-white hover:bg-white/20 rounded-lg transition-all font-medium">
+        <i class="fas fa-calendar-alt mr-3"></i> Events
+      </a>
+      <a href="/scenic" class="block px-4 py-3 text-white hover:bg-white/20 rounded-lg transition-all font-medium">
+        <i class="fas fa-camera mr-3"></i> Scenic
+      </a>
+      <a href="/crafts" class="block px-4 py-3 text-white hover:bg-white/20 rounded-lg transition-all font-medium">
+        <i class="fas fa-paint-brush mr-3"></i> Arts & Crafts
+      </a>
+      <a href="/shop" class="block px-4 py-3 text-white hover:bg-white/20 rounded-lg transition-all font-medium">
+        <i class="fas fa-shopping-bag mr-3"></i> Shop
+      </a>
+      
+      <!-- Mobile Search -->
+      <form action="/shop" method="GET" class="pt-2">
+        <div class="flex items-center bg-white/20 rounded-lg overflow-hidden">
+          <input name="search" 
+                 class="flex-1 px-4 py-3 bg-transparent outline-none placeholder-white/80 text-white"
+                 placeholder="Search products..." />
+          <button type="submit" class="px-4 py-3 bg-emerald-600 hover:bg-emerald-700 text-white">
+            <i class="fas fa-search"></i>
+          </button>
+        </div>
+      </form>
+      
+      <!-- Mobile Authentication -->
+      {{#if user.isAuthenticated}}
+        <!-- Mobile User Menu -->
+        <div class="pt-2 border-t border-white/20 mt-4">
+          <a href="/cart" class="block px-4 py-3 text-white hover:bg-white/20 rounded-lg transition-all font-medium">
+            <i class="fas fa-shopping-cart mr-3"></i> Cart {{#if cartCount}}({{cartCount}}){{/if}}
+          </a>
+          <a href="/wishlist" class="block px-4 py-3 text-white hover:bg-white/20 rounded-lg transition-all font-medium">
+            <i class="fas fa-heart mr-3"></i> Wishlist {{#if wishlistCount}}({{wishlistCount}}){{/if}}
+          </a>
+          <a href="/customer/profile" class="block px-4 py-3 text-white hover:bg-white/20 rounded-lg transition-all font-medium">
+            <i class="fas fa-user mr-3"></i> Profile
+          </a>
+          <a href="/logout" class="block px-4 py-3 text-red-300 hover:bg-red-500/20 rounded-lg transition-all font-medium">
+            <i class="fas fa-sign-out-alt mr-3"></i> Logout
+          </a>
+        </div>
+      {{else}}
+        <!-- Mobile Login/Register -->
+        <div class="pt-2 border-t border-white/20 mt-4 space-y-2">
+          <a href="/login" class="block w-full px-4 py-3 text-white hover:bg-white/20 border border-white/30 rounded-lg transition-all font-medium text-center">
+            <i class="fas fa-sign-in-alt mr-2"></i> Login
+          </a>
+          <a href="/register" class="block w-full px-4 py-3 bg-gradient-to-r from-emerald-500 to-green-600 hover:from-emerald-600 hover:to-green-700 text-white rounded-lg transition-all font-semibold text-center shadow-lg">
+            <i class="fas fa-user-plus mr-2"></i> Register
+          </a>
+        </div>
+      {{/if}}
+    </div>
+  </div>
+</nav>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+
+<script>
+  // Mobile menu toggle
+  document.addEventListener('DOMContentLoaded', function() {
+    const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+    const mobileMenu = document.getElementById('mobileMenu');
+    
+    if (mobileMenuToggle && mobileMenu) {
+      mobileMenuToggle.addEventListener('click', function() {
+        mobileMenu.classList.toggle('hidden');
+      });
+    }
+  });
+</script>

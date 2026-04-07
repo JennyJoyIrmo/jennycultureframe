@@ -1,0 +1,150 @@
+<div class="container mx-auto p-6">
+  <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+    <!-- Left: profile card -->
+    <div class="lg:col-span-1 bg-white rounded-lg shadow p-6">
+      <div class="flex items-center space-x-4">
+        {{#if user.profileImage}}
+          <img src="/uploads/{{user.profileImage}}" alt="avatar" class="w-20 h-20 rounded-full object-cover border" />
+        {{else}}
+          <div class="w-20 h-20 rounded-full bg-gray-200 flex items-center justify-center text-xl text-gray-600">{{user.name.[0]}}</div>
+        {{/if}}
+        <div>
+          <div class="text-2xl font-semibold">{{user.name}}</div>
+          <div class="text-sm text-gray-500">{{user.email}}</div>
+        </div>
+      </div>
+
+      <div class="mt-6 space-y-3">
+        <a href="/customer/profile/edit" class="block text-center bg-emerald-600 text-white py-2 rounded">Edit Profile</a>
+        <a href="/customer/orders" class="block text-center border border-gray-200 py-2 rounded">Your Orders</a>
+      </div>
+    </div>
+
+    <!-- Right: post form + gallery -->
+    <div class="lg:col-span-2 space-y-6">
+      <div class="bg-white rounded-lg shadow p-6">
+        <h3 class="text-lg font-semibold mb-2">Share a Moment</h3>
+        <form id="profilePostForm" enctype="multipart/form-data" class="space-y-3">
+          <textarea id="postText" name="text" placeholder="What's on your mind?" class="w-full border p-3 rounded resize-none" rows="3"></textarea>
+          <div class="flex items-center space-x-3">
+            <label class="flex items-center space-x-2 cursor-pointer">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-emerald-600" viewBox="0 0 20 20" fill="currentColor"><path d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4z"/></svg>
+              <span class="text-sm text-gray-600">Add photo</span>
+              <input type="file" id="postPhoto" name="photo" accept="image/*" class="hidden" />
+            </label>
+            <div id="previewWrapper" class="w-24 h-24 bg-gray-50 rounded overflow-hidden flex items-center justify-center border border-dashed border-gray-200">
+              <span class="text-xs text-gray-400">Preview</span>
+            </div>
+            <div class="ml-auto">
+              <button class="bg-emerald-600 text-white px-4 py-2 rounded" type="submit">Post</button>
+            </div>
+          </div>
+        </form>
+      </div>
+
+      <div class="bg-white rounded-lg shadow p-6">
+        <h3 class="text-lg font-semibold mb-4">Your Gallery</h3>
+        <div id="profilePhotos" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
+          {{#each photos}}
+            <div class="relative group bg-gray-50 rounded overflow-hidden border">
+              {{#if this.url}}
+                <img src="{{this.url}}" alt="photo" class="w-full h-40 object-cover cursor-pointer" data-full="{{this.url}}" />
+              {{else}}
+                <div class="p-3 text-sm text-gray-700">{{this.caption}}</div>
+              {{/if}}
+              {{#if this.caption}}
+                <div class="absolute bottom-1 left-1 right-1 text-xs bg-black bg-opacity-50 text-white p-1 rounded text-center">{{this.caption}}</div>
+              {{/if}}
+            </div>
+          {{/each}}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Lightbox -->
+  <div id="lightbox" class="hidden fixed inset-0 z-50 bg-black bg-opacity-75 items-center justify-center">
+    <button id="closeLightbox" class="absolute top-6 right-6 text-white bg-gray-800 bg-opacity-50 px-3 py-1 rounded">Close</button>
+    <img id="lightboxImg" src="" class="max-w-4xl max-h-[80vh] object-contain rounded" />
+  </div>
+</div>
+
+<script>
+(() => {
+  const form = document.getElementById('profilePostForm');
+  const photosContainer = document.getElementById('profilePhotos');
+  const photoInput = document.getElementById('postPhoto');
+  const preview = document.getElementById('previewWrapper');
+  const lightbox = document.getElementById('lightbox');
+  const lightboxImg = document.getElementById('lightboxImg');
+  const closeLightbox = document.getElementById('closeLightbox');
+
+  // image preview
+  if(photoInput){
+    photoInput.addEventListener('change', (e) => {
+      const f = e.target.files[0];
+      if(!f) { preview.innerHTML = '<span class="text-xs text-gray-400">Preview</span>'; return; }
+      const url = URL.createObjectURL(f);
+      preview.innerHTML = `<img src="${url}" class="w-full h-full object-cover" />`;
+    });
+  }
+
+  // post submission
+  if(form){
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const text = document.getElementById('postText').value || '';
+      const fd = new FormData();
+      fd.append('text', text);
+      if(photoInput && photoInput.files.length) fd.append('photo', photoInput.files[0]);
+      try{
+        const res = await fetch('/customer/moment', { method: 'POST', body: fd, credentials: 'same-origin' });
+        const data = await res.json();
+        if(data && data.success){
+          // refresh gallery by reloading photos section
+          await fetch('/customer/photos', { credentials: 'same-origin' }).then(r => r.json()).then(d => {
+            renderGallery(d.photos || []);
+          });
+          document.getElementById('postText').value = '';
+          if(photoInput) photoInput.value = '';
+          preview.innerHTML = '<span class="text-xs text-gray-400">Preview</span>';
+        } else {
+          alert((data && data.message) || 'Post failed');
+        }
+      } catch(err){ console.error(err); alert('Post error'); }
+    });
+  }
+
+  function renderGallery(photos){
+    if(!photosContainer) return;
+    photosContainer.innerHTML = '';
+    photos.forEach(p => {
+      const div = document.createElement('div');
+      div.className = 'relative group bg-gray-50 rounded overflow-hidden border';
+      if(p.url){
+        const img = document.createElement('img');
+        img.src = p.url;
+        img.className = 'w-full h-40 object-cover cursor-pointer';
+        img.setAttribute('data-full', p.url);
+        img.addEventListener('click', () => openLightbox(p.url));
+        div.appendChild(img);
+      } else {
+        const caption = document.createElement('div'); caption.className = 'p-3 text-sm text-gray-700'; caption.textContent = p.caption || '';
+        div.appendChild(caption);
+      }
+      if(p.caption){ const c = document.createElement('div'); c.className='absolute bottom-1 left-1 right-1 text-xs bg-black bg-opacity-50 text-white p-1 rounded text-center'; c.textContent = p.caption; div.appendChild(c); }
+      photosContainer.appendChild(div);
+    });
+  }
+
+  function openLightbox(url){ if(!lightbox) return; lightboxImg.src = url; lightbox.classList.remove('hidden'); }
+  function closeLight(){ if(!lightbox) return; lightbox.classList.add('hidden'); lightboxImg.src = ''; }
+  if(closeLightbox) closeLightbox.addEventListener('click', closeLight);
+  if(lightbox) lightbox.addEventListener('click', (e) => { if(e.target === lightbox) closeLight(); });
+
+  // on load, attach click listeners to existing images
+  document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('#profilePhotos img[data-full]').forEach(img => img.addEventListener('click', (e) => openLightbox(e.currentTarget.getAttribute('data-full'))));
+  });
+})();
+</script>
