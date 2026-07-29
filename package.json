@@ -4,6 +4,7 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
+    "xian": "node index.js",
     "start": "node index.js",
     "dev": "nodemon index.js",
     "migrate": "node migrate.js",

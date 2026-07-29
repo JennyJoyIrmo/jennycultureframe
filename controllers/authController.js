@@ -323,6 +323,7 @@ export const customerDashboard = async (req, res) => {
         name: req.session.userName,
         email: req.session.userEmail,
         role: req.session.userRole,
+        isAuthenticated: true,
         profileImage: dbUser && dbUser.profileImage ? dbUser.profileImage : null
       },
       serverUserDataJSON: JSON.stringify(serverUserData),

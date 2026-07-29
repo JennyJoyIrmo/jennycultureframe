@@ -20,7 +20,7 @@
           <div class="w-16 h-16 rounded-full bg-white/20 flex items-center justify-center border border-white/30">
             <i class="fas fa-compass text-white text-2xl"></i>
           </div>
-          <h1 class="text-4xl font-bold">Welcome to Your Dashboard</h1>
+          <h1 class="text-4xl font-bold">Welcome, {{user.name}}! 👋</h1>
         </div>
         <p class="text-xl text-emerald-100 max-w-2xl mx-auto leading-relaxed">
           Discover the rich cultural heritage of Mansalay, explore Hanunuo Mangyan traditions, and support local artisans.

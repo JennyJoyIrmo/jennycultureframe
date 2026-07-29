@@ -30,7 +30,7 @@
         <!-- Logo -->
         <div class="flex items-center space-x-2">
           <a href="/" class="flex items-center space-x-2">
-            <span class="text-3xl text-emerald-600">🌿</span>
+            <img src="/images/logo.png" alt="CultureFrame Logo" class="w-10 h-10 object-contain" />
             <div>
               <h1 class="text-xl font-bold text-gray-800">CultureFrame</h1>
               <p class="text-xs text-gray-600 -mt-1">Mansalay</p>

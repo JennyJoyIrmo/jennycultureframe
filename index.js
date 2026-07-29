@@ -58,17 +58,28 @@ app.use(flash());
 
 app.engine("xian", async (filePath, options, callback) => {
   try {
-     const originalPartialsDir = hbs.partialsDir;
-    hbs.partialsDir = path.join(__dirname, 'views');
+    // Re-register partials fresh on every render to ensure user context is correct
+    const partialsPath = path.join(__dirname, 'views/partials');
+    try {
+      const partialFiles = fs.readdirSync(partialsPath).filter(f => f.endsWith('.xian'));
+      for (const file of partialFiles) {
+        const name = file.replace('.xian', '');
+        const content = fs.readFileSync(path.join(partialsPath, file), 'utf8');
+        hbs.registerPartial(name, content);
+      }
+    } catch(e) {}
+
+    // Merge res.locals into options so partials can access isLoggedIn etc.
+    const locals = app.locals._currentLocals || {};
+    const mergedOptions = Object.assign({}, locals, options);
 
     const result = await new Promise((resolve, reject) => {
-      hbs.__express(filePath, options, (err, html) => {
+      hbs.__express(filePath, mergedOptions, (err, html) => {
         if (err) return reject(err);
         resolve(html);
       });
     });
 
-    hbs.partialsDir = originalPartialsDir;
     callback(null, result);
   } catch (err) {
     callback(err);
@@ -107,8 +118,14 @@ app.use((req, res, next) => {
     role: req.session.userRole || 'customer'
   }, sessionUser, {
     cart: req.session.cart,
-    wishlist: req.session.wishlist
+    wishlist: req.session.wishlist,
+    isAuthenticated: isAuthenticated  // always override with session value
   });
+
+  // Top-level auth flag that cannot be overridden by controllers
+  res.locals.isLoggedIn = isAuthenticated;
+  res.locals.sessionUserName = req.session.userName || '';
+  res.locals.sessionUserRole = req.session.userRole || 'customer';
 
   // Use cached counts from session (updated by cart/wishlist controllers)
   // This is MUCH faster than querying DB on every request
@@ -118,6 +135,10 @@ app.use((req, res, next) => {
   // Use session flash-like fields if set (controllers sometimes set these on session)
   res.locals.error_msg = req.session.error_msg || req.flash('error_msg') || res.locals.error_msg;
   res.locals.success_msg = req.session.success_msg || req.flash('success_msg') || res.locals.success_msg;
+
+  // Store locals reference so engine can access them
+  if (!app.locals._req) app.locals._req = {};
+  app.locals._currentLocals = res.locals;
 
   // Debug logging
   console.log('🔍 Middleware - Session exists:', !!req.session);
@@ -143,29 +164,43 @@ app.use((req, res, next) => {
 
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "xian");
+app.set("view cache", false);
 const partialsDir = path.join(__dirname, "views/partials");
-try {
-  const files = fs.readdirSync(partialsDir);
-  files
-    .filter(file => file.endsWith('.xian'))
-    .forEach(file => {
-      const partialName = file.replace('.xian', '');
-      const fullPath = path.join(partialsDir, file);
-      try {
-        const content = fs.readFileSync(fullPath, 'utf8');
-        hbs.registerPartial(partialName, content);
-      } catch (err) {
-        console.error(`❌ Failed to read partial: ${file}`, err);
-      }
-    });
-} catch (err) {
-  console.error("❌ Could not read partials directory:", err);
-}
+
+// Re-register partials on every request so changes are picked up
+app.use((req, res, next) => {
+  try {
+    const files = fs.readdirSync(partialsDir);
+    files
+      .filter(file => file.endsWith('.xian'))
+      .forEach(file => {
+        const partialName = file.replace('.xian', '');
+        const fullPath = path.join(partialsDir, file);
+        try {
+          const content = fs.readFileSync(fullPath, 'utf8');
+          hbs.registerPartial(partialName, content);
+        } catch (err) {
+          console.error(`❌ Failed to read partial: ${file}`, err);
+        }
+      });
+  } catch (err) {
+    console.error("❌ Could not read partials directory:", err);
+  }
+  next();
+});
 
 app.use("/", router);
 
 export default app;
 
 if (!process.env.ELECTRON) {
-  app.listen(PORT, () => console.log(`🔥 XianFire running at http://localhost:${PORT}`));
+  const server = app.listen(PORT, () => console.log(`🔥 XianFire running at http://localhost:${PORT}`));
+  server.on('error', (err) => {
+    if (err.code === 'EADDRINUSE') {
+      console.log(`⚠️ Port ${PORT} is in use. Trying port ${PORT + 1}...`);
+      app.listen(PORT + 1, () => console.log(`🔥 XianFire running at http://localhost:${PORT + 1}`));
+    } else {
+      console.error('❌ Server error:', err);
+    }
+  });
 }

@@ -8,7 +8,7 @@
       <div class="flex items-center space-x-4">
         <a href="/" class="flex items-center space-x-2 group">
           <div class="w-10 h-10 bg-white rounded-lg flex items-center justify-center shadow-lg transform group-hover:scale-110 transition-transform duration-300">
-            <span class="text-lg">🌿</span>
+            <img src="/images/logo.png" alt="CultureFrame Logo" class="w-9 h-9 object-contain rounded-lg" />
           </div>
           <div class="hidden lg:block">
             <div class="text-white font-bold text-lg tracking-tight">CultureFrame</div>
@@ -51,7 +51,7 @@
           </button>
         </form>
 
-        {{#if user.isAuthenticated}}
+        {{#if isLoggedIn}}
           <!-- Cart & Wishlist -->
           <a href="/cart" class="relative p-1.5 text-white hover:bg-white/20 rounded-lg transition-all">
             <i class="fas fa-shopping-cart text-lg"></i>
@@ -131,7 +131,7 @@
       </form>
       
       <!-- Mobile Authentication -->
-      {{#if user.isAuthenticated}}
+      {{#if isLoggedIn}}
         <!-- Mobile User Menu -->
         <div class="pt-2 border-t border-white/20 mt-4">
           <a href="/cart" class="block px-4 py-3 text-white hover:bg-white/20 rounded-lg transition-all font-medium">

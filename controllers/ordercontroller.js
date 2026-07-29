@@ -271,7 +271,8 @@ const ordercontroller = {
     const { id } = req.params;
     const { status } = req.body;
     await Order.update({ status }, { where: { id } });
-    res.redirect("/admin/orders");
+    req.flash('success_msg', `Order status updated to ${status}.`);
+    res.redirect(`/admin/orders/edit/${id}`);
   }
   ,
   // Customer-facing order list (orders belonging to logged-in user)

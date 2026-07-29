@@ -6,10 +6,8 @@
   <div class="relative z-10">
     <!-- Logo Section with Animation -->
     <div class="flex items-center space-x-3 mb-10 p-4 bg-white/10 rounded-2xl backdrop-blur-sm border border-white/20 transform transition-all duration-500 hover:scale-105 animate-fade-in">
-      <div class="w-12 h-12 bg-gradient-to-r from-emerald-400 to-green-400 rounded-xl flex items-center justify-center shadow-lg animate-bounce-slow">
-        <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
-          <path fill-rule="evenodd" d="M11.3 1.046A1 1 0 0112 2v5h4a1 1 0 01.82 1.573l-7 10A1 1 0 018 18v-5H4a1 1 0 01-.82-1.573l7-10a1 1 0 011.12-.38z" clip-rule="evenodd"></path>
-        </svg>
+      <div class="w-12 h-12 bg-white rounded-xl flex items-center justify-center shadow-lg">
+        <img src="/images/logo.png" alt="CultureFrame Logo" class="w-11 h-11 object-contain rounded-xl" />
       </div>
       <div>
         <h2 class="text-xl font-bold bg-gradient-to-r from-emerald-200 to-green-200 bg-clip-text text-transparent">CultureFrame</h2>

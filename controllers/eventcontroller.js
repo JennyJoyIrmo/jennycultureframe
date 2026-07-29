@@ -26,7 +26,21 @@ import { Event, sequelize } from "../models/Event.js";
 await sequelize.sync();
 
 const eventcontroller = {
+  cleanupExpiredEvents: async () => {
+    try {
+      await Event.destroy({
+        where: {
+          event_date: {
+            [sequelize.Sequelize.Op.lt]: new Date()
+          }
+        }
+      });
+    } catch (err) {
+      console.error('Error cleaning up expired events:', err);
+    }
+  },
   index: async (req, res) => {
+    await eventcontroller.cleanupExpiredEvents();
     const events = await Event.findAll({ where: { event_date: { [sequelize.Sequelize.Op.gte]: new Date() } } });
     res.render("events/index", { events });
   },
@@ -72,6 +86,7 @@ const eventcontroller = {
   },
   
   adminIndex: async (req, res) => {
+    await eventcontroller.cleanupExpiredEvents();
     const events = await Event.findAll();
     res.render("admin/event-list", { events });
   },
@@ -88,10 +103,11 @@ const eventcontroller = {
         finalImageUrl = '/uploads/' + req.file.filename;
       }
       await Event.create({ title, description, event_date, location, image_url: finalImageUrl, category });
+      req.flash('success_msg', 'Event added successfully.');
       res.redirect("/admin/events");
     } catch (err) {
       console.error('Event add error:', err);
-      req.session.error_msg = 'Could not add event. Please check your input.';
+      req.flash('error_msg', 'Could not add event. Please check your input.');
       res.redirect('back');
     }
   },
@@ -111,17 +127,28 @@ const eventcontroller = {
         finalImageUrl = '/uploads/' + req.file.filename;
       }
       await Event.update({ title, description, event_date, location, image_url: finalImageUrl, category }, { where: { id } });
+      req.flash('success_msg', 'Event updated successfully.');
       res.redirect("/admin/events");
     } catch (err) {
       console.error('Event update error:', err);
-      req.session.error_msg = 'Could not update event. Please check your input.';
+      req.flash('error_msg', 'Could not update event. Please check your input.');
       res.redirect('back');
     }
   },
   
   delete: async (req, res) => {
     const { id } = req.body;
-    await Event.destroy({ where: { id } });
+    try {
+      const deletedCount = await Event.destroy({ where: { id } });
+      if (deletedCount) {
+        req.flash('success_msg', 'Event deleted successfully.');
+      } else {
+        req.flash('error_msg', 'Event not found or already deleted.');
+      }
+    } catch (err) {
+      console.error('Event delete error:', err);
+      req.flash('error_msg', 'Unable to delete event. Please try again.');
+    }
     res.redirect("/admin/events");
   }
 };

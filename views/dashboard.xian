@@ -1,149 +1,157 @@
 {{> head}}
-<body class="bg-gray-50 min-h-screen">
+<body class="bg-emerald-50 min-h-screen text-slate-700">
 
   <!-- Navigation -->
-  <nav class="bg-emerald-800 text-white shadow-lg">
-    <div class="container mx-auto px-6 py-4">
-      <div class="flex justify-between items-center">
-        <div class="flex items-center space-x-4">
-          <h1 class="text-2xl font-bold">CultureFrame</h1>
-          <span class="text-emerald-200">Customer Dashboard</span>
+  <nav class="bg-emerald-900 text-emerald-50 shadow-xl border-b border-emerald-700">
+    <div class="container mx-auto px-6 py-4 flex flex-col md:flex-row items-center justify-between gap-4">
+      <div class="flex items-center gap-4">
+        <div class="rounded-2xl bg-emerald-700/20 p-3">
+          <svg class="w-8 h-8 text-emerald-200" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-4.418 0-8 1.79-8 4v4h16v-4c0-2.21-3.582-4-8-4z" />
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 16v1a2 2 0 002 2h8a2 2 0 002-2v-1" />
+          </svg>
         </div>
-        <div class="flex items-center space-x-6">
-          <span class="text-emerald-100">Welcome, {{user.name}}!</span>
-          <a href="/" class="text-emerald-100 hover:text-white transition-colors">Home</a>
-          <a href="/shop" class="text-emerald-100 hover:text-white transition-colors">Shop</a>
-          <a href="/heritage" class="text-emerald-100 hover:text-white transition-colors">Heritage</a>
-          <a href="/events" class="text-emerald-100 hover:text-white transition-colors">Events</a>
-          <a href="/logout" class="bg-red-600 hover:bg-red-700 px-4 py-2 rounded-lg transition-colors">Logout</a>
+        <div>
+          <h1 class="text-2xl font-bold tracking-tight">CultureFrame</h1>
+          <p class="text-sm text-emerald-200">Customer Dashboard</p>
         </div>
+      </div>
+      <div class="flex flex-wrap items-center gap-3 text-sm">
+        <span class="rounded-full bg-emerald-700/20 px-4 py-2">Welcome, {{user.name}}</span>
+        <a href="/" class="px-4 py-2 rounded-lg bg-emerald-700/20 hover:bg-emerald-600 transition">Home</a>
+        <a href="/shop" class="px-4 py-2 rounded-lg bg-emerald-700/20 hover:bg-emerald-600 transition">Shop</a>
+        <a href="/heritage" class="px-4 py-2 rounded-lg bg-emerald-700/20 hover:bg-emerald-600 transition">Heritage</a>
+        <a href="/events" class="px-4 py-2 rounded-lg bg-emerald-700/20 hover:bg-emerald-600 transition">Events</a>
+        <a href="/logout" class="px-4 py-2 rounded-lg bg-red-500 hover:bg-red-600 transition text-white">Logout</a>
       </div>
     </div>
   </nav>
 
-  <!-- Main Content -->
-  <div class="container mx-auto px-6 py-12">
-    <!-- Welcome Section -->
-    <div class="text-center mb-12">
-      <h1 class="text-4xl font-bold text-gray-800 mb-4">Welcome to Your Dashboard</h1>
-      <p class="text-xl text-gray-600 max-w-2xl mx-auto">
-        Explore Mansalay's rich cultural heritage, shop local products, and discover upcoming events.
-      </p>
-    </div>
-
-    <!-- Quick Stats -->
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
-      <div class="bg-white rounded-2xl shadow-lg p-6 text-center hover:shadow-xl transition-shadow">
-        <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
-          <svg class="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path>
-          </svg>
+  <main class="container mx-auto px-6 py-10">
+    <section class="grid grid-cols-1 lg:grid-cols-[1.5fr_1fr] gap-8 mb-10">
+      <div class="rounded-[32px] bg-gradient-to-br from-emerald-600 to-teal-500 p-8 text-white shadow-2xl overflow-hidden relative">
+        <div class="absolute inset-0 opacity-10 bg-[radial-gradient(circle_at_top_right,rgba(255,255,255,0.35),transparent_45%)]"></div>
+        <h2 class="text-4xl font-extrabold tracking-tight mb-4">Mas maganda na dashboard mo.</h2>
+        <p class="max-w-xl text-lg leading-8 opacity-90">
+          Discover cultural finds, shop local goods, and manage your activities with a fresh green experience.
+        </p>
+        <div class="mt-8 grid gap-4 sm:grid-cols-2">
+          <div class="rounded-3xl bg-white/10 p-5 backdrop-blur-sm border border-white/15">
+            <p class="text-sm uppercase tracking-[0.24em] opacity-80">Next event</p>
+            <p class="mt-3 text-xl font-semibold">Community Market</p>
+          </div>
+          <div class="rounded-3xl bg-white/10 p-5 backdrop-blur-sm border border-white/15">
+            <p class="text-sm uppercase tracking-[0.24em] opacity-80">Total items</p>
+            <p class="mt-3 text-xl font-semibold">25+ handcrafted goods</p>
+          </div>
         </div>
-        <h3 class="text-xl font-semibold text-gray-800 mb-2">Recent Orders</h3>
-        <p class="text-3xl font-bold text-blue-600">0</p>
-        <p class="text-gray-500 mt-2">No orders yet</p>
-        <a href="/shop" class="inline-block mt-4 bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors">
-          Start Shopping
-        </a>
       </div>
-
-      <div class="bg-white rounded-2xl shadow-lg p-6 text-center hover:shadow-xl transition-shadow">
-        <div class="w-16 h-16 bg-emerald-100 rounded-full flex items-center justify-center mx-auto mb-4">
-          <svg class="w-8 h-8 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v13m0-13V6a2 2 0 112 2h-2zm0 0V5.5A2.5 2.5 0 109.5 8H12zm-7 4h14M5 12a2 2 0 110-4h14a2 2 0 110 4M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7"></path>
-          </svg>
+      <div class="space-y-6">
+        <div class="rounded-[32px] bg-white shadow-xl p-6 border border-emerald-100">
+          <h3 class="text-xl font-semibold text-slate-900 mb-4">Your profile</h3>
+          <p class="text-sm text-slate-600 mb-4">Update your information, view your orders, and keep your account fresh.</p>
+          <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+            <div class="rounded-3xl bg-emerald-50 p-5">
+              <p class="text-xs uppercase tracking-[0.24em] text-emerald-700/80">Profile status</p>
+              <p class="mt-3 text-lg font-semibold text-emerald-900">Active</p>
+            </div>
+            <div class="rounded-3xl bg-slate-50 p-5">
+              <p class="text-xs uppercase tracking-[0.24em] text-slate-500">Orders</p>
+              <p class="mt-3 text-lg font-semibold text-slate-900">0</p>
+            </div>
+          </div>
+          <div class="mt-5 flex flex-wrap gap-3">
+            <a href="/customer/profile/edit" class="inline-flex items-center justify-center rounded-full bg-emerald-600 px-5 py-2 text-sm font-semibold text-white hover:bg-emerald-700 transition">Edit Profile</a>
+            <a href="/customer/orders" class="inline-flex items-center justify-center rounded-full border border-emerald-200 px-5 py-2 text-sm text-emerald-700 hover:bg-emerald-50 transition">View Orders</a>
+          </div>
         </div>
-        <h3 class="text-xl font-semibold text-gray-800 mb-2">Local Products</h3>
-        <p class="text-3xl font-bold text-emerald-600">25+</p>
-        <p class="text-gray-500 mt-2">Available items</p>
-        <a href="/shop" class="inline-block mt-4 bg-emerald-600 text-white px-6 py-2 rounded-lg hover:bg-emerald-700 transition-colors">
-          Browse Products
-        </a>
-      </div>
-
-      <div class="bg-white rounded-2xl shadow-lg p-6 text-center hover:shadow-xl transition-shadow">
-        <div class="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
-          <svg class="w-8 h-8 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
-          </svg>
+        <div class="rounded-[32px] bg-white shadow-xl p-6 border border-emerald-100">
+          <h3 class="text-xl font-semibold text-slate-900 mb-4">Quick actions</h3>
+          <div class="grid grid-cols-1 gap-3 sm:grid-cols-2">
+            <a href="/shop" class="rounded-3xl border border-slate-200 p-4 hover:border-emerald-200 hover:bg-emerald-50 transition">
+              <p class="text-sm text-slate-500">Browse</p>
+              <p class="mt-2 font-semibold text-slate-900">Shop products</p>
+            </a>
+            <a href="/heritage" class="rounded-3xl border border-slate-200 p-4 hover:border-emerald-200 hover:bg-emerald-50 transition">
+              <p class="text-sm text-slate-500">Discover</p>
+              <p class="mt-2 font-semibold text-slate-900">Heritage sites</p>
+            </a>
+            <a href="/events" class="rounded-3xl border border-slate-200 p-4 hover:border-emerald-200 hover:bg-emerald-50 transition">
+              <p class="text-sm text-slate-500">Attend</p>
+              <p class="mt-2 font-semibold text-slate-900">Upcoming events</p>
+            </a>
+            <a href="/checkout" class="rounded-3xl border border-slate-200 p-4 hover:border-emerald-200 hover:bg-emerald-50 transition">
+              <p class="text-sm text-slate-500">Checkout</p>
+              <p class="mt-2 font-semibold text-slate-900">My cart</p>
+            </a>
+          </div>
         </div>
-        <h3 class="text-xl font-semibold text-gray-800 mb-2">Upcoming Events</h3>
-        <p class="text-3xl font-bold text-purple-600">5+</p>
-        <p class="text-gray-500 mt-2">Cultural events</p>
-        <a href="/events" class="inline-block mt-4 bg-purple-600 text-white px-6 py-2 rounded-lg hover:bg-purple-700 transition-colors">
-          View Events
-        </a>
       </div>
-    </div>
+    </section>
 
-    <!-- Quick Actions -->
-    <div class="bg-white rounded-2xl shadow-lg p-8 mb-12">
-      <h2 class="text-2xl font-bold text-gray-800 mb-6">Quick Actions</h2>
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        <a href="/shop" class="group">
-          <div class="bg-gray-50 rounded-xl p-6 text-center hover:bg-emerald-50 hover:border-emerald-200 border-2 border-transparent transition-all duration-300">
-            <div class="w-12 h-12 bg-emerald-100 rounded-lg flex items-center justify-center mx-auto mb-4 group-hover:bg-emerald-200 transition-colors">
-              <svg class="w-6 h-6 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path>
-              </svg>
-            </div>
-            <h3 class="font-semibold text-gray-800 group-hover:text-emerald-700 transition-colors">Shop Products</h3>
-            <p class="text-sm text-gray-600 mt-2">Browse local crafts & goods</p>
+    <section class="grid gap-6 xl:grid-cols-[2fr_1fr]">
+      <div class="rounded-[32px] bg-white shadow-xl p-8 border border-emerald-100">
+        <div class="flex items-center justify-between gap-4 mb-6">
+          <div>
+            <h2 class="text-2xl font-bold text-slate-900">Dashboard overview</h2>
+            <p class="text-sm text-slate-500">See your current site activity and next steps.</p>
           </div>
-        </a>
-
-        <a href="/heritage" class="group">
-          <div class="bg-gray-50 rounded-xl p-6 text-center hover:bg-blue-50 hover:border-blue-200 border-2 border-transparent transition-all duration-300">
-            <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mx-auto mb-4 group-hover:bg-blue-200 transition-colors">
-              <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
-              </svg>
+          <a href="/shop" class="text-sm font-semibold text-emerald-600 hover:text-emerald-700 transition">Explore more →</a>
+        </div>
+        <div class="grid gap-4 md:grid-cols-2">
+          <div class="rounded-3xl border border-emerald-50 bg-emerald-50 p-6">
+            <span class="inline-flex rounded-full bg-white p-3 shadow-sm text-emerald-600">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4z"/></svg>
+            </span>
+            <div class="mt-4">
+              <p class="text-sm text-slate-500">Cart items</p>
+              <p class="mt-2 text-3xl font-bold text-slate-900">0</p>
             </div>
-            <h3 class="font-semibold text-gray-800 group-hover:text-blue-700 transition-colors">Explore Heritage</h3>
-            <p class="text-sm text-gray-600 mt-2">Discover cultural sites</p>
           </div>
-        </a>
-
-        <a href="/events" class="group">
-          <div class="bg-gray-50 rounded-xl p-6 text-center hover:bg-purple-50 hover:border-purple-200 border-2 border-transparent transition-all duration-300">
-            <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mx-auto mb-4 group-hover:bg-purple-200 transition-colors">
-              <svg class="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
-              </svg>
+          <div class="rounded-3xl border border-emerald-50 bg-white p-6">
+            <span class="inline-flex rounded-full bg-emerald-100 p-3 text-emerald-700">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5a1 1 0 011-1h2a1 1 0 011 1v12h1a1 1 0 011 1v2H7v-2a1 1 0 011-1h1V5z"/></svg>
+            </span>
+            <div class="mt-4">
+              <p class="text-sm text-slate-500">Wishlist</p>
+              <p class="mt-2 text-3xl font-bold text-slate-900">0</p>
             </div>
-            <h3 class="font-semibold text-gray-800 group-hover:text-purple-700 transition-colors">View Events</h3>
-            <p class="text-sm text-gray-600 mt-2">See upcoming festivals</p>
           </div>
-        </a>
-
-        <a href="/checkout" class="group">
-          <div class="bg-gray-50 rounded-xl p-6 text-center hover:bg-amber-50 hover:border-amber-200 border-2 border-transparent transition-all duration-300">
-            <div class="w-12 h-12 bg-amber-100 rounded-lg flex items-center justify-center mx-auto mb-4 group-hover:bg-amber-200 transition-colors">
-              <svg class="w-6 h-6 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path>
-              </svg>
+          <div class="rounded-3xl border border-emerald-50 bg-white p-6">
+            <span class="inline-flex rounded-full bg-emerald-100 p-3 text-emerald-700">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-6a2 2 0 012-2h2a2 2 0 012 2v6m-6 0a2 2 0 104 0m6 0v1a2 2 0 01-2 2H7a2 2 0 01-2-2v-1"/></svg>
+            </span>
+            <div class="mt-4">
+              <p class="text-sm text-slate-500">Orders</p>
+              <p class="mt-2 text-3xl font-bold text-slate-900">0</p>
             </div>
-            <h3 class="font-semibold text-gray-800 group-hover:text-amber-700 transition-colors">My Cart</h3>
-            <p class="text-sm text-gray-600 mt-2">Review your items</p>
           </div>
-        </a>
+          <div class="rounded-3xl border border-emerald-50 bg-emerald-50 p-6">
+            <span class="inline-flex rounded-full bg-white p-3 shadow-sm text-emerald-600">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-4.418 0-8 1.79-8 4v4h16v-4c0-2.21-3.582-4-8-4z"/></svg></span>
+            <div class="mt-4">
+              <p class="text-sm text-slate-500">Activity</p>
+              <p class="mt-2 text-3xl font-bold text-slate-900">Fresh</p>
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
-
-    <!-- Recent Activity -->
-    <div class="bg-white rounded-2xl shadow-lg p-8">
-      <h2 class="text-2xl font-bold text-gray-800 mb-6">Recent Activity</h2>
-      <div class="text-center py-12">
-        <svg class="w-16 h-16 text-gray-400 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
-        </svg>
-        <h3 class="text-xl font-semibold text-gray-600 mb-2">No Recent Activity</h3>
-        <p class="text-gray-500 mb-6">Your recent orders and activities will appear here.</p>
-        <a href="/shop" class="inline-block bg-emerald-600 text-white px-8 py-3 rounded-lg hover:bg-emerald-700 transition-colors font-semibold">
-          Start Exploring
-        </a>
-      </div>
-    </div>
-  </div>
+      <aside class="space-y-6">
+        <div class="rounded-[32px] bg-white shadow-xl p-6 border border-emerald-100">
+          <h3 class="text-xl font-semibold text-slate-900 mb-4">Highlights</h3>
+          <ul class="space-y-3 text-slate-600">
+            <li class="rounded-3xl bg-emerald-50 p-4">New local crafts added every week.</li>
+            <li class="rounded-3xl bg-emerald-50 p-4">Fast checkout with safe payments.</li>
+            <li class="rounded-3xl bg-emerald-50 p-4">Join events and celebrate culture.</li>
+          </ul>
+        </div>
+        <div class="rounded-[32px] bg-gradient-to-br from-emerald-600 to-teal-500 p-6 text-white shadow-xl">
+          <h3 class="text-xl font-semibold">Want your page to look even better?</h3>
+          <p class="mt-3 text-sm leading-6 text-emerald-100/90">I can continue refreshing the shop, profile, and event pages with the same polished green theme.</p>
+          <a href="/customer/profile" class="mt-5 inline-flex w-full items-center justify-center rounded-full bg-white px-4 py-3 text-sm font-semibold text-emerald-800 hover:bg-emerald-100 transition">Go to Profile</a>
+        </div>
+      </aside>
+    </section>
+  </main>
 
   {{>footer}}

@@ -8,5 +8,131 @@
     </p>
   </div>
 </footer>
+
+<!-- AI Chatbot Widget -->
+<div id="chatbot-widget" style="position:fixed;bottom:24px;right:24px;z-index:9999;font-family:sans-serif;">
+  <!-- Toggle Button -->
+  <button id="chatbot-toggle" onclick="toggleChat()"
+    style="width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,#059669,#10b981);border:none;cursor:pointer;box-shadow:0 4px 16px rgba(5,150,105,0.4);display:flex;align-items:center;justify-content:center;">
+    <svg id="chat-icon" width="24" height="24" fill="white" viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/></svg>
+    <svg id="close-icon" width="24" height="24" fill="white" viewBox="0 0 24 24" style="display:none;"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+  </button>
+
+  <!-- Chat Window -->
+  <div id="chat-window" style="display:none;position:absolute;bottom:68px;right:0;width:320px;background:white;border-radius:16px;box-shadow:0 8px 32px rgba(0,0,0,0.15);overflow:hidden;">
+    <!-- Header -->
+    <div style="background:linear-gradient(135deg,#059669,#10b981);padding:14px 16px;display:flex;align-items:center;gap:10px;">
+      <img src="/images/logo.png" style="width:32px;height:32px;border-radius:50%;object-fit:contain;background:white;" />
+      <div>
+        <div style="color:white;font-weight:700;font-size:14px;">CultureFrame Assistant</div>
+        <div style="color:#d1fae5;font-size:11px;">● Online — typically replies instantly</div>
+      </div>
+    </div>
+
+    <!-- Messages -->
+    <div id="chat-messages" style="height:280px;overflow-y:auto;padding:12px;display:flex;flex-direction:column;gap:8px;background:#f9fafb;">
+      <div style="background:#ecfdf5;border-radius:12px 12px 12px 0;padding:10px 12px;max-width:90%;font-size:13px;color:#065f46;">
+        👋 Hi! I'm the CultureFrame Assistant. How can I help you today?
+        <div style="margin-top:8px;display:flex;flex-direction:column;gap:6px;">
+          <button onclick="sendQuick('Tell me about heritage sites')" style="background:white;border:1px solid #059669;color:#059669;border-radius:20px;padding:5px 12px;font-size:12px;cursor:pointer;text-align:left;">🏛️ Heritage sites in Mansalay</button>
+          <button onclick="sendQuick('Show me local products')" style="background:white;border:1px solid #059669;color:#059669;border-radius:20px;padding:5px 12px;font-size:12px;cursor:pointer;text-align:left;">🛍️ Local products & crafts</button>
+          <button onclick="sendQuick('What events are coming up')" style="background:white;border:1px solid #059669;color:#059669;border-radius:20px;padding:5px 12px;font-size:12px;cursor:pointer;text-align:left;">🎉 Upcoming events</button>
+          <button onclick="sendQuick('How do I use the platform')" style="background:white;border:1px solid #059669;color:#059669;border-radius:20px;padding:5px 12px;font-size:12px;cursor:pointer;text-align:left;">❓ How to use the platform</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Input -->
+    <div style="padding:10px;border-top:1px solid #e5e7eb;display:flex;gap:8px;background:white;">
+      <input id="chat-input" type="text" placeholder="Type a message..."
+        style="flex:1;padding:8px 12px;border:1px solid #d1d5db;border-radius:20px;font-size:13px;outline:none;"
+        onkeydown="if(event.key==='Enter') sendMessage()" />
+      <button onclick="sendMessage()"
+        style="background:#059669;color:white;border:none;border-radius:50%;width:36px;height:36px;cursor:pointer;display:flex;align-items:center;justify-content:center;">
+        <svg width="16" height="16" fill="white" viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
+      </button>
+    </div>
+  </div>
+</div>
+
+<script>
+function toggleChat() {
+  const win = document.getElementById('chat-window');
+  const chatIcon = document.getElementById('chat-icon');
+  const closeIcon = document.getElementById('close-icon');
+  const isOpen = win.style.display === 'flex' || win.style.display === 'block';
+  win.style.display = isOpen ? 'none' : 'block';
+  chatIcon.style.display = isOpen ? 'block' : 'none';
+  closeIcon.style.display = isOpen ? 'none' : 'block';
+}
+
+function sendQuick(text) {
+  document.getElementById('chat-input').value = text;
+  sendMessage();
+}
+
+function sendMessage() {
+  const input = document.getElementById('chat-input');
+  const messages = document.getElementById('chat-messages');
+  const text = input.value.trim();
+  if (!text) return;
+
+  const userDiv = document.createElement('div');
+  userDiv.style.cssText = 'background:#059669;color:white;border-radius:12px 12px 0 12px;padding:10px 12px;max-width:85%;font-size:13px;align-self:flex-end;margin-left:auto;';
+  userDiv.textContent = text;
+  messages.appendChild(userDiv);
+  input.value = '';
+  messages.scrollTop = messages.scrollHeight;
+
+  const typing = document.createElement('div');
+  typing.id = 'typing-indicator';
+  typing.style.cssText = 'background:#ecfdf5;border-radius:12px;padding:10px 14px;font-size:13px;color:#059669;max-width:60%;';
+  typing.innerHTML = '● ● ●';
+  messages.appendChild(typing);
+  messages.scrollTop = messages.scrollHeight;
+
+  setTimeout(() => {
+    typing.remove();
+    const botDiv = document.createElement('div');
+    botDiv.style.cssText = 'background:#ecfdf5;border-radius:12px 12px 12px 0;padding:10px 12px;max-width:90%;font-size:13px;color:#065f46;line-height:1.5;';
+    botDiv.innerHTML = getBotReply(text.toLowerCase());
+    messages.appendChild(botDiv);
+    messages.scrollTop = messages.scrollHeight;
+  }, 800);
+}
+
+function getBotReply(msg) {
+  if (msg.includes('heritage') || msg.includes('history') || msg.includes('kultura') || msg.includes('historical'))
+    return '🏛️ Mansalay has rich cultural heritage including <strong>Hanunuo Mangyan</strong> traditions, historical landmarks, and indigenous practices. Explore them in our <a href="/heritage" style="color:#059669;font-weight:600;">Heritage</a> section!';
+  if (msg.includes('shop') || msg.includes('product') || msg.includes('buy') || msg.includes('craft') || msg.includes('local'))
+    return '🛍️ Support local artisans! Browse authentic Mangyan crafts, woven items, and handmade products in our <a href="/shop" style="color:#059669;font-weight:600;">Shop</a>. Free delivery available for select items!';
+  if (msg.includes('event') || msg.includes('festival') || msg.includes('fiesta') || msg.includes('upcoming') || msg.includes('coming'))
+    return '🎉 Check out upcoming cultural events and festivals in the <a href="/events" style="color:#059669;font-weight:600;">Events</a> section. You can register and buy tickets online!';
+  if (msg.includes('scenic') || msg.includes('nature') || msg.includes('tour') || msg.includes('visit') || msg.includes('place') || msg.includes('location'))
+    return '📸 Discover beautiful scenic spots in Mansalay! Visit our <a href="/scenic" style="color:#059669;font-weight:600;">Scenic Locations</a> section for virtual tours and photo galleries.';
+  if (msg.includes('register') || msg.includes('account') || msg.includes('sign up') || msg.includes('create'))
+    return '👤 Creating an account is free! Click <a href="/register" style="color:#059669;font-weight:600;">Register</a> and fill in your details. You\'ll get access to shopping, events, and community features.';
+  if (msg.includes('login') || msg.includes('log in') || msg.includes('sign in') || msg.includes('password'))
+    return '🔐 Go to the <a href="/login" style="color:#059669;font-weight:600;">Login</a> page and enter your email and password. Forgot your password? Use the "Forgot Password" link.';
+  if (msg.includes('contact') || msg.includes('help') || msg.includes('support') || msg.includes('problem') || msg.includes('issue'))
+    return '📞 Need help? Email us at <strong>info@cultureframe.com</strong> or visit our office in Mansalay, Oriental Mindoro. We respond within 24 hours!';
+  if (msg.includes('hello') || msg.includes('hi') || msg.includes('hey') || msg.includes('kumusta') || msg.includes('good'))
+    return '👋 Hello! Welcome to CultureFrame — your gateway to Mansalay\'s cultural heritage. How can I assist you today?';
+  if (msg.includes('mangyan') || msg.includes('indigenous') || msg.includes('tribe') || msg.includes('hanunuo'))
+    return '🌿 The <strong>Hanunuo Mangyan</strong> are the indigenous people of Mansalay. They are known for their unique script (Hanunuo script), beautiful woven crafts, and rich oral traditions. Learn more in our <a href="/heritage" style="color:#059669;font-weight:600;">Heritage</a> section!';
+  if (msg.includes('cart') || msg.includes('checkout') || msg.includes('order') || msg.includes('payment'))
+    return '🛒 To place an order: browse the <a href="/shop" style="color:#059669;font-weight:600;">Shop</a>, add items to cart, then proceed to checkout. We accept cash on delivery and online payment.';
+  if (msg.includes('profile') || msg.includes('account') || msg.includes('settings'))
+    return '⚙️ You can manage your profile, view orders, and update your information in your <a href="/customer/profile" style="color:#059669;font-weight:600;">Profile</a> page.';
+  if (msg.includes('about') || msg.includes('cultureframe') || msg.includes('platform') || msg.includes('what is'))
+    return '🌟 CultureFrame is a web-based cultural heritage platform for Mansalay, Oriental Mindoro. We preserve heritage, support local artisans, and connect communities through technology. Tagline: <em>"Preserving Heritage, Empowering Communities"</em>';
+  if (msg.includes('how') || msg.includes('use') || msg.includes('guide') || msg.includes('tutorial'))
+    return '📖 Here\'s how to use CultureFrame:<br>1. <a href="/register" style="color:#059669;">Create an account</a><br>2. Explore <a href="/heritage" style="color:#059669;">Heritage</a>, <a href="/events" style="color:#059669;">Events</a>, <a href="/shop" style="color:#059669;">Shop</a><br>3. Share moments with the community<br>4. Support local artisans by shopping!';
+  if (msg.includes('price') || msg.includes('cost') || msg.includes('free') || msg.includes('bayad'))
+    return '💰 CultureFrame is <strong>free to use</strong>! Creating an account, browsing heritage content, and viewing events are all free. Products in the shop have their own prices set by local artisans.';
+  return '🤔 I\'m not sure about that specific question, but I\'m here to help! Try asking about:<br>• <button onclick="sendQuick(\'heritage sites\')" style="background:none;border:none;color:#059669;cursor:pointer;font-size:13px;padding:0;text-decoration:underline;">Heritage sites</button><br>• <button onclick="sendQuick(\'local products\')" style="background:none;border:none;color:#059669;cursor:pointer;font-size:13px;padding:0;text-decoration:underline;">Local products</button><br>• <button onclick="sendQuick(\'upcoming events\')" style="background:none;border:none;color:#059669;cursor:pointer;font-size:13px;padding:0;text-decoration:underline;">Events</button><br>Or email us: <strong>info@cultureframe.com</strong>';
+}
+</script>
+
 </body>
 </html>

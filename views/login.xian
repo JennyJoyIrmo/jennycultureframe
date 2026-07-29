@@ -8,127 +8,89 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
   <style>
     body {
-      background-color: #065f46; /* Fallback color */
-      background-image: url('https://images.unsplash.com/photo-1441974231531-c6227db76b6e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2071&q=80');
+      background-color: #065f46;
+      background-image: url('https://images.unsplash.com/photo-1441974231531-c6227db76b6e?ixlib=rb-4.0.3&auto=format&fit=crop&w=2071&q=80');
       background-size: cover;
       background-position: center;
       background-repeat: no-repeat;
       background-attachment: fixed;
     }
-    
-    /* Ensure background loads */
-    body::before {
-      content: '';
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-image: url('https://images.unsplash.com/photo-1441974231531-c6227db76b6e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2071&q=80');
-      background-size: cover;
-      background-position: center;
-      background-repeat: no-repeat;
-      z-index: -1;
-    }
   </style>
 </head>
 <body class="min-h-screen flex items-center justify-center p-4 relative">
-  <!-- Dark overlay for better readability -->
-  <div class="absolute inset-0 bg-gradient-to-br from-emerald-900/80 via-green-900/70 to-emerald-800/80 backdrop-blur-[1px]"></div>
-  <div class="w-full max-w-md relative z-10">
-    <!-- Logo Section -->
-    <div class="text-center mb-8">
-      <div class="w-20 h-20 bg-white/90 backdrop-blur-md rounded-full flex items-center justify-center mx-auto mb-4 shadow-2xl border-4 border-white/30">
-        <span class="text-3xl">🌿</span>
-      </div>
-      <h1 class="text-4xl font-bold text-white mb-2 drop-shadow-lg">CultureFrame</h1>
-      <p class="text-emerald-100 text-lg drop-shadow-md">Mansalay Heritage Platform</p>
-    </div>
+  <div class="absolute inset-0 bg-gradient-to-br from-emerald-900/80 via-green-900/70 to-emerald-800/80"></div>
 
-    <!-- Login Form -->
+  <div class="w-full max-w-md relative z-10">
+    <!-- Card with logo inside -->
     <div class="bg-white/95 backdrop-blur-md rounded-2xl shadow-2xl p-8 border border-white/20">
-      <h2 class="text-2xl font-bold text-gray-800 mb-6 text-center">Welcome Back</h2>
-      
+
+      <!-- Logo inside card -->
+      <div class="flex flex-col items-center mb-6">
+        <img src="/images/logo.png" alt="CultureFrame Logo" class="w-16 h-16 object-contain mb-2" />
+        <h1 class="text-2xl font-bold text-emerald-700">CultureFrame</h1>
+        <p class="text-gray-500 text-sm">Mansalay Heritage Platform</p>
+      </div>
+
+      <h2 class="text-xl font-bold text-gray-800 mb-5 text-center">Welcome Back</h2>
+
       {{#if error_msg}}
-        <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
+        <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4 text-sm">
           {{error_msg}}
         </div>
       {{/if}}
-      
+
       {{#if success_msg}}
-        <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mb-4">
+        <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mb-4 text-sm">
           {{success_msg}}
         </div>
       {{/if}}
 
-      <form action="/login" method="POST" class="space-y-6">
+      <form action="/login" method="POST" class="space-y-4">
         <div>
-          <label for="email" class="block text-sm font-medium text-gray-700 mb-2">
-            <i class="fas fa-envelope mr-2"></i>Email Address
+          <label for="email" class="block text-sm font-medium text-gray-700 mb-1">
+            <i class="fas fa-envelope mr-1"></i>Email Address
           </label>
-          <input 
-            type="email" 
-            id="email" 
-            name="email" 
-            value="{{formData.email}}"
-            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none transition-colors"
-            placeholder="Enter your email"
-            required
-          />
+          <input type="email" id="email" name="email" value="{{formData.email}}"
+            class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none text-sm"
+            placeholder="Enter your email" required />
         </div>
 
         <div>
-          <label for="password" class="block text-sm font-medium text-gray-700 mb-2">
-            <i class="fas fa-lock mr-2"></i>Password
+          <label for="password" class="block text-sm font-medium text-gray-700 mb-1">
+            <i class="fas fa-lock mr-1"></i>Password
           </label>
-          <input 
-            type="password" 
-            id="password" 
-            name="password" 
-            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none transition-colors"
-            placeholder="Enter your password"
-            required
-          />
+          <input type="password" id="password" name="password"
+            class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none text-sm"
+            placeholder="Enter your password" required />
         </div>
 
-        <div class="flex items-center justify-between">
+        <div class="flex items-center justify-between text-sm">
           <label class="flex items-center">
             <input type="checkbox" name="remember" class="rounded border-gray-300 text-emerald-600 focus:ring-emerald-500">
-            <span class="ml-2 text-sm text-gray-600">Remember me</span>
+            <span class="ml-2 text-gray-600">Remember me</span>
           </label>
-          <a href="/forgot-password" class="text-sm text-emerald-600 hover:text-emerald-700">
-            Forgot password?
-          </a>
+          <a href="/forgot-password" class="text-emerald-600 hover:text-emerald-700">Forgot password?</a>
         </div>
 
-        <button 
-          type="submit" 
-          class="w-full bg-gradient-to-r from-emerald-500 to-green-600 hover:from-emerald-600 hover:to-green-700 text-white font-semibold py-3 px-4 rounded-lg transition-all transform hover:scale-105 shadow-lg"
-        >
+        <button type="submit"
+          class="w-full bg-gradient-to-r from-emerald-500 to-green-600 hover:from-emerald-600 hover:to-green-700 text-white font-semibold py-2.5 px-4 rounded-lg transition-all shadow-lg text-sm">
           <i class="fas fa-sign-in-alt mr-2"></i>Sign In
         </button>
       </form>
 
-      <div class="mt-6 text-center">
+      <div class="mt-4 text-center text-sm">
         <p class="text-gray-600">
-          Don't have an account? 
-          <a href="/register" class="text-emerald-600 hover:text-emerald-700 font-semibold">
-            Sign up here
-          </a>
+          Don't have an account?
+          <a href="/register" class="text-emerald-600 hover:text-emerald-700 font-semibold">Sign up here</a>
         </p>
       </div>
 
-      <div class="mt-6 text-center">
-        <a href="/" class="text-sm text-gray-500 hover:text-gray-700 transition-colors">
+      <div class="mt-3 text-center">
+        <a href="/" class="text-xs text-gray-400 hover:text-gray-600">
           <i class="fas fa-arrow-left mr-1"></i>Back to Home
         </a>
       </div>
     </div>
   </div>
-
-  <!-- Floating elements for visual enhancement -->
-  <div class="absolute top-10 left-10 w-20 h-20 bg-white/10 rounded-full blur-xl animate-pulse"></div>
-  <div class="absolute bottom-10 right-10 w-32 h-32 bg-emerald-300/20 rounded-full blur-2xl animate-pulse delay-1000"></div>
-  <div class="absolute top-1/3 right-20 w-16 h-16 bg-green-400/15 rounded-full blur-lg animate-pulse delay-500"></div>
 </body>
 </html>
