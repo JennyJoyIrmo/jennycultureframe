@@ -33,6 +33,14 @@ import hbs from "hbs";
 import { fileURLToPath } from "url";
 import { dirname } from "path";
 
+// Prevent unhandled DB errors from crashing the server
+process.on('unhandledRejection', (reason) => {
+  console.error('⚠️ Unhandled rejection (caught):', reason?.message || reason);
+});
+process.on('uncaughtException', (err) => {
+  console.error('⚠️ Uncaught exception (caught):', err?.message || err);
+});
+
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
