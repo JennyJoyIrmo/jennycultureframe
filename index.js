@@ -192,6 +192,8 @@ app.use((req, res, next) => {
 app.use("/", router);
 
 export default app;
+// CommonJS export for Vercel
+if (typeof module !== 'undefined') module.exports = app;
 
 if (!process.env.ELECTRON) {
   const server = app.listen(PORT, () => console.log(`🔥 XianFire running at http://localhost:${PORT}`));
