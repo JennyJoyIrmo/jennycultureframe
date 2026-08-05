@@ -26,26 +26,30 @@
     
 import { Sequelize } from "sequelize";
 
-export const sequelize = new Sequelize(
-  process.env.DB_NAME || "darling",
-  process.env.DB_USER || "root",
-  process.env.DB_PASSWORD || "",
-  {
-    host: process.env.DB_HOST || "localhost",
-    port: process.env.DB_PORT || 3306,
-    dialect: "mysql",
-    logging: false,
-    pool: {
-      max: 5,
-      min: 0,
-      acquire: 60000,
-      idle: 10000
-    },
-    dialectOptions: {
-      connectTimeout: 60000,
-      ssl: process.env.DB_HOST && process.env.DB_HOST.includes('railway') ? {
-        rejectUnauthorized: false
-      } : false
-    }
-  }
-);
+export const sequelize = process.env.DATABASE_URL
+  ? new Sequelize(process.env.DATABASE_URL, {
+      dialect: "mysql",
+      logging: false,
+      pool: { max: 5, min: 0, acquire: 60000, idle: 10000 },
+      dialectOptions: {
+        connectTimeout: 60000,
+        ssl: { rejectUnauthorized: false }
+      }
+    })
+  : new Sequelize(
+      process.env.DB_NAME || "darling",
+      process.env.DB_USER || "root",
+      process.env.DB_PASSWORD || "",
+      {
+        host: process.env.DB_HOST || "localhost",
+        port: parseInt(process.env.DB_PORT) || 3306,
+        dialect: "mysql",
+        logging: false,
+        pool: { max: 5, min: 0, acquire: 60000, idle: 10000 },
+        dialectOptions: { connectTimeout: 60000 }
+      }
+    );
+
+sequelize.authenticate()
+  .then(() => console.log('✅ Database connected successfully'))
+  .catch(err => console.error('⚠️ DB connection warning:', err.message));
