@@ -6,8 +6,12 @@
 
 import { Sequelize } from "sequelize";
 
-const DATABASE_URL = process.env.DATABASE_URL ||
-  "postgresql://cultureframe_db_user:dQZOPeh4J8rSF2pCohr3Z4ALMgGnT8a7@dpg-d9q57jpt0dsc73c9he5g-a.oregon-postgres.render.com/cultureframe_db";
+const DATABASE_URL = process.env.DATABASE_URL;
+
+if (!DATABASE_URL) {
+  console.error('❌ DATABASE_URL environment variable is not set!');
+  process.exit(1);
+}
 
 export const sequelize = new Sequelize(DATABASE_URL, {
   dialect: "postgres",
