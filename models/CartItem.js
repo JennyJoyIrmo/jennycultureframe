@@ -7,6 +7,4 @@ export const CartItem = sequelize.define('cart_items', {
   quantity: { type: DataTypes.INTEGER, allowNull: false, defaultValue: 1 }
 });
 
-await sequelize.sync();
-
 export { sequelize };

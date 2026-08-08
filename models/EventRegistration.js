@@ -9,6 +9,4 @@ export const EventRegistration = sequelize.define('event_registrations', {
   phone: { type: DataTypes.STRING, allowNull: true }
 });
 
-await sequelize.sync();
-
 export { sequelize };
