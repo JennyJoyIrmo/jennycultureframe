@@ -1,5 +1,4 @@
 import { Craft, sequelize } from "../models/Craft.js";
-await sequelize.sync();
 
 const craftcontroller = {
   index: async (req, res) => {

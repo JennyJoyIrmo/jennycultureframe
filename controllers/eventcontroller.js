@@ -23,7 +23,6 @@
     SOFTWARE.
     */
 import { Event, sequelize } from "../models/Event.js";
-await sequelize.sync();
 
 const eventcontroller = {
   cleanupExpiredEvents: async () => {

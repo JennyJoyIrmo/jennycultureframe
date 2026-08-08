@@ -1,5 +1,4 @@
 import { Scenic, sequelize } from "../models/Scenic.js";
-await sequelize.sync();
 
 const sceniccontroller = {
   index: async (req, res) => {

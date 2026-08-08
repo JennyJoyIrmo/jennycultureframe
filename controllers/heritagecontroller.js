@@ -23,7 +23,6 @@
     SOFTWARE.
 */
 import { Heritage, sequelize } from "../models/Heritage.js";
-await sequelize.sync();
 
 const heritagecontroller = {
   index: async (req, res) => {

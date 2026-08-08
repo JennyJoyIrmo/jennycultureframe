@@ -28,7 +28,6 @@ import { OrderItem } from "../models/Orderitem.js";
 import { CartItem } from "../models/CartItem.js";
 import { Feedback } from "../models/Feedback.js";
 import { Product } from "../models/Product.js";
-await sequelize.sync();
 
 const ordercontroller = {
   checkout: async (req, res) => {
@@ -174,7 +173,7 @@ const ordercontroller = {
     const order = await Order.create({
       customer_name,
       customer_email,
-      customer_phone,
+      customer_phone, 
       shipping_address,
       total_amount,
       payment_method

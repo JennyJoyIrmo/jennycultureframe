@@ -23,7 +23,7 @@
     SOFTWARE.
     */
 import { Admin, sequelize } from "../models/Admin.js";
-await sequelize.sync();
+
 const admincontroller ={
   index: async (req, res) => {
     res.send("Index Page");

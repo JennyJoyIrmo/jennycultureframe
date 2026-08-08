@@ -25,7 +25,6 @@
 import { Product, sequelize } from "../models/Product.js";
 import { Order } from "../models/Order.js";
 import { OrderItem } from "../models/Orderitem.js";
-await sequelize.sync();
 
 const productcontroller = {
   shop: async (req, res) => {
