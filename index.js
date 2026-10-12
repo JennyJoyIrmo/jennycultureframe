@@ -32,6 +32,9 @@ import fs from 'fs';
 import hbs from "hbs";
 import { fileURLToPath } from "url";
 import { dirname } from "path";
+import { createRequire } from 'module';
+const require = createRequire(import.meta.url);
+try { require('dotenv').config(); } catch(e) {}
 
 // Prevent unhandled DB errors from crashing the server
 process.on('unhandledRejection', (reason) => {
@@ -198,6 +201,24 @@ app.use((req, res, next) => {
 });
 
 app.use("/", router);
+
+// Global error handler - shows actual error message
+app.use((err, req, res, next) => {
+  console.error('❌ Global error:', err);
+  const isDev = process.env.NODE_ENV !== 'production';
+  try {
+    res.status(500).render('error', {
+      title: 'Server Error',
+      message: isDev ? err.message : 'Something went wrong. Please try again.',
+      stack: isDev ? err.stack : null
+    });
+  } catch (renderErr) {
+    res.status(500).send(`
+      <h2>Internal Server Error</h2>
+      <pre>${isDev ? err.stack : err.message}</pre>
+    `);
+  }
+});
 
 export default app;
 // CommonJS export for Vercel
