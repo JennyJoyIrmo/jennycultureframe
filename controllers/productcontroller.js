@@ -150,7 +150,16 @@ const productcontroller = {
   },
   
   addNew: (req, res) => {
-    res.render("admin/product-add");
+    try {
+      const error_msg = req.session.error_msg || null;
+      const success_msg = req.session.success_msg || null;
+      req.session.error_msg = null;
+      req.session.success_msg = null;
+      res.render("admin/product-add", { title: "Add Product - Admin", error_msg, success_msg });
+    } catch (err) {
+      console.error('addNew error:', err);
+      res.status(500).send('Error loading add product page: ' + err.message);
+    }
   },
   
   add: async (req, res) => {

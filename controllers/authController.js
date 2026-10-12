@@ -36,13 +36,9 @@ const initializeAuth = async () => {
     await sequelize.authenticate();
     console.log('✅ Database connected successfully');
     
-    await sequelize.sync({ force: false });
-    console.log('✅ Database synced successfully');
-    
     // ==================== DEFAULT ADMIN CREATION ====================
     const adminExists = await User.findOne({ where: { role: 'admin' } });
     if (!adminExists) {
-      // Create admin with raw password; model hook will hash it
       await User.create({
         name: 'System Administrator',
         email: 'admin@cultureframe.com',
@@ -52,17 +48,8 @@ const initializeAuth = async () => {
       console.log('✅ Default admin account created');
       console.log('📧 Email: admin@cultureframe.com');
       console.log('🔑 Password: admin123');
-      console.log('🎯 Role: Administrator');
     } else {
       console.log('ℹ️  Admin account already exists');
-      // Reset admin password via instance update so model hook hashes it
-      const adminUser = await User.findOne({ where: { email: 'admin@cultureframe.com' } });
-      if (adminUser) {
-        await adminUser.update({ password: 'admin123' });
-        console.log('🔄 Admin password reset to: admin123');
-      } else {
-        console.log('❌ Admin user lookup failed during reset');
-      }
     }
     // ==================== END DEFAULT ADMIN CREATION ====================
     
@@ -442,60 +429,24 @@ export const loginUser = async (req, res) => {
     }
     
     console.log('✅ User found:', user.name, 'Role:', user.role);
-    console.log('📧 Stored email in DB:', user.email);
-    console.log('🔐 Stored password hash:', user.password?.substring(0, 20) + '...');
-    console.log('🔐 Stored hash length:', user.password?.length);
     
-    // ⭐⭐⭐ ENHANCED PASSWORD DEBUGGING ⭐⭐⭐
-    console.log('🔐 Starting password comparison...');
+    // Compare password using raw dataValues to avoid toJSON stripping
+    const storedHash = user.getDataValue('password');
+    console.log('🔐 Hash exists:', !!storedHash, 'Hash length:', storedHash?.length);
     
-    // Test 1: Direct comparison
-    const isPasswordValid = await bcrypt.compare(password, user.password);
-    console.log('🔐 Direct comparison result:', isPasswordValid);
+    const isPasswordValid = await bcrypt.compare(password.trim(), storedHash);
+    console.log('🔐 Password valid:', isPasswordValid);
     
-    // Test 2: Check if password might have extra spaces
-    const trimmedPassword = password.trim();
-    const isTrimmedValid = await bcrypt.compare(trimmedPassword, user.password);
-    console.log('🔐 Trimmed password comparison:', isTrimmedValid);
-    
-    // Test 3: Test with common passwords for debugging
-    if (!isPasswordValid && !isTrimmedValid) {
-      console.log('🔐 Testing common passwords for debugging...');
-      const commonPasswords = ['password', '12345678', 'admin123', 'password123'];
-      
-      for (let commonPwd of commonPasswords) {
-        const testResult = await bcrypt.compare(commonPwd, user.password);
-        console.log(`🔐 Testing "${commonPwd}":`, testResult);
-        if (testResult) {
-          console.log(`✅ Found matching password: "${commonPwd}"`);
-          break;
-        }
-      }
-    }
-    
-    // Final validation check
-    const finalValid = isPasswordValid || isTrimmedValid;
-    
-    if (!finalValid) {
-      console.log('❌ All password comparisons failed');
-      console.log('🔍 Input password:', `"${password}"`);
-      console.log('🔍 Trimmed password:', `"${trimmedPassword}"`);
-      console.log('🔍 Hash prefix:', user.password?.substring(0, 10));
-      
-      // Check if this is an AJAX request (from modal)
+    if (!isPasswordValid) {
+      console.log('❌ Password comparison failed');
       const isAjax = req.headers['x-requested-with'] === 'XMLHttpRequest' || 
                      req.headers['accept']?.includes('application/json') ||
                      req.get('Accept')?.includes('application/json');
-      
       if (isAjax) {
-        return res.json({
-          success: false,
-          message: "Invalid email or password"
-        });
-      } else {
-        req.session.error_msg = "Invalid email or password";
-        return res.redirect('/login');
+        return res.json({ success: false, message: "Invalid email or password" });
       }
+      req.session.error_msg = "Invalid email or password";
+      return res.redirect('/login');
     }
     
     // Set session (loads persisted cart/wishlist)

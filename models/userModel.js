@@ -57,15 +57,11 @@ export const User = sequelize.define("User", {
     }
   },
   password: { 
-    type: DataTypes.STRING, 
+    type: DataTypes.STRING(255), 
     allowNull: false,
     validate: {
       notEmpty: {
         msg: "Password is required"
-      },
-      len: {
-        args: [8, 100],
-        msg: "Password must be at least 8 characters long"
       }
     }
   },
@@ -118,7 +114,7 @@ User.prototype.comparePassword = async function(candidatePassword) {
 };
 
 // Instance method to get public profile (without password)
-User.prototype.toJSON = function() {
+User.prototype.toPublicJSON = function() {
   const values = Object.assign({}, this.get());
   delete values.password;
   return values;
