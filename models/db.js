@@ -5,6 +5,9 @@
 */
 
 import { Sequelize } from "sequelize";
+import { createRequire } from 'module';
+const _require = createRequire(import.meta.url);
+try { _require('dotenv').config(); } catch(e) {}
 
 const DATABASE_URL = process.env.DATABASE_URL;
 
