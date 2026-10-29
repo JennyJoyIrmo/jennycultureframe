@@ -1,96 +1,100 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Login - CultureFrame</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
-  <style>
-    body {
-      background-color: #065f46;
-      background-image: url('https://images.unsplash.com/photo-1441974231531-c6227db76b6e?ixlib=rb-4.0.3&auto=format&fit=crop&w=2071&q=80');
-      background-size: cover;
-      background-position: center;
-      background-repeat: no-repeat;
-      background-attachment: fixed;
-    }
-  </style>
-</head>
-<body class="min-h-screen flex items-center justify-center p-4 relative">
-  <div class="absolute inset-0 bg-gradient-to-br from-emerald-900/80 via-green-900/70 to-emerald-800/80"></div>
+{{>head}}
+<body class="min-h-screen bg-gradient-to-br from-emerald-900 via-green-900 to-emerald-800 flex items-center justify-center p-4">
+  <!-- Subtle pattern overlay -->
+  <div class="absolute inset-0 opacity-10" style="background-image:url('data:image/svg+xml,%3Csvg width=60 height=60 viewBox=\'0 0 60 60\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'none\' fill-rule=\'evenodd\'%3E%3Cg fill=\'%23ffffff\' fill-opacity=\'1\'%3E%3Cpath d=\'M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z\'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E');"></div>
 
-  <div class="w-full max-w-md relative z-10">
-    <!-- Card with logo inside -->
-    <div class="bg-white/95 backdrop-blur-md rounded-2xl shadow-2xl p-8 border border-white/20">
+  <div class="w-full max-w-sm relative z-10 cf-fade-up">
+    <!-- Logo -->
+    <div class="text-center mb-6">
+      <a href="/" class="inline-flex flex-col items-center gap-2">
+        <div class="w-14 h-14 bg-white rounded-2xl flex items-center justify-center shadow-lg">
+          <img src="/images/logo.png" alt="CultureFrame" class="w-12 h-12 object-contain rounded-xl" />
+        </div>
+        <p class="text-white font-bold text-lg">CultureFrame</p>
+        <p class="text-emerald-300 text-xs -mt-1">Mansalay Heritage</p>
+      </a>
+    </div>
 
-      <!-- Logo inside card -->
-      <div class="flex flex-col items-center mb-6">
-        <img src="/images/logo.png" alt="CultureFrame Logo" class="w-16 h-16 object-contain mb-2" />
-        <h1 class="text-2xl font-bold text-emerald-700">CultureFrame</h1>
-        <p class="text-gray-500 text-sm">Mansalay Heritage Platform</p>
-      </div>
-
-      <h2 class="text-xl font-bold text-gray-800 mb-5 text-center">Welcome Back</h2>
+    <!-- Card -->
+    <div class="bg-white rounded-2xl shadow-2xl p-7 border border-white/20">
+      <h2 class="text-xl font-extrabold text-gray-800 mb-1">Welcome back</h2>
+      <p class="text-gray-400 text-sm mb-6">Sign in to your account</p>
 
       {{#if error_msg}}
-        <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4 text-sm">
-          {{error_msg}}
-        </div>
+      <div class="flex items-start gap-2 p-3 bg-red-50 border border-red-200 rounded-xl text-red-700 text-sm mb-5">
+        <i class="fas fa-circle-exclamation mt-0.5 flex-shrink-0"></i>
+        <span>{{error_msg}}</span>
+      </div>
       {{/if}}
-
       {{#if success_msg}}
-        <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mb-4 text-sm">
-          {{success_msg}}
-        </div>
+      <div class="flex items-start gap-2 p-3 bg-emerald-50 border border-emerald-200 rounded-xl text-emerald-700 text-sm mb-5">
+        <i class="fas fa-circle-check mt-0.5 flex-shrink-0"></i>
+        <span>{{success_msg}}</span>
+      </div>
       {{/if}}
 
       <form action="/login" method="POST" class="space-y-4">
         <div>
-          <label for="email" class="block text-sm font-medium text-gray-700 mb-1">
-            <i class="fas fa-envelope mr-1"></i>Email Address
+          <label for="email" class="block text-xs font-semibold text-gray-600 uppercase tracking-wide mb-1.5">
+            Email Address
           </label>
-          <input type="email" id="email" name="email" value="{{formData.email}}"
-            class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none text-sm"
-            placeholder="Enter your email" required />
+          <div class="relative">
+            <i class="fas fa-envelope absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-xs"></i>
+            <input type="email" id="email" name="email" required autocomplete="email"
+              class="cf-input pl-9" placeholder="your@email.com"
+              value="{{formData.email}}" />
+          </div>
         </div>
 
         <div>
-          <label for="password" class="block text-sm font-medium text-gray-700 mb-1">
-            <i class="fas fa-lock mr-1"></i>Password
+          <label for="password" class="block text-xs font-semibold text-gray-600 uppercase tracking-wide mb-1.5">
+            Password
           </label>
-          <input type="password" id="password" name="password"
-            class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none text-sm"
-            placeholder="Enter your password" required />
+          <div class="relative">
+            <i class="fas fa-lock absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-xs"></i>
+            <input type="password" id="password" name="password" required autocomplete="current-password"
+              class="cf-input pl-9 pr-10" placeholder="Your password" />
+            <button type="button" onclick="togglePwd()" class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600" aria-label="Toggle password">
+              <i id="pwdIcon" class="fas fa-eye text-xs"></i>
+            </button>
+          </div>
         </div>
 
-        <div class="flex items-center justify-between text-sm">
-          <label class="flex items-center">
-            <input type="checkbox" name="remember" class="rounded border-gray-300 text-emerald-600 focus:ring-emerald-500">
-            <span class="ml-2 text-gray-600">Remember me</span>
+        <div class="flex items-center justify-between">
+          <label class="flex items-center gap-2 cursor-pointer">
+            <input type="checkbox" name="remember" class="w-3.5 h-3.5 rounded accent-emerald-600" />
+            <span class="text-xs text-gray-600">Remember me</span>
           </label>
-          <a href="/forgot-password" class="text-emerald-600 hover:text-emerald-700">Forgot password?</a>
+          <a href="/forgot-password" class="text-xs text-emerald-600 hover:text-emerald-700 font-medium transition-colors">
+            Forgot password?
+          </a>
         </div>
 
-        <button type="submit"
-          class="w-full bg-gradient-to-r from-emerald-500 to-green-600 hover:from-emerald-600 hover:to-green-700 text-white font-semibold py-2.5 px-4 rounded-lg transition-all shadow-lg text-sm">
-          <i class="fas fa-sign-in-alt mr-2"></i>Sign In
+        <button type="submit" class="cf-btn cf-btn-primary w-full justify-center py-3 text-sm">
+          <i class="fas fa-sign-in-alt"></i> Sign In
         </button>
       </form>
 
-      <div class="mt-4 text-center text-sm">
-        <p class="text-gray-600">
-          Don't have an account?
-          <a href="/register" class="text-emerald-600 hover:text-emerald-700 font-semibold">Sign up here</a>
-        </p>
-      </div>
-
-      <div class="mt-3 text-center">
-        <a href="/" class="text-xs text-gray-400 hover:text-gray-600">
-          <i class="fas fa-arrow-left mr-1"></i>Back to Home
-        </a>
+      <div class="mt-5 text-center text-sm text-gray-500">
+        Don't have an account?
+        <a href="/register" class="text-emerald-600 hover:text-emerald-700 font-semibold ml-1 transition-colors">Create one free</a>
       </div>
     </div>
+
+    <div class="text-center mt-4">
+      <a href="/" class="text-emerald-300 hover:text-white text-xs transition-colors">
+        <i class="fas fa-arrow-left mr-1"></i> Back to Home
+      </a>
+    </div>
   </div>
+
+  <script>
+  function togglePwd() {
+    const inp = document.getElementById('password');
+    const ico = document.getElementById('pwdIcon');
+    if (inp.type === 'password') { inp.type = 'text'; ico.className = 'fas fa-eye-slash text-xs'; }
+    else { inp.type = 'password'; ico.className = 'fas fa-eye text-xs'; }
+  }
+  </script>
 </body>
 </html>

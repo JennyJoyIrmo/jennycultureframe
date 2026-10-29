@@ -1,8 +1,6 @@
 {{>head}}
-<body class="min-h-screen bg-cover bg-center bg-fixed" style="background-image: url('https://c8.alamy.com/comp/B28RJE/mangyan-crafts-created-in-the-panaytayan-community-near-mansalay-oriental-B28RJE.jpg');">
-  <div class="absolute inset-0 bg-white/5 z-0"></div>
-  
-  <div class="relative z-10">
+<body class="bg-gray-50">
+  <div class="relative">
     {{>nav}}
     
     <div class="container mx-auto px-6 py-8">
@@ -149,3 +147,5 @@
   </div>
 
 {{>footer}}
+</body>
+</html>

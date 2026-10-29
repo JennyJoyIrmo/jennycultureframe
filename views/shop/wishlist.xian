@@ -1,8 +1,5 @@
 {{>head}}
-<body class="min-h-screen bg-cover bg-center bg-fixed" style="background-image: url('https://images.unsplash.com/photo-1586773860418-d37222d8fce3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2073&q=80');">
-  <!-- Green gradient overlay -->
-  <div class="absolute inset-0 bg-gradient-to-br from-emerald-400/20 via-green-300/30 to-lime-200/40 z-0"></div>
-  
+<body class="bg-gray-50">
   <div class="relative z-10">
     {{>nav}}
 
@@ -37,12 +34,12 @@
               <h3 class="font-bold text-lg text-emerald-800 mb-2 line-clamp-2">{{this.name}}</h3>
               <p class="text-2xl font-bold text-emerald-700 mb-3">₱{{this.price}}</p>
               {{#if this.stocks}}
-              <span class="inline-block bg-emerald-100 text-emerald-700 text-xs px-3 py-1 rounded-full font-semibold">
-                ✅ In Stock
+              <span class="cf-badge cf-badge-green">
+                <i class="fas fa-check-circle mr-1"></i> In Stock
               </span>
               {{else}}
-              <span class="inline-block bg-red-100 text-red-700 text-xs px-3 py-1 rounded-full font-semibold">
-                ❌ Out of Stock
+              <span class="cf-badge cf-badge-red">
+                <i class="fas fa-times-circle mr-1"></i> Out of Stock
               </span>
               {{/if}}
               
@@ -132,7 +129,7 @@
     {{>footer}}
   </div>
 
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+  <!-- Font Awesome already loaded via {{>head}} -->
 
   <style>
     .line-clamp-2 {

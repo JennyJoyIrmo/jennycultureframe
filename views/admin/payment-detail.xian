@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{{title}} - CultureFrame Admin</title>
+  <link rel="stylesheet" href="/tailwind.css" />
+</head>
+<body class="bg-gray-50 flex">
+  {{> admin-sidebar}}
+
+  <main class="flex-1 p-8 overflow-auto">
+    <div class="max-w-2xl mx-auto">
+      <div class="flex items-center gap-3 mb-8">
+        <a href="/admin/payments" class="text-gray-400 hover:text-gray-600 transition-colors">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+          </svg>
+        </a>
+        <h1 class="text-2xl font-bold text-gray-800">Payment #{{payment.id}}</h1>
+        {{#if (eq payment.status 'paid')}}
+          <span class="px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">Paid</span>
+        {{else if (eq payment.status 'pending')}}
+          <span class="px-2.5 py-0.5 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800">Pending</span>
+        {{else if (eq payment.status 'failed')}}
+          <span class="px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800">Failed</span>
+        {{else}}
+          <span class="px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-600">Refunded</span>
+        {{/if}}
+      </div>
+
+      {{#if success_msg}}<div class="mb-4 p-4 bg-green-100 border border-green-300 text-green-800 rounded-xl">{{success_msg}}</div>{{/if}}
+
+      <!-- Payment info -->
+      <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 mb-6">
+        <h2 class="font-semibold text-gray-700 mb-4">Payment Details</h2>
+        <div class="grid grid-cols-2 gap-4 text-sm">
+          <div><p class="text-gray-400">Customer</p><p class="font-semibold text-gray-800">{{payment.customer_name}}</p></div>
+          <div><p class="text-gray-400">Email</p><p class="font-semibold text-gray-800">{{payment.customer_email}}</p></div>
+          <div><p class="text-gray-400">Amount</p><p class="font-bold text-emerald-600 text-lg">₱{{payment.amount}}</p></div>
+          <div><p class="text-gray-400">Method</p><p class="font-semibold text-gray-800 capitalize">{{payment.method}}</p></div>
+          <div><p class="text-gray-400">Reference #</p><p class="font-mono text-gray-700">{{payment.reference_number}}</p></div>
+          <div><p class="text-gray-400">Linked Order</p><p class="font-semibold text-gray-800">#{{payment.order_id}}</p></div>
+          <div><p class="text-gray-400">Recorded</p><p class="text-gray-600">{{payment.createdAt}}</p></div>
+          {{#if payment.paid_at}}
+          <div><p class="text-gray-400">Paid At</p><p class="text-gray-600">{{payment.paid_at}}</p></div>
+          {{/if}}
+        </div>
+        {{#if payment.notes}}
+        <div class="mt-4 pt-4 border-t border-gray-100">
+          <p class="text-gray-400 text-sm mb-1">Notes</p>
+          <p class="text-gray-700 text-sm">{{payment.notes}}</p>
+        </div>
+        {{/if}}
+      </div>
+
+      <!-- Linked order info -->
+      {{#if order}}
+      <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 mb-6">
+        <h2 class="font-semibold text-gray-700 mb-4">Linked Order #{{order.id}}</h2>
+        <div class="grid grid-cols-2 gap-4 text-sm">
+          <div><p class="text-gray-400">Customer</p><p class="font-semibold text-gray-800">{{order.customer_name}}</p></div>
+          <div><p class="text-gray-400">Total</p><p class="font-bold text-emerald-600">₱{{order.total_amount}}</p></div>
+          <div><p class="text-gray-400">Order Status</p><p class="font-semibold text-gray-800 capitalize">{{order.status}}</p></div>
+          <div><p class="text-gray-400">Payment Method</p><p class="text-gray-700 capitalize">{{order.payment_method}}</p></div>
+        </div>
+        <div class="mt-3">
+          <a href="/admin/orders/{{order.id}}" class="text-sm text-emerald-600 hover:underline font-medium">View full order →</a>
+        </div>
+      </div>
+      {{/if}}
+
+      <!-- Update status -->
+      <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
+        <h2 class="font-semibold text-gray-700 mb-4">Update Status</h2>
+        <form method="POST" action="/admin/payments/update-status/{{payment.id}}" class="space-y-4">
+          <div>
+            <label class="block text-sm font-semibold text-gray-700 mb-1.5">New Status</label>
+            <select name="status" class="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm focus:ring-2 focus:ring-emerald-400 focus:outline-none">
+              <option value="pending"  {{#if (eq payment.status 'pending')}}selected{{/if}}>Pending</option>
+              <option value="paid"     {{#if (eq payment.status 'paid')}}selected{{/if}}>Paid</option>
+              <option value="failed"   {{#if (eq payment.status 'failed')}}selected{{/if}}>Failed</option>
+              <option value="refunded" {{#if (eq payment.status 'refunded')}}selected{{/if}}>Refunded</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-sm font-semibold text-gray-700 mb-1.5">Notes (optional)</label>
+            <textarea name="notes" rows="3" class="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm focus:ring-2 focus:ring-emerald-400 focus:outline-none">{{payment.notes}}</textarea>
+          </div>
+          <button type="submit" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white py-3 rounded-xl font-semibold transition-colors">Update Status</button>
+        </form>
+      </div>
+    </div>
+  </main>
+</body>
+</html>

@@ -171,6 +171,7 @@ const ordercontroller = {
     }
 
     const order = await Order.create({
+      user_id: (req.session && req.session.userId) ? Number(req.session.userId) : null,
       customer_name,
       customer_email,
       customer_phone, 
@@ -274,32 +275,50 @@ const ordercontroller = {
     res.redirect(`/admin/orders/edit/${id}`);
   }
   ,
-  // Customer-facing order list (orders belonging to logged-in user)
+  // Customer-facing order list — always filter by user_id when logged in
   customerIndex: async (req, res) => {
+    const userId  = req.session && req.session.userId;
     const userEmail = req.session && req.session.user && req.session.user.email;
-    if (!userEmail) return res.redirect('/login');
-    const orders = await Order.findAll({ where: { customer_email: userEmail }, order: [['createdAt', 'DESC']] });
+    if (!userId) return res.redirect('/login');
+
+    // Primary: filter by user_id (secure — can't be spoofed by email)
+    // Also include legacy orders placed with same email but no user_id (guest orders)
+    const { Op } = await import('sequelize');
+    const orders = await Order.findAll({
+      where: {
+        [Op.or]: [
+          { user_id: Number(userId) },
+          // Include guest orders from same email that have no user_id assigned
+          ...(userEmail ? [{ user_id: null, customer_email: userEmail }] : [])
+        ]
+      },
+      order: [['createdAt', 'DESC']]
+    });
     res.render('customer/order-list', { orders });
   },
 
   customerDetail: async (req, res) => {
     const { id } = req.params;
+    const userId    = req.session && req.session.userId;
     const userEmail = req.session && req.session.user && req.session.user.email;
+    if (!userId) return res.redirect('/login');
+
     const order = await Order.findByPk(id);
     if (!order) return res.status(404).send('Order not found');
-    if (userEmail && order.customer_email !== userEmail) return res.status(403).send('Forbidden');
+
+    // Security check: order must belong to this user_id OR same email (legacy guest)
+    const ownsOrder = (order.user_id && order.user_id === Number(userId)) ||
+                      (!order.user_id && userEmail && order.customer_email === userEmail);
+    if (!ownsOrder) return res.status(403).send('Forbidden');
+
     const items = await OrderItem.findAll({ where: { order_id: id } });
-    // Load any existing feedback left by this customer for this order
     let feedback = null;
     try {
       feedback = await Feedback.findOne({ where: { order_id: id, user_email: userEmail } });
-    } catch (err) {
-      // ignore
-    }
+    } catch (err) { /* ignore */ }
 
     res.render('customer/order-detail', { order, items, feedback });
-  }
-  ,
+  },
 
   // Customer submits feedback for an order
   submitFeedback: async (req, res) => {

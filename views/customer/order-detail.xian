@@ -3,78 +3,169 @@
   {{>nav}}
   {{>messages}}
 
-  <div class="container mx-auto px-4 py-8">
-    <a href="/customer/orders" class="text-emerald-600 hover:underline">← Back to Orders</a>
-    <h2 class="text-2xl font-bold mt-4">Order #{{order.id}}</h2>
-    <div class="mt-2 text-sm text-gray-600">Status: <strong>{{order.status}}</strong></div>
-    <div class="mt-4 bg-white p-4 rounded shadow">
-      <div class="text-sm text-gray-600">Placed: {{order.createdAt}}</div>
-      <div class="text-sm">Name: {{order.customer_name}}</div>
-      <div class="text-sm">Email: {{order.customer_email}}</div>
-      <div class="text-sm">Phone: {{order.customer_phone}}</div>
-      <div class="mt-3">Shipping address: <div class="text-sm text-gray-700">{{order.shipping_address}}</div></div>
+  <div class="max-w-3xl mx-auto px-4 py-8">
 
-      <h3 class="mt-4 font-semibold">Items</h3>
-      <ul class="mt-2 divide-y">
-        {{#each items}}
-          <li class="py-2 flex justify-between">
-            <div>
-              <div class="font-medium">{{this.product_name}}</div>
-              <div class="text-xs text-gray-600">Qty: {{this.quantity}}</div>
-            </div>
-            <div class="text-sm">₱{{this.price}}</div>
-          </li>
-        {{/each}}
-      </ul>
+    <a href="/customer/orders" class="inline-flex items-center gap-2 text-emerald-600 hover:text-emerald-700 font-semibold text-sm mb-6 cf-fade-up transition-colors">
+      <i class="fas fa-arrow-left"></i> Back to My Orders
+    </a>
 
-      <div class="mt-4 text-right font-bold">Total: ₱{{order.total_amount}}</div>
+    <!-- Order header -->
+    <div class="cf-card p-6 mb-5 cf-fade-up">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div>
+          <p class="text-xs text-gray-400 mb-0.5">Order Reference</p>
+          <h2 class="text-2xl font-extrabold text-gray-800">Order #{{order.id}}</h2>
+          <p class="text-xs text-gray-400 mt-1">Placed on {{order.createdAt}}</p>
+        </div>
+        <span class="cf-badge text-sm capitalize self-start sm:self-center
+          {{#if (eq order.status 'delivered')}}cf-badge-green
+          {{else if (eq order.status 'shipped')}}cf-badge-blue
+          {{else if (eq order.status 'processing')}}cf-badge-amber
+          {{else}}cf-badge-gray{{/if}}">
+          {{order.status}}
+        </span>
+      </div>
     </div>
 
-    <!-- Feedback section: allow customers to leave feedback after delivery -->
-    <div class="mt-6">
-      <h3 class="text-lg font-semibold">Feedback</h3>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-5 mb-5">
+      <!-- Customer info -->
+      <div class="cf-card p-5 cf-fade-up cf-delay-1">
+        <h3 class="font-bold text-gray-700 text-sm mb-3 flex items-center gap-2">
+          <i class="fas fa-user text-emerald-500 text-xs"></i> Customer
+        </h3>
+        <div class="space-y-1.5 text-sm">
+          <p class="font-semibold text-gray-800">{{order.customer_name}}</p>
+          <p class="text-gray-500">{{order.customer_email}}</p>
+          <p class="text-gray-500">{{order.customer_phone}}</p>
+        </div>
+      </div>
+
+      <!-- Shipping -->
+      <div class="cf-card p-5 cf-fade-up cf-delay-2">
+        <h3 class="font-bold text-gray-700 text-sm mb-3 flex items-center gap-2">
+          <i class="fas fa-map-marker-alt text-emerald-500 text-xs"></i> Shipping Address
+        </h3>
+        <p class="text-sm text-gray-600 leading-relaxed">{{order.shipping_address}}</p>
+      </div>
+
+      <!-- Payment -->
+      <div class="cf-card p-5 cf-fade-up cf-delay-3">
+        <h3 class="font-bold text-gray-700 text-sm mb-3 flex items-center gap-2">
+          <i class="fas fa-credit-card text-emerald-500 text-xs"></i> Payment
+        </h3>
+        <p class="text-sm text-gray-600 capitalize">{{order.payment_method}}</p>
+        <p class="text-2xl font-extrabold text-emerald-600 mt-2">₱{{order.total_amount}}</p>
+      </div>
+    </div>
+
+    <!-- Order items -->
+    <div class="cf-card overflow-hidden mb-5 cf-fade-up">
+      <div class="px-5 py-4 border-b border-gray-100">
+        <h3 class="font-bold text-gray-700 flex items-center gap-2">
+          <i class="fas fa-list text-emerald-500 text-sm"></i> Order Items
+        </h3>
+      </div>
+      <div class="divide-y divide-gray-50">
+        {{#each items}}
+        <div class="flex items-center justify-between px-5 py-3.5">
+          <div>
+            <p class="font-semibold text-gray-800 text-sm">{{this.product_name}}</p>
+            <p class="text-xs text-gray-400">Qty: {{this.quantity}}</p>
+          </div>
+          <div class="text-right">
+            <p class="font-bold text-emerald-600 text-sm">₱{{this.price}}</p>
+            <p class="text-xs text-gray-400">each</p>
+          </div>
+        </div>
+        {{/each}}
+      </div>
+      <div class="px-5 py-4 bg-gray-50 border-t border-gray-100 flex justify-between items-center">
+        <span class="font-bold text-gray-700">Total</span>
+        <span class="text-xl font-extrabold text-emerald-600">₱{{order.total_amount}}</span>
+      </div>
+    </div>
+
+    <!-- Feedback section -->
+    <div id="feedback" class="cf-card p-6 cf-fade-up">
+      <h3 class="font-bold text-gray-700 mb-4 flex items-center gap-2">
+        <i class="fas fa-star text-amber-400 text-sm"></i> Feedback
+      </h3>
+
       {{#if (eq order.status 'delivered')}}
         {{#if feedback}}
-          <div id="feedback" class="mt-3 bg-white p-4 rounded shadow">
-            <div class="flex items-center justify-between">
-              <div>
-                <div class="text-sm text-gray-600">Your rating</div>
-                <div class="text-xl font-bold">{{feedback.rating}} / 5</div>
-              </div>
-              <div class="text-right text-sm text-gray-500">Submitted: {{feedback.createdAt}}</div>
+        <!-- Existing feedback -->
+        <div id="feedbackDisplay">
+          <div class="flex items-center justify-between mb-3">
+            <div class="flex items-center gap-1">
+              {{#each (array 1 2 3 4 5)}}
+              <i class="fas fa-star text-sm {{#if (lte this ../feedback.rating)}}text-amber-400{{else}}text-gray-200{{/if}}"></i>
+              {{/each}}
+              <span class="ml-2 font-bold text-gray-700">{{feedback.rating}} / 5</span>
             </div>
-            {{#if feedback.comment}}
-              <div class="mt-3 text-gray-700">{{feedback.comment}}</div>
-            {{/if}}
-            <div class="mt-4 text-right">
-              <a href="#" onclick="document.getElementById('feedbackForm').classList.toggle('hidden'); return false;" class="text-emerald-600 hover:underline">Edit feedback</a>
-            </div>
+            <span class="text-xs text-gray-400">{{feedback.createdAt}}</span>
           </div>
+          {{#if feedback.comment}}
+          <p class="text-gray-600 text-sm bg-gray-50 rounded-xl p-3 leading-relaxed">{{feedback.comment}}</p>
+          {{/if}}
+          <button onclick="document.getElementById('feedbackDisplay').classList.add('hidden');document.getElementById('feedbackEditForm').classList.remove('hidden');"
+                  class="mt-4 cf-btn cf-btn-ghost text-xs">
+            <i class="fas fa-edit"></i> Edit Feedback
+          </button>
+        </div>
+        <!-- Edit feedback form (hidden by default) -->
+        <div id="feedbackEditForm" class="hidden">
+          <form method="POST" action="/customer/orders/{{order.id}}/feedback" class="space-y-4">
+            <div>
+              <label class="block text-xs font-semibold text-gray-600 uppercase tracking-wide mb-2">Rating</label>
+              <select name="rating" class="cf-input w-40">
+                <option value="5" {{#if (eq feedback.rating 5)}}selected{{/if}}>5 – Excellent</option>
+                <option value="4" {{#if (eq feedback.rating 4)}}selected{{/if}}>4 – Very Good</option>
+                <option value="3" {{#if (eq feedback.rating 3)}}selected{{/if}}>3 – Good</option>
+                <option value="2" {{#if (eq feedback.rating 2)}}selected{{/if}}>2 – Fair</option>
+                <option value="1" {{#if (eq feedback.rating 1)}}selected{{/if}}>1 – Poor</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-xs font-semibold text-gray-600 uppercase tracking-wide mb-2">Comment (optional)</label>
+              <textarea name="comment" rows="4" class="cf-input resize-none" placeholder="Update your feedback…">{{feedback.comment}}</textarea>
+            </div>
+            <div class="flex gap-2">
+              <button type="submit" class="cf-btn cf-btn-primary text-sm">
+                <i class="fas fa-save"></i> Save Changes
+              </button>
+              <button type="button"
+                      onclick="document.getElementById('feedbackEditForm').classList.add('hidden');document.getElementById('feedbackDisplay').classList.remove('hidden');"
+                      class="cf-btn cf-btn-ghost text-sm">Cancel</button>
+            </div>
+          </form>
+        </div>
         {{else}}
-          <div id="feedback" class="mt-3 bg-white p-4 rounded shadow">
-            <form id="feedbackForm" method="POST" action="/customer/orders/{{order.id}}/feedback" class="space-y-3">
-              <div>
-                <label class="block text-sm text-gray-700">Rating</label>
-                <select name="rating" class="mt-1 block w-32 border-gray-300 rounded p-2">
-                  <option value="5">5 - Excellent</option>
-                  <option value="4">4 - Very Good</option>
-                  <option value="3">3 - Good</option>
-                  <option value="2">2 - Fair</option>
-                  <option value="1">1 - Poor</option>
-                </select>
-              </div>
-              <div>
-                <label class="block text-sm text-gray-700">Comment (optional)</label>
-                <textarea name="comment" rows="4" class="mt-1 block w-full border border-gray-300 rounded p-2" placeholder="Tell us about your experience"></textarea>
-              </div>
-              <div class="text-right">
-                <button type="submit" class="px-4 py-2 bg-emerald-600 text-white rounded">Submit feedback</button>
-              </div>
-            </form>
+        <!-- New feedback form -->
+        <form method="POST" action="/customer/orders/{{order.id}}/feedback" class="space-y-4">
+          <div>
+            <label class="block text-xs font-semibold text-gray-600 uppercase tracking-wide mb-2">Rating</label>
+            <select name="rating" class="cf-input w-40">
+              <option value="5">5 – Excellent</option>
+              <option value="4">4 – Very Good</option>
+              <option value="3">3 – Good</option>
+              <option value="2">2 – Fair</option>
+              <option value="1">1 – Poor</option>
+            </select>
           </div>
+          <div>
+            <label class="block text-xs font-semibold text-gray-600 uppercase tracking-wide mb-2">Comment (optional)</label>
+            <textarea name="comment" rows="4" class="cf-input resize-none" placeholder="Tell us about your experience…"></textarea>
+          </div>
+          <button type="submit" class="cf-btn cf-btn-primary text-sm">
+            <i class="fas fa-paper-plane"></i> Submit Feedback
+          </button>
+        </form>
         {{/if}}
       {{else}}
-        <div class="mt-3 text-sm text-gray-600">You can leave feedback after your order has been delivered.</div>
+      <div class="flex items-center gap-2 text-gray-400 text-sm">
+        <i class="fas fa-info-circle text-emerald-400"></i>
+        You can leave feedback after your order has been delivered.
+      </div>
       {{/if}}
     </div>
   </div>

@@ -1,77 +1,203 @@
 {{>head}}
-<body class="min-h-screen bg-gray-50">
+<body class="bg-gray-50">
   {{>nav}}
 
-  <!-- Hero Section -->
-  <div class="relative text-white" style="background-image: url('https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1600&q=80'); background-size: cover; background-position: center; min-height: 500px;">
-    <div class="absolute inset-0 bg-gradient-to-br from-emerald-900/80 to-green-900/70"></div>
-    <div class="relative container mx-auto px-6 py-28">
-      <div class="text-center">
-        <h1 class="text-5xl font-bold mb-6 drop-shadow-lg">Welcome to CultureFrame</h1>
-        <p class="text-xl mb-8 max-w-2xl mx-auto drop-shadow">
-          Discover and preserve the rich cultural heritage of Mansalay, Oriental Mindoro
+  <!-- ── HERO ─────────────────────────────────────────────────── -->
+  <section class="cf-hero min-h-[520px] flex items-center relative overflow-hidden">
+    <div class="absolute inset-0">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Mansalay_River.jpg/1280px-Mansalay_River.jpg"
+           alt="Mansalay scenic view"
+           class="w-full h-full object-cover opacity-25"
+           onerror="this.style.display='none'" />
+    </div>
+    <div class="relative max-w-7xl mx-auto px-4 py-20 text-center w-full">
+      <div class="cf-fade-up">
+        <span class="inline-flex items-center gap-1.5 bg-white/15 text-emerald-200 text-xs font-semibold px-3 py-1 rounded-full mb-5 border border-white/20">
+          <i class="fas fa-map-marker-alt"></i> Mansalay, Oriental Mindoro
+        </span>
+        <h1 class="text-4xl md:text-6xl font-black text-white mb-5 leading-tight">
+          Discover Mansalay's<br/>
+          <span class="text-emerald-300">Cultural Heritage</span>
+        </h1>
+        <p class="text-emerald-100 text-lg md:text-xl max-w-2xl mx-auto mb-8 leading-relaxed">
+          Explore the traditions, stories, and living heritage of Mansalay — from the Hanunuo Mangyan to local festivals and crafts.
         </p>
-        {{#unless user.isAuthenticated}}
-          <div class="space-x-4">
-            <a href="/register" class="inline-block bg-white text-emerald-600 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors shadow-lg">
-              Get Started
-            </a>
-            <a href="/login" class="inline-block border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-emerald-600 transition-colors">
-              Login
-            </a>
+        <div class="flex flex-wrap gap-3 justify-center">
+          <a href="/heritage" class="cf-btn cf-btn-primary text-base px-6 py-3 bg-white text-emerald-700 hover:bg-emerald-50">
+            <i class="fas fa-landmark"></i> Explore Heritage
+          </a>
+          {{#unless user.isAuthenticated}}
+          <a href="/register" class="cf-btn text-base px-6 py-3 bg-white/15 text-white border border-white/30 hover:bg-white/25" style="border-radius:12px">
+            <i class="fas fa-user-plus"></i> Join Free
+          </a>
+          {{/unless}}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── QUICK STATS ───────────────────────────────────────────── -->
+  <section class="max-w-7xl mx-auto px-4 -mt-6 relative z-10 mb-12">
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+      <div class="cf-card-green p-5 text-center cf-fade-up">
+        <div class="w-10 h-10 bg-emerald-100 rounded-xl flex items-center justify-center mx-auto mb-2">
+          <i class="fas fa-landmark text-emerald-600"></i>
+        </div>
+        <p class="text-2xl font-black text-emerald-700">Heritage</p>
+        <p class="text-xs text-gray-500 mt-0.5">Cultural Sites</p>
+      </div>
+      <div class="cf-card-green p-5 text-center cf-fade-up cf-delay-1">
+        <div class="w-10 h-10 bg-blue-100 rounded-xl flex items-center justify-center mx-auto mb-2">
+          <i class="fas fa-calendar-alt text-blue-600"></i>
+        </div>
+        <p class="text-2xl font-black text-blue-700">Events</p>
+        <p class="text-xs text-gray-500 mt-0.5">Festivals & More</p>
+      </div>
+      <div class="cf-card-green p-5 text-center cf-fade-up cf-delay-2">
+        <div class="w-10 h-10 bg-amber-100 rounded-xl flex items-center justify-center mx-auto mb-2">
+          <i class="fas fa-paint-brush text-amber-600"></i>
+        </div>
+        <p class="text-2xl font-black text-amber-700">Crafts</p>
+        <p class="text-xs text-gray-500 mt-0.5">Mangyan Artistry</p>
+      </div>
+      <div class="cf-card-green p-5 text-center cf-fade-up cf-delay-3">
+        <div class="w-10 h-10 bg-purple-100 rounded-xl flex items-center justify-center mx-auto mb-2">
+          <i class="fas fa-mountain text-purple-600"></i>
+        </div>
+        <p class="text-2xl font-black text-purple-700">Scenic</p>
+        <p class="text-xs text-gray-500 mt-0.5">Natural Wonders</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── EXPLORE SECTIONS ──────────────────────────────────────── -->
+  <section class="max-w-7xl mx-auto px-4 mb-16">
+    <h2 class="cf-section-title mb-8">Explore CultureFrame</h2>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+
+      <!-- Heritage -->
+      <a href="/heritage" class="group cf-card overflow-hidden hover:shadow-lg transition-all duration-200 cf-fade-up">
+        <div class="h-44 bg-gradient-to-br from-emerald-500 to-green-600 relative overflow-hidden">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Hanunuo_Script.svg/640px-Hanunuo_Script.svg.png"
+               alt="Heritage" class="w-full h-full object-cover opacity-20 group-hover:scale-105 transition-transform duration-300"
+               onerror="this.style.display='none'" />
+          <div class="absolute inset-0 flex items-center justify-center">
+            <div class="text-center text-white">
+              <i class="fas fa-landmark text-5xl mb-2 opacity-90"></i>
+              <p class="font-bold text-xl">Heritage</p>
+            </div>
           </div>
-        {{/unless}}
+        </div>
+        <div class="p-5">
+          <h3 class="font-bold text-gray-800 mb-1 group-hover:text-emerald-600 transition-colors">Cultural Heritage</h3>
+          <p class="text-gray-500 text-sm">Explore historical landmarks, traditions, and cultural significance of Mansalay.</p>
+          <span class="inline-flex items-center gap-1 text-emerald-600 text-sm font-semibold mt-3">
+            Learn More <i class="fas fa-arrow-right text-xs group-hover:translate-x-1 transition-transform"></i>
+          </span>
+        </div>
+      </a>
+
+      <!-- Events -->
+      <a href="/events" class="group cf-card overflow-hidden hover:shadow-lg transition-all duration-200 cf-fade-up cf-delay-1">
+        <div class="h-44 bg-gradient-to-br from-blue-500 to-indigo-600 relative overflow-hidden">
+          <div class="absolute inset-0 flex items-center justify-center">
+            <div class="text-center text-white">
+              <i class="fas fa-calendar-star text-5xl mb-2 opacity-90"></i>
+              <p class="font-bold text-xl">Events</p>
+            </div>
+          </div>
+        </div>
+        <div class="p-5">
+          <h3 class="font-bold text-gray-800 mb-1 group-hover:text-blue-600 transition-colors">Events & Festivals</h3>
+          <p class="text-gray-500 text-sm">Join cultural celebrations, workshops, and community events in Mansalay.</p>
+          <span class="inline-flex items-center gap-1 text-blue-600 text-sm font-semibold mt-3">
+            View Events <i class="fas fa-arrow-right text-xs group-hover:translate-x-1 transition-transform"></i>
+          </span>
+        </div>
+      </a>
+
+      <!-- Shop -->
+      <a href="/shop" class="group cf-card overflow-hidden hover:shadow-lg transition-all duration-200 cf-fade-up cf-delay-2">
+        <div class="h-44 bg-gradient-to-br from-amber-500 to-orange-600 relative overflow-hidden">
+          <div class="absolute inset-0 flex items-center justify-center">
+            <div class="text-center text-white">
+              <i class="fas fa-shopping-bag text-5xl mb-2 opacity-90"></i>
+              <p class="font-bold text-xl">Shop</p>
+            </div>
+          </div>
+        </div>
+        <div class="p-5">
+          <h3 class="font-bold text-gray-800 mb-1 group-hover:text-amber-600 transition-colors">Local Products</h3>
+          <p class="text-gray-500 text-sm">Support local artisans by purchasing authentic Mangyan crafts and handmade products.</p>
+          <span class="inline-flex items-center gap-1 text-amber-600 text-sm font-semibold mt-3">
+            Shop Now <i class="fas fa-arrow-right text-xs group-hover:translate-x-1 transition-transform"></i>
+          </span>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <!-- ── ABOUT ──────────────────────────────────────────────────── -->
+  <section class="bg-white py-16">
+    <div class="max-w-7xl mx-auto px-4">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <div class="cf-fade-up">
+          <span class="cf-badge cf-badge-green mb-3">About CultureFrame</span>
+          <h2 class="text-3xl font-extrabold text-gray-900 mb-4 leading-tight">
+            Preserving Heritage,<br/>Empowering Communities
+          </h2>
+          <p class="text-gray-600 leading-relaxed mb-5">
+            CultureFrame is a digital platform dedicated to preserving and promoting the rich cultural heritage
+            of Mansalay, Oriental Mindoro. We connect local communities with visitors through authentic experiences,
+            traditional crafts, and cultural events.
+          </p>
+          <p class="text-gray-600 leading-relaxed mb-6">
+            Through modern technology, we archive the stories, traditions, and artistry of the Hanunuo Mangyan
+            and local communities — making their culture accessible to the world.
+          </p>
+          <div class="flex flex-wrap gap-3">
+            <a href="/heritage" class="cf-btn cf-btn-primary"><i class="fas fa-landmark"></i> Heritage</a>
+            <a href="/crafts" class="cf-btn cf-btn-outline"><i class="fas fa-paint-brush"></i> Crafts</a>
+          </div>
+        </div>
+        <div class="grid grid-cols-2 gap-4 cf-fade-up cf-delay-1">
+          <div class="cf-card-green p-5 text-center">
+            <i class="fas fa-scroll text-3xl text-emerald-600 mb-3"></i>
+            <h4 class="font-bold text-gray-800 mb-1">History</h4>
+            <p class="text-xs text-gray-500">Documented stories and archives</p>
+          </div>
+          <div class="cf-card-green p-5 text-center">
+            <i class="fas fa-users text-3xl text-blue-600 mb-3"></i>
+            <h4 class="font-bold text-gray-800 mb-1">Community</h4>
+            <p class="text-xs text-gray-500">Connecting people to culture</p>
+          </div>
+          <div class="cf-card-green p-5 text-center">
+            <i class="fas fa-paint-brush text-3xl text-amber-600 mb-3"></i>
+            <h4 class="font-bold text-gray-800 mb-1">Craftsmanship</h4>
+            <p class="text-xs text-gray-500">Supporting local artisans</p>
+          </div>
+          <div class="cf-card-green p-5 text-center">
+            <i class="fas fa-mountain text-3xl text-purple-600 mb-3"></i>
+            <h4 class="font-bold text-gray-800 mb-1">Nature</h4>
+            <p class="text-xs text-gray-500">Scenic wonders of Mansalay</p>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
+  </section>
 
-  <!-- Features Section -->
-  <div class="container mx-auto px-6 py-16">
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-      <div class="text-center p-6">
-        <div class="w-16 h-16 bg-emerald-500 rounded-full flex items-center justify-center mx-auto mb-4">
-          <i class="fas fa-landmark text-white text-2xl"></i>
-        </div>
-        <h3 class="text-xl font-semibold mb-2">Cultural Heritage</h3>
-        <p class="text-gray-600">Explore the rich history and traditions of Mansalay</p>
-        <a href="/heritage" class="text-emerald-600 hover:text-emerald-700 font-medium">Learn More →</a>
-      </div>
-      
-      <div class="text-center p-6">
-        <div class="w-16 h-16 bg-purple-500 rounded-full flex items-center justify-center mx-auto mb-4">
-          <i class="fas fa-calendar-alt text-white text-2xl"></i>
-        </div>
-        <h3 class="text-xl font-semibold mb-2">Events & Festivals</h3>
-        <p class="text-gray-600">Join us in celebrating local traditions and culture</p>
-        <a href="/events" class="text-purple-600 hover:text-purple-700 font-medium">View Events →</a>
-      </div>
-      
-      <div class="text-center p-6">
-        <div class="w-16 h-16 bg-amber-500 rounded-full flex items-center justify-center mx-auto mb-4">
-          <i class="fas fa-shopping-bag text-white text-2xl"></i>
-        </div>
-        <h3 class="text-xl font-semibold mb-2">Local Products</h3>
-        <p class="text-gray-600">Support local artisans and craftspeople</p>
-        <a href="/shop" class="text-amber-600 hover:text-amber-700 font-medium">Shop Now →</a>
-      </div>
+  <!-- ── CTA BANNER ────────────────────────────────────────────── -->
+  {{#unless user.isAuthenticated}}
+  <section class="max-w-7xl mx-auto px-4 my-16">
+    <div class="cf-hero rounded-2xl p-10 text-center cf-fade-up">
+      <h2 class="text-3xl font-extrabold text-white mb-3">Join Our Community</h2>
+      <p class="text-emerald-200 mb-6 max-w-xl mx-auto">Create a free account to shop local products, register for events, and share your cultural moments.</p>
+      <a href="/register" class="cf-btn cf-btn-primary text-base px-8 py-3 bg-white text-emerald-700 hover:bg-emerald-50">
+        <i class="fas fa-user-plus"></i> Get Started — It's Free
+      </a>
     </div>
-  </div>
-
-  <!-- About Section -->
-  <div class="bg-white py-16">
-    <div class="container mx-auto px-6">
-      <div class="max-w-3xl mx-auto text-center">
-        <h2 class="text-3xl font-bold text-gray-800 mb-6">About CultureFrame</h2>
-        <p class="text-lg text-gray-600 leading-relaxed">
-          CultureFrame is a digital platform dedicated to preserving and promoting the rich cultural heritage 
-          of Mansalay, Oriental Mindoro. We connect local communities with visitors through authentic experiences, 
-          traditional crafts, and cultural events.
-        </p>
-      </div>
-    </div>
-  </div>
-
-  <!-- Clean home page without modals -->
+  </section>
+  {{/unless}}
 
   {{>footer}}
 </body>

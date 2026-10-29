@@ -30,12 +30,16 @@
 import { sequelize } from "./db.js";
 
 export const Order = sequelize.define("orders", {
+  user_id: { 
+    type: DataTypes.INTEGER, 
+    allowNull: true  // null = guest order
+  },
   customer_name: { type: DataTypes.STRING, allowNull: false },
   customer_email: { type: DataTypes.STRING, allowNull: false },
   customer_phone: { type: DataTypes.STRING, allowNull: false },
   shipping_address: { type: DataTypes.TEXT, allowNull: false },
   total_amount: { type: DataTypes.DECIMAL(10, 2), allowNull: false },
-  status: { type: DataTypes.STRING, defaultValue: "pending" }, // pending, processing, shipped, delivered
+  status: { type: DataTypes.STRING, defaultValue: "pending" },
   payment_method: { type: DataTypes.STRING, allowNull: false }
 });
 

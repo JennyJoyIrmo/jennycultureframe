@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{{title}} - CultureFrame Admin</title>
+  <link rel="stylesheet" href="/tailwind.css" />
+</head>
+<body class="bg-gray-50 flex">
+  {{> admin-sidebar}}
+
+  <main class="flex-1 p-8 overflow-auto">
+    <div class="flex items-center gap-3 mb-8">
+      <a href="/admin/customers" class="text-gray-400 hover:text-gray-600 transition-colors">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+        </svg>
+      </a>
+      <h1 class="text-2xl font-bold text-gray-800">{{customer.name}}</h1>
+      {{#if (eq customer.status 'active')}}
+        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">Active</span>
+      {{else}}
+        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800">Inactive</span>
+      {{/if}}
+    </div>
+
+    {{#if success_msg}}<div class="mb-4 p-4 bg-green-100 border border-green-300 text-green-800 rounded-xl">{{success_msg}}</div>{{/if}}
+
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+      <!-- Profile card -->
+      <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
+        <h2 class="font-semibold text-gray-700 mb-4">Profile</h2>
+        <div class="space-y-3 text-sm">
+          <div><span class="text-gray-400">Email</span><p class="font-medium text-gray-800">{{customer.email}}</p></div>
+          <div><span class="text-gray-400">Phone</span><p class="font-medium text-gray-800">{{customer.phone}}</p></div>
+          <div><span class="text-gray-400">Address</span><p class="font-medium text-gray-800">{{customer.address}}</p></div>
+          <div><span class="text-gray-400">Joined</span><p class="font-medium text-gray-800">{{customer.createdAt}}</p></div>
+          <div><span class="text-gray-400">Last Login</span><p class="font-medium text-gray-800">{{customer.lastLogin}}</p></div>
+        </div>
+        <form method="POST" action="/admin/customers/toggle-status/{{customer.id}}" class="mt-6">
+          <button type="submit" class="w-full text-sm py-2 rounded-xl font-semibold transition-colors
+            {{#if (eq customer.status 'active')}}bg-red-100 text-red-600 hover:bg-red-200{{else}}bg-green-100 text-green-700 hover:bg-green-200{{/if}}">
+            {{#if (eq customer.status 'active')}}Deactivate Account{{else}}Activate Account{{/if}}
+          </button>
+        </form>
+      </div>
+
+      <!-- Stats -->
+      <div class="lg:col-span-2 grid grid-cols-2 gap-4">
+        <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
+          <p class="text-xs text-gray-500 uppercase tracking-wide mb-1">Total Orders</p>
+          <p class="text-4xl font-bold text-gray-800">{{orders.length}}</p>
+        </div>
+        <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
+          <p class="text-xs text-emerald-600 uppercase tracking-wide mb-1">Total Spend</p>
+          <p class="text-4xl font-bold text-emerald-600">₱{{totalSpend}}</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Order history -->
+    <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+      <div class="px-6 py-4 border-b border-gray-100">
+        <h2 class="font-semibold text-gray-700">Order History</h2>
+      </div>
+      <table class="w-full">
+        <thead class="bg-gray-50">
+          <tr>
+            <th class="text-left px-6 py-3 text-xs font-semibold text-gray-500 uppercase">Order #</th>
+            <th class="text-left px-6 py-3 text-xs font-semibold text-gray-500 uppercase">Amount</th>
+            <th class="text-left px-6 py-3 text-xs font-semibold text-gray-500 uppercase">Payment</th>
+            <th class="text-left px-6 py-3 text-xs font-semibold text-gray-500 uppercase">Status</th>
+            <th class="text-left px-6 py-3 text-xs font-semibold text-gray-500 uppercase">Date</th>
+            <th class="text-left px-6 py-3 text-xs font-semibold text-gray-500 uppercase">Actions</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-gray-50">
+          {{#each orders}}
+          <tr class="hover:bg-gray-50">
+            <td class="px-6 py-4 text-sm font-medium text-gray-700">#{{id}}</td>
+            <td class="px-6 py-4 text-sm font-bold text-emerald-600">₱{{total_amount}}</td>
+            <td class="px-6 py-4 text-sm text-gray-600 capitalize">{{payment_method}}</td>
+            <td class="px-6 py-4">
+              <span class="text-xs px-2.5 py-1 rounded-full font-medium
+                {{#if (eq status 'delivered')}}bg-green-100 text-green-800
+                {{else if (eq status 'shipped')}}bg-blue-100 text-blue-800
+                {{else if (eq status 'processing')}}bg-yellow-100 text-yellow-800
+                {{else}}bg-gray-100 text-gray-600{{/if}}">
+                {{status}}
+              </span>
+            </td>
+            <td class="px-6 py-4 text-xs text-gray-400">{{createdAt}}</td>
+            <td class="px-6 py-4">
+              <a href="/admin/orders/{{id}}" class="text-xs text-emerald-600 hover:underline font-medium">View</a>
+            </td>
+          </tr>
+          {{else}}
+          <tr><td colspan="6" class="text-center py-10 text-gray-400">No orders yet.</td></tr>
+          {{/each}}
+        </tbody>
+      </table>
+    </div>
+  </main>
+</body>
+</html>

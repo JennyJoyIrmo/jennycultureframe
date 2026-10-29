@@ -438,6 +438,34 @@ router.post('/admin/crafts/delete', requireAdmin, craftcontroller.delete);
 // Admin - Feedbacks
 router.get('/admin/feedbacks', requireAdmin, ordercontroller.adminFeedbackList);
 
+// ==================== ADMIN – SELLERS ====================
+import { sellerController } from "../controllers/sellerController.js";
+router.get('/admin/sellers', requireAdmin, sellerController.index);
+router.get('/admin/sellers/add', requireAdmin, sellerController.addForm);
+router.post('/admin/sellers/add', requireAdmin, sellerController.add);
+router.get('/admin/sellers/edit/:id', requireAdmin, sellerController.editForm);
+router.post('/admin/sellers/edit/:id', requireAdmin, sellerController.update);
+router.post('/admin/sellers/delete/:id', requireAdmin, sellerController.delete);
+
+// ==================== ADMIN – CUSTOMERS ====================
+import { customerMgmtController } from "../controllers/customerMgmtController.js";
+router.get('/admin/customers', requireAdmin, customerMgmtController.index);
+router.get('/admin/customers/:id', requireAdmin, customerMgmtController.detail);
+router.post('/admin/customers/toggle-status/:id', requireAdmin, customerMgmtController.toggleStatus);
+
+// ==================== ADMIN – PAYMENTS ====================
+import { paymentController } from "../controllers/paymentController.js";
+router.get('/admin/payments', requireAdmin, paymentController.index);
+router.get('/admin/payments/add', requireAdmin, paymentController.addForm);
+router.post('/admin/payments/add', requireAdmin, paymentController.add);
+router.get('/admin/payments/:id', requireAdmin, paymentController.detail);
+router.post('/admin/payments/update-status/:id', requireAdmin, paymentController.updateStatus);
+
+// ==================== ADMIN – ANALYTICS ====================
+import { analyticsController } from "../controllers/analyticsController.js";
+router.get('/admin/analytics/sales', requireAdmin, analyticsController.sales);
+router.get('/admin/analytics/business', requireAdmin, analyticsController.business);
+
 // API: Get live dashboard stats
 router.get('/api/customer/dashboard-stats', requireAuth, async (req, res) => {
   try {

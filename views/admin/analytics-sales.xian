@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{{title}} - CultureFrame Admin</title>
+  <link rel="stylesheet" href="/tailwind.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+</head>
+<body class="bg-gray-50 flex">
+  {{> admin-sidebar}}
+
+  <main class="flex-1 p-8 overflow-auto">
+    <!-- Header -->
+    <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
+      <div>
+        <h1 class="text-3xl font-bold text-gray-800">Sales Analytics</h1>
+        <p class="text-gray-500 mt-1">Revenue, orders, and product performance</p>
+      </div>
+      <!-- Date range filter -->
+      <form method="GET" action="/admin/analytics/sales" class="flex gap-2 items-center">
+        <input type="date" name="start" value="{{dateStart}}" class="border border-gray-200 rounded-xl px-3 py-2 text-sm focus:ring-2 focus:ring-emerald-400 focus:outline-none" />
+        <span class="text-gray-400 text-sm">to</span>
+        <input type="date" name="end" value="{{dateEnd}}" class="border border-gray-200 rounded-xl px-3 py-2 text-sm focus:ring-2 focus:ring-emerald-400 focus:outline-none" />
+        <button type="submit" class="bg-emerald-600 text-white px-4 py-2 rounded-xl text-sm font-semibold hover:bg-emerald-700 transition-colors">Apply</button>
+      </form>
+    </div>
+
+    <!-- KPI cards -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+      <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
+        <p class="text-xs text-gray-500 uppercase tracking-wide mb-1">Total Revenue</p>
+        <p class="text-4xl font-bold text-emerald-600">₱{{totalRevenue}}</p>
+      </div>
+      <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
+        <p class="text-xs text-gray-500 uppercase tracking-wide mb-1">Total Orders</p>
+        <p class="text-4xl font-bold text-gray-800">{{totalOrders}}</p>
+      </div>
+      <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
+        <p class="text-xs text-gray-500 uppercase tracking-wide mb-1">Avg. Order Value</p>
+        <p class="text-4xl font-bold text-blue-600">₱{{avgOrder}}</p>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
+      <!-- Daily revenue chart -->
+      <div class="lg:col-span-2 bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
+        <h2 class="font-semibold text-gray-700 mb-4">Daily Revenue</h2>
+        <canvas id="revenueChart" height="120"></canvas>
+      </div>
+
+      <!-- Order status doughnut -->
+      <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
+        <h2 class="font-semibold text-gray-700 mb-4">Order Status</h2>
+        <canvas id="statusChart" height="200"></canvas>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+      <!-- Payment methods -->
+      <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
+        <h2 class="font-semibold text-gray-700 mb-4">Revenue by Payment Method</h2>
+        <canvas id="methodChart" height="200"></canvas>
+      </div>
+
+      <!-- Top products -->
+      <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
+        <h2 class="font-semibold text-gray-700 mb-4">Top Products</h2>
+        <div class="space-y-3">
+          {{#each topProducts}}
+          <div class="flex items-center justify-between">
+            <div>
+              <p class="text-sm font-medium text-gray-700">{{product_name}}</p>
+              <p class="text-xs text-gray-400">{{total_qty}} units sold</p>
+            </div>
+            <span class="text-sm font-bold text-emerald-600">₱{{total_rev}}</span>
+          </div>
+          {{else}}
+          <p class="text-sm text-gray-400 text-center py-4">No product data in this range.</p>
+          {{/each}}
+        </div>
+      </div>
+    </div>
+
+    <!-- Orders table -->
+    <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+      <div class="px-6 py-4 border-b border-gray-100">
+        <h2 class="font-semibold text-gray-700">Orders in Range</h2>
+      </div>
+      <div class="overflow-x-auto">
+        <table class="w-full">
+          <thead class="bg-gray-50">
+            <tr>
+              <th class="text-left px-6 py-3 text-xs font-semibold text-gray-500 uppercase">#</th>
+              <th class="text-left px-6 py-3 text-xs font-semibold text-gray-500 uppercase">Customer</th>
+              <th class="text-left px-6 py-3 text-xs font-semibold text-gray-500 uppercase">Amount</th>
+              <th class="text-left px-6 py-3 text-xs font-semibold text-gray-500 uppercase">Payment</th>
+              <th class="text-left px-6 py-3 text-xs font-semibold text-gray-500 uppercase">Status</th>
+              <th class="text-left px-6 py-3 text-xs font-semibold text-gray-500 uppercase">Date</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-gray-50">
+            {{#each orders}}
+            <tr class="hover:bg-gray-50">
+              <td class="px-6 py-4 text-sm text-gray-500">#{{id}}</td>
+              <td class="px-6 py-4">
+                <p class="text-sm font-medium text-gray-800">{{customer_name}}</p>
+                <p class="text-xs text-gray-400">{{customer_email}}</p>
+              </td>
+              <td class="px-6 py-4 text-sm font-bold text-emerald-600">₱{{total_amount}}</td>
+              <td class="px-6 py-4 text-sm text-gray-600 capitalize">{{payment_method}}</td>
+              <td class="px-6 py-4">
+                <span class="text-xs px-2.5 py-1 rounded-full font-medium capitalize
+                  {{#if (eq status 'delivered')}}bg-green-100 text-green-800
+                  {{else if (eq status 'shipped')}}bg-blue-100 text-blue-800
+                  {{else if (eq status 'processing')}}bg-yellow-100 text-yellow-800
+                  {{else}}bg-gray-100 text-gray-600{{/if}}">
+                  {{status}}
+                </span>
+              </td>
+              <td class="px-6 py-4 text-xs text-gray-400">{{createdAt}}</td>
+            </tr>
+            {{else}}
+            <tr><td colspan="6" class="text-center py-10 text-gray-400">No orders in this date range.</td></tr>
+            {{/each}}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    const dailyLabels  = {{{dailyLabels}}};
+    const dailyRevenue = {{{dailyRevenue}}};
+    const byStatus     = {{{byStatus}}};
+    const byMethod     = {{{byMethod}}};
+
+    // Daily revenue line chart
+    new Chart(document.getElementById('revenueChart'), {
+      type: 'line',
+      data: {
+        labels: dailyLabels,
+        datasets: [{
+          label: 'Revenue (₱)',
+          data: dailyRevenue,
+          borderColor: '#059669',
+          backgroundColor: 'rgba(5,150,105,0.08)',
+          tension: 0.4,
+          fill: true,
+          pointBackgroundColor: '#059669'
+        }]
+      },
+      options: { responsive: true, plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true } } }
+    });
+
+    // Status doughnut
+    new Chart(document.getElementById('statusChart'), {
+      type: 'doughnut',
+      data: {
+        labels: Object.keys(byStatus),
+        datasets: [{ data: Object.values(byStatus), backgroundColor: ['#f59e0b','#3b82f6','#8b5cf6','#10b981'] }]
+      },
+      options: { responsive: true, plugins: { legend: { position: 'bottom' } } }
+    });
+
+    // Payment method bar
+    new Chart(document.getElementById('methodChart'), {
+      type: 'bar',
+      data: {
+        labels: Object.keys(byMethod),
+        datasets: [{ label: 'Revenue (₱)', data: Object.values(byMethod), backgroundColor: '#059669', borderRadius: 8 }]
+      },
+      options: { responsive: true, plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true } } }
+    });
+  </script>
+</body>
+</html>

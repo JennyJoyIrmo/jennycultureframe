@@ -59,12 +59,14 @@ app.use(session({
   resave: false,
   saveUninitialized: false,
   cookie: {
-    secure: false, // Set to true if using HTTPS
+    secure: process.env.NODE_ENV === 'production', // true on Railway (HTTPS), false local
     httpOnly: true,
     maxAge: 24 * 60 * 60 * 1000 // 24 hours
   },
-  name: 'sessionId' // Custom session name
+  name: 'sessionId'
 }));
+// Trust Railway/Render/Heroku reverse proxy so secure cookies work
+app.set('trust proxy', 1);
 app.use(flash());
 
 app.engine("xian", async (filePath, options, callback) => {
@@ -99,6 +101,10 @@ app.engine("xian", async (filePath, options, callback) => {
 // Register small helpers used by templates
 hbs.registerHelper('eq', (a, b) => a == b);
 hbs.registerHelper('neq', (a, b) => a != b);
+// Helper: create an inline array in templates — {{#each (array 'a' 'b' 'c')}}
+hbs.registerHelper('array', (...args) => args.slice(0, -1));
+// Helper: less-than-or-equal for star ratings
+hbs.registerHelper('lte', (a, b) => Number(a) <= Number(b));
 // Backwards-compatible helper used in templates
 hbs.registerHelper('ifEquals', function(a, b, options) {
   if (a == b) return options.fn(this);

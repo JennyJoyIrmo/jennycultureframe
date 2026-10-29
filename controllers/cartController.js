@@ -18,7 +18,7 @@ const cartController = {
 
       // Debug log
       console.log('[AddToCart] session:', req.session);
-      console.log('[AddToCart] user:', req.session.user);
+      console.log(' [AddToCart] user:', req.session.user);
       console.log('[AddToCart] product_id:', product_id, 'quantity:', qty);
 
       const product = await Product.findByPk(product_id);

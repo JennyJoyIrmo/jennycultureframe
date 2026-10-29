@@ -1,8 +1,6 @@
 {{>head}}
-<body class="min-h-screen bg-cover bg-center bg-fixed" style="background-image: url('https://travelorientalmindoro.ph/Content/img/uploads/mansalay_1.jpg');">
-  <div class="absolute inset-0 bg-white/5 z-0"></div>
-  
-  <div class="relative z-10">
+<body class="bg-gray-50">
+  <div class="relative">
     {{>nav}}
     
     <!-- Hero Image Section -->

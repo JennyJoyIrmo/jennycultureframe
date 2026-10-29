@@ -1,197 +1,361 @@
-{{>head}}
-<body class="bg-gray-50">
-  {{>nav}}
-  {{>messages}}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Shopping Cart — CultureFrame</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <style>
+    body { font-family: 'Inter','Segoe UI',sans-serif; background: #f0fdf4; }
 
-  <div class="container mx-auto px-4 py-6 max-w-7xl">
-    <!-- Breadcrumb -->
-    <div class="mb-4 text-sm">
-      <a href="/" class="text-gray-600 hover:text-emerald-600">Home</a>
-      <span class="mx-2 text-gray-400">/</span>
-      <a href="/shop" class="text-gray-600 hover:text-emerald-600">Shop</a>
-      <span class="mx-2 text-gray-400">/</span>
-      <span class="text-emerald-600 font-medium">Shopping Cart</span>
+    .card {
+      background: #fff;
+      border-radius: 16px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.05), 0 4px 16px rgba(5,150,105,0.06);
+      border: 1px solid #d1fae5;
+    }
+
+    .input-field {
+      padding: 0.55rem 0.85rem;
+      border: 1.5px solid #d1fae5;
+      border-radius: 10px;
+      font-size: 0.875rem;
+      outline: none;
+      transition: all 0.2s;
+      background: #fff;
+    }
+    .input-field:focus {
+      border-color: #059669;
+      box-shadow: 0 0 0 3px rgba(5,150,105,0.1);
+    }
+
+    .qty-btn {
+      width: 30px; height: 30px;
+      border-radius: 8px;
+      border: 1.5px solid #d1fae5;
+      background: #f0fdf4;
+      color: #065f46;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer;
+      transition: all 0.15s;
+      font-size: 0.75rem;
+      flex-shrink: 0;
+    }
+    .qty-btn:hover { background: #059669; color: #fff; border-color: #059669; }
+
+    .cart-row {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1rem 1.25rem;
+      border-bottom: 1px solid #f0fdf4;
+      transition: background 0.15s;
+    }
+    .cart-row:last-child { border-bottom: none; }
+    .cart-row:hover { background: #f9fffe; }
+
+    .product-img {
+      width: 72px; height: 72px;
+      border-radius: 12px;
+      object-fit: cover;
+      border: 1.5px solid #d1fae5;
+      flex-shrink: 0;
+      background: #f0fdf4;
+    }
+
+    .remove-btn {
+      width: 32px; height: 32px;
+      border-radius: 8px;
+      border: 1.5px solid #fee2e2;
+      background: #fff5f5;
+      color: #ef4444;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer;
+      transition: all 0.15s;
+      flex-shrink: 0;
+    }
+    .remove-btn:hover { background: #ef4444; color: #fff; border-color: #ef4444; }
+
+    .checkout-btn {
+      width: 100%;
+      padding: 0.85rem;
+      background: linear-gradient(135deg, #059669, #10b981);
+      color: #fff;
+      border: none;
+      border-radius: 12px;
+      font-size: 0.95rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s;
+      box-shadow: 0 4px 12px rgba(5,150,105,0.3);
+    }
+    .checkout-btn:hover {
+      background: linear-gradient(135deg, #047857, #059669);
+      box-shadow: 0 6px 20px rgba(5,150,105,0.4);
+      transform: translateY(-1px);
+    }
+    .checkout-btn:disabled {
+      background: #9ca3af;
+      box-shadow: none;
+      transform: none;
+      cursor: not-allowed;
+    }
+
+    .empty-icon {
+      width: 120px; height: 120px;
+      background: linear-gradient(135deg, #ecfdf5, #d1fae5);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 1.5rem;
+    }
+
+    .cb-custom {
+      width: 18px; height: 18px;
+      accent-color: #059669;
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+
+    .trust-icon {
+      width: 36px; height: 36px;
+      border-radius: 10px;
+      background: #f0fdf4;
+      display: flex; align-items: center; justify-content: center;
+      color: #059669;
+      font-size: 1rem;
+      margin: 0 auto 0.35rem;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(14px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .fu  { animation: fadeUp 0.35s ease both; }
+    .fu2 { animation: fadeUp 0.35s 0.08s ease both; }
+    .fu3 { animation: fadeUp 0.35s 0.16s ease both; }
+
+    .badge-free {
+      font-size: 0.65rem;
+      font-weight: 700;
+      background: #dcfce7;
+      color: #15803d;
+      padding: 1px 6px;
+      border-radius: 20px;
+    }
+
+    .header-row {
+      padding: 0.75rem 1.25rem;
+      border-bottom: 1px solid #f0fdf4;
+      background: #f9fffe;
+      border-radius: 16px 16px 0 0;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+  </style>
+</head>
+<body class="min-h-screen">
+
+  {{>nav}}
+
+  <div class="max-w-6xl mx-auto px-4 py-8">
+
+    <!-- Page title -->
+    <div class="flex items-center gap-3 mb-6 fu">
+      <div class="w-10 h-10 rounded-xl bg-emerald-600 flex items-center justify-center">
+        <i class="fas fa-shopping-cart text-white"></i>
+      </div>
+      <div>
+        <h1 class="text-2xl font-extrabold text-gray-800 leading-none">Shopping Cart</h1>
+        <p class="text-sm text-gray-400 mt-0.5">
+          <a href="/" class="hover:text-emerald-600 transition-colors">Home</a>
+          <span class="mx-1.5">›</span>
+          <a href="/shop" class="hover:text-emerald-600 transition-colors">Shop</a>
+          <span class="mx-1.5">›</span>
+          <span class="text-emerald-600">Cart</span>
+        </p>
+      </div>
     </div>
 
     {{#if cart.length}}
-    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-      <!-- Cart Items - Left Column -->
-      <div class="lg:col-span-2">
-        <!-- Header -->
-        <div class="bg-white rounded-lg shadow-sm mb-4">
-          <div class="p-4 border-b flex items-center justify-between">
-            <div class="flex items-center gap-3">
-              <input type="checkbox" id="selectAll" class="w-5 h-5 text-emerald-600 rounded">
-              <label for="selectAll" class="font-medium text-gray-800">Select All ({{cart.length}} items)</label>
-            </div>
-            <button id="deleteSelected" class="text-sm text-red-600 hover:text-red-700 font-medium">
-              Delete Selected
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 items-start">
+
+      <!-- ── LEFT: Cart Items ── -->
+      <div class="lg:col-span-2 space-y-4 fu2">
+
+        <div class="card overflow-hidden">
+          <!-- Select all header -->
+          <div class="header-row">
+            <input type="checkbox" id="selectAll" class="cb-custom" />
+            <label for="selectAll" class="text-sm font-semibold text-gray-700 cursor-pointer select-none">
+              Select All
+            </label>
+            <span class="ml-1 text-xs text-gray-400 bg-gray-100 px-2 py-0.5 rounded-full">{{cart.length}} item(s)</span>
+            <button id="deleteSelected"
+              class="ml-auto text-xs text-red-500 hover:text-red-700 font-semibold flex items-center gap-1 transition-colors">
+              <i class="fas fa-trash-alt text-xs"></i> Remove Selected
             </button>
           </div>
 
-          <!-- Cart Items -->
-          <div class="divide-y">
-            {{#each cart}}
-            <div class="p-4 hover:bg-gray-50 transition-colors cart-item" data-product-id="{{this.product_id}}">
-              <div class="flex items-start gap-4">
-                <!-- Checkbox -->
-                <input type="checkbox" class="item-checkbox w-5 h-5 text-emerald-600 rounded mt-2" data-price="{{this.total}}">
-                
-                <!-- Product Image -->
-                <div class="flex-shrink-0">
-                  <img src="{{this.image_url}}" alt="{{this.name}}" 
-                       class="w-20 h-20 object-cover rounded border"
-                       onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22100%22 height=%22100%22%3E%3Crect fill=%22%23f3f4f6%22 width=%22100%22 height=%22100%22/%3E%3Ctext fill=%22%239ca3af%22 font-family=%22sans-serif%22 font-size=%2212%22 x=%2250%25%22 y=%2250%25%22 text-anchor=%22middle%22 dy=%22.3em%22%3ENo Image%3C/text%3E%3C/svg%3E'">
-                </div>
+          <!-- Items -->
+          {{#each cart}}
+          <div class="cart-row cart-item" data-product-id="{{this.product_id}}">
+            <!-- Checkbox -->
+            <input type="checkbox" class="cb-custom item-checkbox"
+                   data-product-id="{{this.product_id}}"
+                   data-price="{{this.price}}"
+                   data-qty="{{this.quantity}}" />
 
-                <!-- Product Info -->
-                <div class="flex-1 min-w-0">
-                  <h3 class="font-medium text-gray-800 mb-1 line-clamp-2">{{this.name}}</h3>
-                  <p class="text-sm text-gray-500 mb-2">{{this.category}}</p>
-                  
-                  <!-- Price & Quantity -->
-                  <div class="flex items-center justify-between">
-                    <div class="text-emerald-600 font-semibold text-lg">₱{{this.price}}</div>
-                    
-                    <!-- Quantity Controls -->
-                    <div class="flex items-center gap-2">
-                      <form method="POST" action="/cart/update" class="flex items-center border border-gray-300 rounded">
-                        <input type="hidden" name="product_id" value="{{this.product_id}}">
-                        <button type="button" class="qty-decrease px-3 py-1 hover:bg-gray-100 text-gray-600" data-product-id="{{this.product_id}}">-</button>
-                        <input type="number" 
-                               name="quantity" 
-                               value="{{this.quantity}}" 
-                               min="1" 
-                               max="99"
-                               class="qty-input w-12 text-center border-x border-gray-300 py-1 focus:outline-none"
-                               data-product-id="{{this.product_id}}"
-                               readonly>
-                        <button type="button" class="qty-increase px-3 py-1 hover:bg-gray-100 text-gray-600" data-product-id="{{this.product_id}}">+</button>
-                      </form>
-                      
-                      <!-- Delete Button -->
-                      <form method="POST" action="/cart/remove" class="inline">
-                        <input type="hidden" name="product_id" value="{{this.product_id}}">
-                        <button type="submit" class="text-gray-400 hover:text-red-600 transition-colors p-2">
-                          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
-                          </svg>
-                        </button>
-                      </form>
-                    </div>
-                  </div>
+            <!-- Image -->
+            <img src="{{this.image_url}}" alt="{{this.name}}" class="product-img"
+                 onerror="this.src='/images/logo.png'" />
 
-                  <!-- Item Total -->
-                  <div class="mt-2 text-right">
-                    <span class="text-sm text-gray-500">Total: </span>
-                    <span class="text-emerald-600 font-bold">₱{{this.total}}</span>
-                  </div>
-                </div>
-              </div>
+            <!-- Info -->
+            <div class="flex-1 min-w-0">
+              <p class="font-semibold text-gray-800 text-sm leading-snug line-clamp-2">{{this.name}}</p>
+              <p class="text-xs text-gray-400 mt-0.5 capitalize">{{this.category}}</p>
+              <p class="text-emerald-600 font-bold text-base mt-1">₱{{this.price}}</p>
             </div>
-            {{/each}}
+
+            <!-- Qty controls -->
+            <div class="flex items-center gap-1.5 shrink-0">
+              <button type="button" class="qty-btn qty-decrease" data-product-id="{{this.product_id}}">
+                <i class="fas fa-minus" style="font-size:9px"></i>
+              </button>
+              <input type="number" value="{{this.quantity}}" min="1" max="99" readonly
+                     class="qty-input w-10 text-center text-sm font-bold border border-emerald-100 rounded-lg py-1 bg-white"
+                     data-product-id="{{this.product_id}}" />
+              <button type="button" class="qty-btn qty-increase" data-product-id="{{this.product_id}}">
+                <i class="fas fa-plus" style="font-size:9px"></i>
+              </button>
+            </div>
+
+            <!-- Line total -->
+            <div class="text-right shrink-0 w-24">
+              <p class="text-xs text-gray-400 mb-0.5">Total</p>
+              <p class="font-extrabold text-emerald-700 text-base item-total-display">₱{{this.total}}</p>
+            </div>
+
+            <!-- Remove -->
+            <form method="POST" action="/cart/remove" class="shrink-0">
+              <input type="hidden" name="product_id" value="{{this.product_id}}" />
+              <button type="submit" class="remove-btn">
+                <i class="fas fa-trash-alt" style="font-size:12px"></i>
+              </button>
+            </form>
           </div>
+          {{/each}}
         </div>
 
-        <!-- Similar Products -->
-        <div class="bg-white rounded-lg shadow-sm p-4">
-          <h3 class="font-semibold text-gray-800 mb-3">You May Also Like</h3>
-          <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
-            <!-- Placeholder for similar products -->
-            <div class="text-center text-gray-400 text-sm col-span-2 md:col-span-4 py-4">
-              Similar products will appear here
-            </div>
-          </div>
+        <!-- Continue shopping -->
+        <div class="flex items-center justify-between">
+          <a href="/shop"
+             class="inline-flex items-center gap-2 text-sm text-emerald-600 hover:text-emerald-800 font-semibold transition-colors">
+            <i class="fas fa-arrow-left text-xs"></i> Continue Shopping
+          </a>
+          <p class="text-xs text-gray-400">
+            <i class="fas fa-shield-alt text-emerald-500 mr-1"></i>
+            Your data is protected and secure
+          </p>
         </div>
       </div>
 
-      <!-- Order Summary - Right Column -->
-      <div class="lg:col-span-1">
-        <div class="bg-white rounded-lg shadow-sm sticky top-20">
-          <div class="p-4 border-b">
-            <h3 class="font-semibold text-gray-800">Order Summary</h3>
-          </div>
-          
-          <div class="p-4 space-y-3">
-            <!-- Voucher -->
-            <div class="flex items-center gap-2 p-3 border border-dashed border-emerald-300 rounded bg-emerald-50">
-              <svg class="w-5 h-5 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"></path>
-              </svg>
-              <input type="text" placeholder="Enter Voucher Code" class="flex-1 bg-transparent border-none focus:outline-none text-sm">
-              <button class="text-emerald-600 font-medium text-sm hover:text-emerald-700">Apply</button>
-            </div>
+      <!-- ── RIGHT: Order Summary ── -->
+      <div class="lg:col-span-1 fu3">
+        <div class="lg:sticky lg:top-[72px] space-y-4">
 
-            <!-- Price Breakdown -->
-            <div class="space-y-2 text-sm">
-              <div class="flex justify-between">
-                <span class="text-gray-600">Subtotal (<span id="selectedCount">0</span> items)</span>
-                <span class="text-gray-800" id="subtotal">₱0</span>
-              </div>
-              
-              <div class="flex justify-between">
-                <span class="text-gray-600">Shipping Fee</span>
-                <span class="text-emerald-600">Free</span>
-              </div>
-              
-              <div class="flex justify-between">
-                <span class="text-gray-600">Voucher Discount</span>
-                <span class="text-red-600">-₱0</span>
-              </div>
+          <!-- Summary -->
+          <div class="card">
+            <div class="header-row">
+              <i class="fas fa-receipt text-emerald-600"></i>
+              <h3 class="font-bold text-gray-800">Order Summary</h3>
             </div>
+            <div class="p-5 space-y-3">
 
-            <!-- Total -->
-            <div class="border-t pt-3">
-              <div class="flex justify-between items-center mb-4">
-                <span class="font-semibold text-gray-800">Total</span>
-                <div class="text-right">
-                  <div class="text-2xl font-bold text-emerald-600" id="totalAmount">₱0</div>
-                  <div class="text-xs text-gray-500">VAT included, if applicable</div>
+              <!-- Voucher -->
+              <div class="flex gap-2">
+                <input type="text" id="voucherInput" placeholder="Voucher code"
+                  class="input-field flex-1 text-xs" />
+                <button onclick="applyVoucher()"
+                  class="text-xs px-3 py-1.5 rounded-xl bg-emerald-100 text-emerald-700 font-semibold hover:bg-emerald-200 transition-colors whitespace-nowrap">
+                  Apply
+                </button>
+              </div>
+
+              <div class="border-t border-emerald-50 pt-3 space-y-2.5 text-sm">
+                <div class="flex justify-between text-gray-600">
+                  <span>Selected Items</span>
+                  <span class="font-medium text-gray-800"><span id="selectedCount">0</span> item(s)</span>
+                </div>
+                <div class="flex justify-between text-gray-600">
+                  <span>Subtotal</span>
+                  <span class="font-medium text-gray-800" id="subtotal">₱0.00</span>
+                </div>
+                <div class="flex justify-between text-gray-600">
+                  <span>Shipping Fee</span>
+                  <span class="badge-free">FREE</span>
+                </div>
+                <div class="flex justify-between text-gray-500 text-xs">
+                  <span>Voucher Discount</span>
+                  <span class="text-red-400 font-medium">- ₱0.00</span>
                 </div>
               </div>
 
-              <!-- Checkout Button -->
-              <a href="/checkout" id="checkoutBtn"
-                 class="block w-full bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white text-center py-3 rounded font-semibold transition-all duration-200 shadow-md hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed">
-                Proceed to Checkout (<span id="checkoutCount">0</span>)
-              </a>
-            </div>
-          </div>
-        </div>
+              <div class="border-t border-emerald-100 pt-3 flex justify-between items-center">
+                <span class="font-bold text-gray-800">Total</span>
+                <span class="text-2xl font-extrabold text-emerald-600" id="totalAmount">₱0.00</span>
+              </div>
 
-        <!-- Trust Badges -->
-        <div class="mt-4 bg-white rounded-lg shadow-sm p-4">
-          <div class="grid grid-cols-3 gap-4 text-center text-xs">
-            <div>
-              <div class="text-2xl mb-1">🔒</div>
-              <div class="text-gray-600">Secure Payment</div>
-            </div>
-            <div>
-              <div class="text-2xl mb-1">🚚</div>
-              <div class="text-gray-600">Free Shipping</div>
-            </div>
-            <div>
-              <div class="text-2xl mb-1">↩️</div>
-              <div class="text-gray-600">Easy Returns</div>
+              <!-- Checkout button -->
+              <form method="POST" action="/checkout" id="checkoutForm">
+                <input type="hidden" name="selected_items" id="selectedItemsInput" value="[]" />
+                <button type="submit" class="checkout-btn" id="checkoutBtn" disabled>
+                  <i class="fas fa-lock mr-2"></i>
+                  Proceed to Checkout
+                  <span id="checkoutCount" class="ml-1 bg-white/20 text-white text-xs font-bold px-1.5 py-0.5 rounded-full">0</span>
+                </button>
+              </form>
             </div>
           </div>
+
+          <!-- Trust badges -->
+          <div class="card p-4">
+            <div class="grid grid-cols-3 gap-3 text-center">
+              <div>
+                <div class="trust-icon"><i class="fas fa-shield-alt"></i></div>
+                <p class="text-xs text-gray-500 font-medium">Secure Pay</p>
+              </div>
+              <div>
+                <div class="trust-icon"><i class="fas fa-truck"></i></div>
+                <p class="text-xs text-gray-500 font-medium">Free Ship</p>
+              </div>
+              <div>
+                <div class="trust-icon"><i class="fas fa-undo"></i></div>
+                <p class="text-xs text-gray-500 font-medium">7-Day Return</p>
+              </div>
+            </div>
+          </div>
+
         </div>
       </div>
     </div>
 
     {{else}}
-    <!-- Empty Cart -->
-    <div class="bg-white rounded-lg shadow-sm p-12 text-center max-w-md mx-auto">
-      <svg class="w-32 h-32 mx-auto text-gray-300 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path>
-      </svg>
-      <h3 class="text-2xl font-semibold text-gray-800 mb-2">Your cart is empty</h3>
-      <p class="text-gray-600 mb-6">Add items to get started</p>
-      <a href="/shop" class="inline-block bg-emerald-600 text-white px-8 py-3 rounded-lg hover:bg-emerald-700 transition-colors font-medium">
-        Start Shopping
+    <!-- Empty state -->
+    <div class="card max-w-sm mx-auto py-16 px-8 text-center fu">
+      <div class="empty-icon">
+        <i class="fas fa-shopping-cart text-4xl text-emerald-400"></i>
+      </div>
+      <h2 class="text-xl font-extrabold text-gray-800 mb-2">Your cart is empty</h2>
+      <p class="text-gray-400 text-sm mb-6">Looks like you haven't added anything yet.</p>
+      <a href="/shop"
+         class="inline-flex items-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white px-6 py-3 rounded-xl font-semibold transition-all shadow-md hover:shadow-lg">
+        <i class="fas fa-store"></i> Browse Products
       </a>
     </div>
     {{/if}}
+
   </div>
 
   {{>footer}}
@@ -206,134 +370,123 @@
   </style>
 
   <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      const selectAll = document.getElementById('selectAll');
-      const itemCheckboxes = document.querySelectorAll('.item-checkbox');
-      const checkoutBtn = document.getElementById('checkoutBtn');
-      
-      // Calculate totals
-      function updateTotals() {
-        let selectedCount = 0;
-        let subtotal = 0;
-        
-        itemCheckboxes.forEach(checkbox => {
-          if (checkbox.checked) {
-            selectedCount++;
-            subtotal += parseFloat(checkbox.dataset.price);
-          }
-        });
-        
-        document.getElementById('selectedCount').textContent = selectedCount;
-        document.getElementById('checkoutCount').textContent = selectedCount;
-        document.getElementById('subtotal').textContent = '₱' + subtotal.toFixed(2);
-        document.getElementById('totalAmount').textContent = '₱' + subtotal.toFixed(2);
-        
-        // Enable/disable checkout button
-        if (selectedCount === 0) {
-          checkoutBtn.classList.add('opacity-50', 'cursor-not-allowed', 'pointer-events-none');
-        } else {
-          checkoutBtn.classList.remove('opacity-50', 'cursor-not-allowed', 'pointer-events-none');
-        }
-      }
-      
-      // Select all functionality
-      if (selectAll) {
-        selectAll.addEventListener('change', function() {
-          itemCheckboxes.forEach(checkbox => {
-            checkbox.checked = this.checked;
-          });
-          updateTotals();
-        });
-      }
-      
-      // Individual checkbox change
-      itemCheckboxes.forEach(checkbox => {
-        checkbox.addEventListener('change', function() {
-          const allChecked = Array.from(itemCheckboxes).every(cb => cb.checked);
-          if (selectAll) selectAll.checked = allChecked;
-          updateTotals();
-        });
-      });
-      
-      // Quantity controls
-      document.querySelectorAll('.qty-decrease').forEach(btn => {
-        btn.addEventListener('click', function() {
-          const productId = this.dataset.productId;
-          const input = document.querySelector(`.qty-input[data-product-id="${productId}"]`);
-          const currentValue = parseInt(input.value);
-          if (currentValue > 1) {
-            updateQuantity(productId, currentValue - 1);
-          }
-        });
-      });
-      
-      document.querySelectorAll('.qty-increase').forEach(btn => {
-        btn.addEventListener('click', function() {
-          const productId = this.dataset.productId;
-          const input = document.querySelector(`.qty-input[data-product-id="${productId}"]`);
-          const currentValue = parseInt(input.value);
-          if (currentValue < 99) {
-            updateQuantity(productId, currentValue + 1);
-          }
-        });
-      });
-      
-      // Update quantity via AJAX
-      async function updateQuantity(productId, quantity) {
-        try {
-          const response = await fetch('/cart/update', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/x-www-form-urlencoded',
-            },
-            body: new URLSearchParams({
-              product_id: productId,
-              quantity: quantity
-            })
-          });
-          
-          if (response.ok) {
-            // Reload page to update cart
-            window.location.reload();
-          }
-        } catch (error) {
-          console.error('Error updating quantity:', error);
-        }
-      }
-      
-      // Delete selected items
-      document.getElementById('deleteSelected')?.addEventListener('click', function() {
-        const selectedItems = Array.from(itemCheckboxes)
-          .filter(cb => cb.checked)
-          .map(cb => cb.closest('.cart-item').dataset.productId);
-        
-        if (selectedItems.length === 0) {
-          alert('Please select items to delete');
-          return;
-        }
-        
-        if (confirm(`Delete ${selectedItems.length} selected item(s)?`)) {
-          // Delete items one by one
-          selectedItems.forEach(productId => {
-            const form = document.createElement('form');
-            form.method = 'POST';
-            form.action = '/cart/remove';
-            
-            const input = document.createElement('input');
-            input.type = 'hidden';
-            input.name = 'product_id';
-            input.value = productId;
-            
-            form.appendChild(input);
-            document.body.appendChild(form);
-            form.submit();
-          });
+  document.addEventListener('DOMContentLoaded', () => {
+    const selectAllCb  = document.getElementById('selectAll');
+    const itemCbs      = document.querySelectorAll('.item-checkbox');
+    const checkoutBtn  = document.getElementById('checkoutBtn');
+    const selectedInput = document.getElementById('selectedItemsInput');
+
+    // ── Recompute totals ─────────────────────────────
+    function recalc() {
+      let count = 0, sub = 0;
+      const selectedIds = [];
+
+      itemCbs.forEach(cb => {
+        if (cb.checked) {
+          count++;
+          const pid = cb.dataset.productId;
+          const price = parseFloat(cb.dataset.price) || 0;
+          const qty   = parseInt(
+            document.querySelector(`.qty-input[data-product-id="${pid}"]`)?.value || cb.dataset.qty || 1
+          );
+          sub += price * qty;
+          selectedIds.push(pid);
         }
       });
-      
-      // Initial calculation
-      updateTotals();
+
+      document.getElementById('selectedCount').textContent = count;
+      document.getElementById('checkoutCount').textContent = count;
+      document.getElementById('subtotal').textContent      = '₱' + sub.toFixed(2);
+      document.getElementById('totalAmount').textContent   = '₱' + sub.toFixed(2);
+      selectedInput.value = JSON.stringify(selectedIds);
+
+      checkoutBtn.disabled = count === 0;
+    }
+
+    // ── Select all ───────────────────────────────────
+    selectAllCb?.addEventListener('change', () => {
+      itemCbs.forEach(cb => { cb.checked = selectAllCb.checked; });
+      recalc();
     });
+
+    itemCbs.forEach(cb => {
+      cb.addEventListener('change', () => {
+        selectAllCb.checked = [...itemCbs].every(c => c.checked);
+        recalc();
+      });
+    });
+
+    // ── Quantity controls ────────────────────────────
+    document.querySelectorAll('.qty-decrease').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const pid   = btn.dataset.productId;
+        const input = document.querySelector(`.qty-input[data-product-id="${pid}"]`);
+        const val   = parseInt(input.value);
+        if (val > 1) { input.value = val - 1; syncQtyToCheckbox(pid, val - 1); updateAjax(pid, val - 1); }
+      });
+    });
+
+    document.querySelectorAll('.qty-increase').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const pid   = btn.dataset.productId;
+        const input = document.querySelector(`.qty-input[data-product-id="${pid}"]`);
+        const val   = parseInt(input.value);
+        if (val < 99) { input.value = val + 1; syncQtyToCheckbox(pid, val + 1); updateAjax(pid, val + 1); }
+      });
+    });
+
+    function syncQtyToCheckbox(pid, qty) {
+      const cb = document.querySelector(`.item-checkbox[data-product-id="${pid}"]`);
+      if (cb) cb.dataset.qty = qty;
+      // Update line total display
+      const row   = document.querySelector(`.cart-item[data-product-id="${pid}"]`);
+      const price = parseFloat(cb?.dataset.price || 0);
+      const el    = row?.querySelector('.item-total-display');
+      if (el) el.textContent = '₱' + (price * qty).toFixed(2);
+      recalc();
+    }
+
+    async function updateAjax(pid, qty) {
+      try {
+        await fetch('/cart/update', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          body: new URLSearchParams({ product_id: pid, quantity: qty })
+        });
+      } catch (e) { console.warn('cart update failed', e); }
+    }
+
+    // ── Delete selected ──────────────────────────────
+    document.getElementById('deleteSelected')?.addEventListener('click', () => {
+      const selected = [...itemCbs].filter(cb => cb.checked).map(cb => cb.dataset.productId);
+      if (!selected.length) { showToast('Select items to remove first.', 'warn'); return; }
+      if (!confirm(`Remove ${selected.length} item(s) from cart?`)) return;
+      selected.forEach(pid => {
+        const f = document.createElement('form');
+        f.method = 'POST'; f.action = '/cart/remove';
+        const inp = document.createElement('input');
+        inp.type = 'hidden'; inp.name = 'product_id'; inp.value = pid;
+        f.appendChild(inp); document.body.appendChild(f); f.submit();
+      });
+    });
+
+    recalc(); // initial
+  });
+
+  function showToast(msg, type = 'info') {
+    const t = document.createElement('div');
+    t.className = `fixed bottom-6 left-1/2 -translate-x-1/2 z-50 px-5 py-3 rounded-xl shadow-lg text-sm font-semibold text-white
+      ${type === 'error' || type === 'warn' ? 'bg-orange-500' : 'bg-emerald-600'}`;
+    t.textContent = msg;
+    document.body.appendChild(t);
+    setTimeout(() => t.remove(), 3000);
+  }
+
+  function applyVoucher() {
+    const code = document.getElementById('voucherInput').value.trim();
+    if (!code) { showToast('Enter a voucher code first.', 'warn'); return; }
+    showToast(`Voucher "${code}" is not valid.`, 'error');
+  }
   </script>
 </body>
 </html>

@@ -287,10 +287,29 @@ export const customerDashboard = async (req, res) => {
     }
     try {
       const { Order } = await import('../models/Order.js');
-      if (req.session.userEmail) {
-        orderCount = await Order.count({ where: { customer_email: req.session.userEmail } });
+      const { Op } = await import('sequelize');
+      if (req.session.userId) {
+        // Primary: count by user_id (secure)
+        // Also count legacy guest orders by email
+        orderCount = await Order.count({
+          where: {
+            [Op.or]: [
+              { user_id: Number(req.session.userId) },
+              ...(req.session.userEmail ? [{ user_id: null, customer_email: req.session.userEmail }] : [])
+            ]
+          }
+        });
         try {
-          const recentOrders = await Order.findAll({ where: { customer_email: req.session.userEmail }, order: [['createdAt','DESC']], limit: 5 });
+          const recentOrders = await Order.findAll({
+            where: {
+              [Op.or]: [
+                { user_id: Number(req.session.userId) },
+                ...(req.session.userEmail ? [{ user_id: null, customer_email: req.session.userEmail }] : [])
+              ]
+            },
+            order: [['createdAt','DESC']],
+            limit: 5
+          });
           serverUserData.orders = recentOrders.map(o => ({ id: o.id, total_amount: o.total_amount, status: o.status, createdAt: o.createdAt }));
         } catch (err) {
           console.warn('Could not load recent orders for dashboard preview:', err.message);
@@ -651,7 +670,12 @@ export const registerUser = async (req, res) => {
     
   } catch (error) {
     console.error('💥 Registration error:', error);
-    return handleRegistrationError(req, res, "Registration failed. Please try again.");
+    console.error('💥 Registration error details:', error.message);
+    console.error('💥 Registration error stack:', error.stack);
+    if (error.errors) {
+      error.errors.forEach(e => console.error('  - Validation:', e.message));
+    }
+    return handleRegistrationError(req, res, error.errors?.[0]?.message || error.message || "Registration failed. Please try again.");
   }
 };
 

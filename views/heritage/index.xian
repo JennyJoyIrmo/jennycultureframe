@@ -1,231 +1,130 @@
 {{>head}}
-<body class="min-h-screen bg-cover bg-center bg-fixed" style="background-image: url('https://www.travelorientalmindoro.ph/Content/img/uploads/ab840107-7993-4a21-849c-eeae4c81f742.jpg');">
-  <!-- Green gradient overlay -->
-  <div class="absolute inset-0 bg-white/5 z-0"></div>
-  
-  <div class="relative z-10">
-    {{>nav}}
+<body class="bg-gray-50">
+  {{>nav}}
 
-    <div class="container mx-auto px-4 py-8">
-      <!-- Compact Header -->
-      <div class="bg-gradient-to-r from-emerald-600 to-green-600 rounded-xl shadow-lg p-6 mb-8 text-center">
-        <h2 class="text-3xl md:text-4xl font-bold text-white mb-2 flex items-center justify-center gap-3">
-          <span class="text-4xl">🏛️</span>
-          <span>Mansalay Cultural Heritage</span>
-        </h2>
-        <p class="text-white/90 max-w-2xl mx-auto">
-          Discover the rich cultural heritage and historical treasures of Mansalay
-        </p>
-      </div>
-      
-      <!-- Main Content with Sidebar -->
-      <div class="grid grid-cols-1 lg:grid-cols-4 gap-8 mb-12">
-        <!-- Sidebar - Left Side (1 column) -->
-        <div class="lg:col-span-1 space-y-6 order-2 lg:order-1">
-          <!-- Cultural Significance Section - Collapsible -->
-          <div class="bg-white/95 backdrop-blur-sm rounded-xl border border-emerald-200 overflow-hidden shadow-lg sticky top-20">
-            <button onclick="togglePreserveSection()" class="w-full p-4 text-left flex items-center justify-between hover:bg-emerald-50 transition duration-200">
-              <div class="flex items-center">
-                <span class="text-xl mr-2">💡</span>
-                <h3 class="text-lg font-bold text-emerald-800">Why Preserve?</h3>
-              </div>
-              <svg id="preserveIcon" class="w-5 h-5 text-emerald-600 transform transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-              </svg>
-            </button>
-            
-            <div id="preserveContent" class="hidden border-t border-emerald-100">
-              <div class="p-4 space-y-4">
-                <p class="text-emerald-700 text-sm leading-relaxed">
-                  Cultural heritage represents our community's identity and history.
-                </p>
-                
-                <div class="space-y-3">
-                  <div class="flex items-start gap-3">
-                    <div class="w-10 h-10 bg-emerald-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                      <span class="text-lg">📚</span>
-                    </div>
-                    <div>
-                      <h4 class="font-semibold text-emerald-800 text-sm">Historical Value</h4>
-                      <p class="text-xs text-emerald-600">Preserving our history</p>
-                    </div>
-                  </div>
-                  
-                  <div class="flex items-start gap-3">
-                    <div class="w-10 h-10 bg-emerald-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                      <span class="text-lg">👥</span>
-                    </div>
-                    <div>
-                      <h4 class="font-semibold text-emerald-800 text-sm">Community Identity</h4>
-                      <p class="text-xs text-emerald-600">Strengthening culture</p>
-                    </div>
-                  </div>
-                  
-                  <div class="flex items-start gap-3">
-                    <div class="w-10 h-10 bg-emerald-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                      <span class="text-lg">🎯</span>
-                    </div>
-                    <div>
-                      <h4 class="font-semibold text-emerald-800 text-sm">Education</h4>
-                      <p class="text-xs text-emerald-600">Learning from ancestors</p>
-                    </div>
-                  </div>
-                  
-                  <div class="flex items-start gap-3">
-                    <div class="w-10 h-10 bg-emerald-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                      <span class="text-lg">🌟</span>
-                    </div>
-                    <div>
-                      <h4 class="font-semibold text-emerald-800 text-sm">Tourism</h4>
-                      <p class="text-xs text-emerald-600">Sharing our culture</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+  <!-- Page header -->
+  <div class="max-w-7xl mx-auto px-4 pt-8 pb-0">
+    <div class="cf-page-header cf-fade-up">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div>
+          <div class="flex items-center gap-2 mb-2">
+            <i class="fas fa-landmark text-emerald-200"></i>
+            <span class="text-emerald-200 text-sm font-medium">Cultural Heritage</span>
           </div>
-
-          <!-- Call to Action - Sidebar -->
-          <div class="bg-gradient-to-br from-emerald-600 to-green-600 rounded-xl p-6 text-center shadow-lg text-white">
-            <div class="text-3xl mb-3">✨</div>
-            <h3 class="text-xl font-bold mb-3">Get Involved</h3>
-            <p class="text-white/90 text-sm mb-4 leading-relaxed">
-              Support our cultural heritage preservation efforts
-            </p>
-            <div class="space-y-2">
-              <a href="/events" 
-                 class="block bg-white text-emerald-600 px-4 py-2 rounded-lg font-semibold hover:bg-emerald-50 transition-colors text-sm">
-                🎪 Attend Events
-              </a>
-              <a href="/shop" 
-                 class="block bg-emerald-700 text-white px-4 py-2 rounded-lg font-semibold hover:bg-emerald-800 transition-colors text-sm">
-                🛍️ Support Crafts
-              </a>
-            </div>
-          </div>
+          <h1 class="text-3xl font-extrabold text-white">Mansalay Heritage Sites</h1>
+          <p class="text-emerald-100 mt-1 text-sm">Discover the historical landmarks and traditions of Mansalay</p>
         </div>
-
-        <!-- Heritage Grid - Right Side (3 columns) -->
-        <div class="lg:col-span-3 order-1 lg:order-2">
-          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {{#each heritages}}
-            <div class="bg-white/95 backdrop-blur-sm rounded-2xl shadow-xl overflow-hidden border-2 border-emerald-100/50 transform transition-all duration-300 hover:-translate-y-3 hover:shadow-2xl hover:border-emerald-300 group">
-              <!-- Image with Overlay -->
-              <div class="relative overflow-hidden h-56">
-                <img src="{{this.image_url}}" alt="{{this.title}}" 
-                     class="w-full h-full object-cover transition duration-700 group-hover:scale-110"
-                     onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22400%22 height=%22300%22%3E%3Crect fill=%22%23f3f4f6%22 width=%22400%22 height=%22300%22/%3E%3Ctext fill=%22%239ca3af%22 font-family=%22sans-serif%22 font-size=%2220%22 x=%2250%25%22 y=%2250%25%22 text-anchor=%22middle%22 dy=%22.3em%22%3ENo Image%3C/text%3E%3C/svg%3E'">
-                <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition duration-300"></div>
-                
-                <!-- Category Badge -->
-                <span class="absolute top-4 left-4 bg-gradient-to-r from-emerald-500 to-green-600 text-white text-xs px-4 py-1.5 rounded-full font-semibold shadow-lg backdrop-blur-sm border border-white/20">
-                  {{this.category}}
-                </span>
-                
-                <!-- Location on Hover -->
-                <div class="absolute bottom-4 left-4 right-4 opacity-0 group-hover:opacity-100 transition duration-300 transform translate-y-2 group-hover:translate-y-0">
-                  <span class="text-white text-sm flex items-center bg-black/40 backdrop-blur-sm px-3 py-2 rounded-lg">
-                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                    </svg>
-                    {{this.location}}
-                  </span>
-                </div>
-              </div>
-              
-              <!-- Content -->
-              <div class="p-6">
-                <h3 class="text-xl font-bold text-gray-900 mb-3 group-hover:text-emerald-600 transition duration-200 line-clamp-2">
-                  {{this.title}}
-                </h3>
-                <p class="text-gray-600 mb-5 line-clamp-3 leading-relaxed text-sm">
-                  {{this.description}}
-                </p>
-                <a href="/heritage/{{this.id}}" 
-                   class="inline-flex items-center text-emerald-600 hover:text-emerald-700 font-semibold transition-all duration-200 group/link bg-emerald-50 hover:bg-emerald-100 px-4 py-2 rounded-lg">
-                  <span>Explore Heritage</span>
-                  <svg class="w-4 h-4 ml-2 group-hover/link:translate-x-1 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                  </svg>
-                </a>
-              </div>
-            </div>
-            {{/each}}
-          </div>
+        <div class="flex gap-2 flex-shrink-0">
+          <a href="/events" class="cf-btn bg-white/15 text-white border border-white/30 hover:bg-white/25 text-sm" style="border-radius:10px">
+            <i class="fas fa-calendar"></i> Events
+          </a>
+          <a href="/shop" class="cf-btn bg-white text-emerald-700 hover:bg-emerald-50 text-sm" style="border-radius:10px">
+            <i class="fas fa-shopping-bag"></i> Shop Crafts
+          </a>
         </div>
       </div>
     </div>
-
-    {{>footer}}
   </div>
 
-  <style>
-    /* Smooth animations */
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    
-    .container {
-      animation: fadeIn 0.8s ease-out;
-    }
+  <div class="max-w-7xl mx-auto px-4 py-8">
+    <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
 
-    /* Line clamp for description */
-    .line-clamp-3 {
-      display: -webkit-box;
-      -webkit-line-clamp: 3;
-      line-clamp: 3;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
-    }
+      <!-- Sidebar -->
+      <aside class="lg:col-span-1 order-2 lg:order-1">
+        <div class="cf-card-green p-5 sticky top-20 cf-fade-up">
+          <h3 class="font-bold text-gray-800 mb-4 flex items-center gap-2">
+            <i class="fas fa-lightbulb text-emerald-600"></i> Why Preserve?
+          </h3>
+          <div class="space-y-3">
+            <div class="flex items-start gap-3">
+              <div class="w-8 h-8 bg-emerald-100 rounded-lg flex items-center justify-center flex-shrink-0 mt-0.5">
+                <i class="fas fa-book text-emerald-600 text-xs"></i>
+              </div>
+              <div>
+                <p class="font-semibold text-gray-800 text-sm">Historical Value</p>
+                <p class="text-xs text-gray-500">Preserving our collective history</p>
+              </div>
+            </div>
+            <div class="flex items-start gap-3">
+              <div class="w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center flex-shrink-0 mt-0.5">
+                <i class="fas fa-users text-blue-600 text-xs"></i>
+              </div>
+              <div>
+                <p class="font-semibold text-gray-800 text-sm">Community Identity</p>
+                <p class="text-xs text-gray-500">Strengthening cultural bonds</p>
+              </div>
+            </div>
+            <div class="flex items-start gap-3">
+              <div class="w-8 h-8 bg-amber-100 rounded-lg flex items-center justify-center flex-shrink-0 mt-0.5">
+                <i class="fas fa-graduation-cap text-amber-600 text-xs"></i>
+              </div>
+              <div>
+                <p class="font-semibold text-gray-800 text-sm">Education</p>
+                <p class="text-xs text-gray-500">Learning from our ancestors</p>
+              </div>
+            </div>
+            <div class="flex items-start gap-3">
+              <div class="w-8 h-8 bg-purple-100 rounded-lg flex items-center justify-center flex-shrink-0 mt-0.5">
+                <i class="fas fa-globe text-purple-600 text-xs"></i>
+              </div>
+              <div>
+                <p class="font-semibold text-gray-800 text-sm">Tourism</p>
+                <p class="text-xs text-gray-500">Sharing culture with the world</p>
+              </div>
+            </div>
+          </div>
 
-    /* Custom hover effects */
-    .group:hover .group-hover\:scale-110 {
-      transform: scale(1.1);
-    }
-  </style>
+          <!-- CTA -->
+          <div class="mt-5 pt-5 border-t border-emerald-100 space-y-2">
+            <a href="/events" class="cf-btn cf-btn-primary w-full justify-center text-sm">
+              <i class="fas fa-calendar"></i> Attend Events
+            </a>
+            <a href="/shop" class="cf-btn cf-btn-outline w-full justify-center text-sm">
+              <i class="fas fa-shopping-bag"></i> Support Crafts
+            </a>
+          </div>
+        </div>
+      </aside>
 
-  <script>
-    // Toggle preserve section
-    function togglePreserveSection() {
-      const content = document.getElementById('preserveContent');
-      const icon = document.getElementById('preserveIcon');
-      
-      if (content.classList.contains('hidden')) {
-        content.classList.remove('hidden');
-        icon.style.transform = 'rotate(180deg)';
-      } else {
-        content.classList.add('hidden');
-        icon.style.transform = 'rotate(0deg)';
-      }
-    }
+      <!-- Heritage grid -->
+      <div class="lg:col-span-3 order-1 lg:order-2">
+        {{#if heritages.length}}
+        <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-5">
+          {{#each heritages}}
+          <article class="cf-card overflow-hidden hover:shadow-lg transition-all duration-200 group cf-fade-up">
+            <div class="relative h-48 overflow-hidden bg-emerald-100">
+              <img src="{{this.image_url}}" alt="{{this.title}}"
+                   class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                   onerror="this.src='/images/logo.png'" />
+              <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+              <span class="absolute top-3 left-3 cf-badge cf-badge-green capitalize">{{this.category}}</span>
+              <div class="absolute bottom-3 left-3 flex items-center gap-1 text-white text-xs bg-black/40 px-2 py-1 rounded-lg">
+                <i class="fas fa-map-marker-alt"></i>
+                <span class="truncate max-w-[120px]">{{this.location}}</span>
+              </div>
+            </div>
+            <div class="p-4">
+              <h3 class="font-bold text-gray-800 mb-2 group-hover:text-emerald-600 transition-colors line-clamp-2">{{this.title}}</h3>
+              <p class="text-gray-500 text-sm mb-3 line-clamp-2">{{this.description}}</p>
+              <a href="/heritage/{{this.id}}"
+                 class="inline-flex items-center gap-1.5 text-emerald-600 text-sm font-semibold hover:text-emerald-700 transition-colors">
+                Explore <i class="fas fa-arrow-right text-xs group-hover:translate-x-1 transition-transform"></i>
+              </a>
+            </div>
+          </article>
+          {{/each}}
+        </div>
+        {{else}}
+        <div class="cf-card p-16 text-center">
+          <i class="fas fa-landmark text-5xl text-gray-200 mb-4"></i>
+          <h3 class="text-xl font-bold text-gray-500 mb-2">No Heritage Sites Yet</h3>
+          <p class="text-gray-400 text-sm">Heritage content will appear here once added.</p>
+        </div>
+        {{/if}}
+      </div>
+    </div>
+  </div>
 
-    document.addEventListener('DOMContentLoaded', function() {
-      // Add staggered animation to heritage cards
-      const cards = document.querySelectorAll('.grid > div');
-      cards.forEach((card, index) => {
-        card.style.animationDelay = `${index * 0.1}s`;
-      });
-
-      // Add intersection observer for scroll animations
-      const observerOptions = {
-        threshold: 0.1,
-        rootMargin: '0px 0px -50px 0px'
-      };
-
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('animate-fadeIn');
-          }
-        });
-      }, observerOptions);
-
-      cards.forEach(card => {
-        observer.observe(card);
-      });
-    });
-  </script>
+  {{>footer}}
 </body>
 </html>
