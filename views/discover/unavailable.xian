@@ -1,0 +1,25 @@
+{{>head}}
+<body class="bg-gray-50">
+  {{>nav}}
+
+  <main class="max-w-3xl mx-auto px-4 py-20">
+    <section class="cf-card p-10 md:p-14 text-center cf-fade-up">
+      {{#if notFound}}
+        <div class="w-16 h-16 rounded-2xl bg-amber-100 text-amber-600 flex items-center justify-center mx-auto"><i class="fas fa-map-signs text-2xl"></i></div>
+        <h1 class="text-3xl font-extrabold text-gray-900 mt-5">Published record not found</h1>
+      {{else}}
+        <div class="w-16 h-16 rounded-2xl bg-emerald-100 text-emerald-600 flex items-center justify-center mx-auto"><i class="fas fa-plug-circle-xmark text-2xl"></i></div>
+        <h1 class="text-3xl font-extrabold text-gray-900 mt-5">Visitor Information is unavailable</h1>
+      {{/if}}
+      <p class="text-gray-500 mt-3 leading-relaxed">{{message}}</p>
+      <div class="flex flex-col sm:flex-row justify-center gap-3 mt-7">
+        <a href="/discover" class="cf-btn cf-btn-primary"><i class="fas fa-rotate-right"></i> Try Discover again</a>
+        <a href="/" class="cf-btn cf-btn-ghost"><i class="fas fa-home"></i> CultureFrame home</a>
+      </div>
+      {{#unless notFound}}<p class="text-xs text-gray-400 mt-7">Administrators: verify <code>VISITOR_INFORMATION_URL</code> and the Visitor service deployment.</p>{{/unless}}
+    </section>
+  </main>
+
+  {{>footer}}
+</body>
+</html>

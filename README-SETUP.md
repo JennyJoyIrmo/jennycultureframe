@@ -56,6 +56,15 @@ on both services, then point the payment service's `CULTUREFRAME_API_URL` to thi
 application's `/api/integrations/payments` path. See
 `docs/integration/PAYMENT_SYSTEM_INTEGRATION.md` for the complete contract.
 
+## Visitor Information Integration
+
+The integration branch adds a read-only `/discover` area powered by the separate
+Visitor Information service. Set `VISITOR_INFORMATION_URL` to the public root URL
+of that service (for example, `http://localhost:5173` during local development).
+Only records published by the Visitor Information team are displayed. See
+`docs/integration/VISITOR_INFORMATION_INTEGRATION.md` for ownership rules,
+routes, deployment configuration, and verification details.
+
 ## Default Accounts
 
 ### Admin Account
