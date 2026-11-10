@@ -21,7 +21,7 @@ const cartController = {
       console.log(' [AddToCart] user:', req.session.user);
       console.log('[AddToCart] product_id:', product_id, 'quantity:', qty);
 
-      const product = await Product.findByPk(product_id);
+      const product = await Product.findOne({ where: { id: product_id, status: 'active' } });
       if (!product) {
         req.session.error_msg = 'Product not found';
         if (req.get('X-Requested-With') === 'XMLHttpRequest' || (req.get('accept') || '').includes('application/json')) {
@@ -165,7 +165,7 @@ const cartController = {
       const qty = Math.max(1, parseInt(quantity) || 1);
 
       // Check stock limit
-      const product = await Product.findByPk(pid);
+      const product = await Product.findOne({ where: { id: pid, status: 'active' } });
       if (!product) {
         req.session.error_msg = 'Product not found';
         return res.redirect(req.get('referer') || '/cart');
@@ -204,7 +204,7 @@ const cartController = {
     try {
       ensureSessionArrays(req);
       const { product_id } = req.body;
-      const product = await Product.findByPk(product_id);
+      const product = await Product.findOne({ where: { id: product_id, status: 'active' } });
       if (!product) {
         req.session.error_msg = 'Product not found';
         if (req.get('X-Requested-With') === 'XMLHttpRequest' || (req.get('accept') || '').includes('application/json')) {
@@ -308,7 +308,7 @@ const cartController = {
           // Attach product info
           const cartArr = [];
           for (const row of cartRows) {
-            const prod = await Product.findByPk(row.product_id);
+            const prod = await Product.findOne({ where: { id: row.product_id, status: 'active' } });
             if (prod) {
               cartArr.push({
                 product_id: prod.id,
@@ -353,7 +353,7 @@ const cartController = {
           const wishlistRows = await WishlistItem.findAll({ where: { user_id: req.session.user.id } });
           const wishlistArr = [];
           for (const row of wishlistRows) {
-            const prod = await Product.findByPk(row.product_id);
+            const prod = await Product.findOne({ where: { id: row.product_id, status: 'active' } });
             if (prod) {
               wishlistArr.push({
                 product_id: prod.id,

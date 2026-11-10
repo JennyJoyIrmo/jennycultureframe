@@ -37,6 +37,17 @@ Server will run at: http://localhost:3000
 | `npm create:model` | Create new model |
 | `npm create:controller` | Create new controller |
 
+## Seller Workspace
+
+The unified integration branch includes Kyla's seller inventory workflow at
+`/seller/dashboard`. Administrators provision seller login accounts from
+`/admin/sellers`. An active seller can manage only products linked to their own
+seller profile.
+
+Before using the seller workspace on an existing database, create a backup and
+run `npm run sync`. See `docs/integration/KYLA_SELLER_INTEGRATION.md` for the data
+model, administrator workflow, and verification status.
+
 ## Default Accounts
 
 ### Admin Account

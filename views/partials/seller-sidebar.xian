@@ -1,0 +1,23 @@
+<aside class="w-full lg:w-64 bg-emerald-950 text-white lg:min-h-screen p-5 flex-shrink-0">
+  <a href="/seller/dashboard" class="flex items-center gap-3 mb-8">
+    <img src="/images/logo.png" alt="CultureFrame" class="h-11 w-11 rounded-xl bg-white object-contain p-1" />
+    <div>
+      <div class="font-extrabold text-lg">CultureFrame</div>
+      <div class="text-xs text-emerald-200">Seller Workspace</div>
+    </div>
+  </a>
+
+  <div class="mb-6 rounded-xl bg-emerald-900/70 p-3">
+    <p class="text-xs uppercase tracking-wide text-emerald-300">Signed in as</p>
+    <p class="font-semibold truncate">{{seller.business_name}}</p>
+    <p class="text-xs text-emerald-200 truncate">{{seller.email}}</p>
+  </div>
+
+  <nav class="space-y-2 text-sm font-semibold">
+    <a href="/seller/dashboard" class="block rounded-xl px-4 py-3 {{#if (eq sellerPage 'dashboard')}}bg-emerald-600{{else}}hover:bg-emerald-900{{/if}}">Dashboard</a>
+    <a href="/seller/products" class="block rounded-xl px-4 py-3 {{#if (eq sellerPage 'products')}}bg-emerald-600{{else}}hover:bg-emerald-900{{/if}}">My Products</a>
+    <a href="/seller/categories" class="block rounded-xl px-4 py-3 {{#if (eq sellerPage 'categories')}}bg-emerald-600{{else}}hover:bg-emerald-900{{/if}}">Categories</a>
+    <a href="/shop" class="block rounded-xl px-4 py-3 hover:bg-emerald-900">View Storefront</a>
+    <a href="/logout" class="block rounded-xl px-4 py-3 text-red-200 hover:bg-red-950/50">Sign Out</a>
+  </nav>
+</aside>

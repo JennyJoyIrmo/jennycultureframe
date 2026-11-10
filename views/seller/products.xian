@@ -1,0 +1,49 @@
+{{>head}}
+<body class="bg-gray-50">
+  <div class="min-h-screen lg:flex">
+    {{> seller-sidebar}}
+    <main class="flex-1 p-5 lg:p-8">
+      <div class="max-w-7xl mx-auto">
+        <div class="mb-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+          <div><h1 class="text-3xl font-extrabold text-gray-900">My Products</h1><p class="text-gray-500">Only products owned by your seller account appear here.</p></div>
+          <a href="/seller/products/add" class="cf-btn cf-btn-primary">Add product</a>
+        </div>
+
+        {{#if success_msg}}<div class="mb-5 rounded-xl bg-emerald-100 px-4 py-3 text-emerald-800">{{success_msg}}</div>{{/if}}
+        {{#if error_msg}}<div class="mb-5 rounded-xl bg-red-100 px-4 py-3 text-red-800">{{error_msg}}</div>{{/if}}
+
+        <form method="GET" action="/seller/products" class="cf-card mb-6 grid gap-3 p-4 md:grid-cols-4">
+          <input class="cf-input" type="search" name="search" value="{{filters.search}}" placeholder="Search products" />
+          <select class="cf-input" name="category"><option value="">All categories</option>{{#each categories}}<option value="{{name}}" {{#if selected}}selected{{/if}}>{{name}}</option>{{/each}}</select>
+          <select class="cf-input" name="status">
+            <option value="">All statuses</option>
+            <option value="active" {{#if (eq filters.status 'active')}}selected{{/if}}>Active</option>
+            <option value="inactive" {{#if (eq filters.status 'inactive')}}selected{{/if}}>Inactive</option>
+            <option value="pending" {{#if (eq filters.status 'pending')}}selected{{/if}}>Pending</option>
+          </select>
+          <button class="cf-btn cf-btn-outline" type="submit">Apply filters</button>
+        </form>
+
+        <div class="cf-card overflow-x-auto">
+          <table class="min-w-full divide-y divide-gray-200 text-sm">
+            <thead class="bg-gray-50 text-left text-xs uppercase tracking-wide text-gray-500"><tr><th class="px-5 py-3">Product</th><th class="px-5 py-3">Price</th><th class="px-5 py-3">Stock</th><th class="px-5 py-3">Status</th><th class="px-5 py-3 text-right">Actions</th></tr></thead>
+            <tbody class="divide-y divide-gray-100">
+              {{#each products}}
+                <tr>
+                  <td class="px-5 py-4"><div class="flex items-center gap-3"><img src="{{#if image_url}}{{image_url}}{{else}}/images/logo.png{{/if}}" alt="" class="h-12 w-12 rounded-lg border object-cover" /><div><p class="font-semibold text-gray-900">{{name}}</p><p class="text-xs text-gray-500">{{category}}</p></div></div></td>
+                  <td class="px-5 py-4 font-semibold">PHP {{price}}</td>
+                  <td class="px-5 py-4">{{stocks}}</td>
+                  <td class="px-5 py-4"><span class="cf-badge {{#if (eq status 'active')}}cf-badge-green{{else}}cf-badge-gray{{/if}}">{{status}}</span></td>
+                  <td class="px-5 py-4"><div class="flex justify-end gap-2"><a href="/seller/products/edit/{{id}}" class="cf-btn cf-btn-outline">Edit</a><form method="POST" action="/seller/products/delete/{{id}}" onsubmit="return confirm('Delete this product? Products with order history will be archived instead.');"><button class="cf-btn bg-red-50 text-red-700" type="submit">Delete</button></form></div></td>
+                </tr>
+              {{else}}
+                <tr><td colspan="5" class="px-5 py-14 text-center text-gray-500">No products match the selected filters.</td></tr>
+              {{/each}}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </main>
+  </div>
+</body>
+</html>

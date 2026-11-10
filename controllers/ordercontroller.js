@@ -53,7 +53,7 @@ const ordercontroller = {
         const cartRows = await CartItem.findAll({ where: { user_id: req.session.user.id } });
         fullCart = [];
         for (const row of cartRows) {
-          const prod = await Product.findByPk(row.product_id);
+          const prod = await Product.findOne({ where: { id: row.product_id, status: 'active' } });
           if (prod) {
             fullCart.push({
               product_id: prod.id,
@@ -160,7 +160,7 @@ const ordercontroller = {
 
     // Check stock for each product before creating order
     for (const item of items) {
-      const product = await Product.findByPk(item.product_id);
+      const product = await Product.findOne({ where: { id: item.product_id, status: 'active' } });
       if (!product || product.stocks < item.quantity) {
         return res.render("shop/checkout", {
           serverCartJSON: JSON.stringify(items),

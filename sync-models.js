@@ -7,6 +7,7 @@ import { sequelize } from "./models/db.js";
 import { User } from "./models/userModel.js";
 import { Heritage } from "./models/Heritage.js";
 import { Product } from "./models/Product.js";
+import { ProductCategory } from "./models/ProductCategory.js";
 import { Order } from "./models/Order.js";
 import { OrderItem } from "./models/Orderitem.js";
 import { Event } from "./models/Event.js";
@@ -18,6 +19,7 @@ import { EventRegistration } from "./models/EventRegistration.js";
 import { Feedback } from "./models/Feedback.js";
 import { Scenic } from "./models/Scenic.js";
 import { Craft } from "./models/Craft.js";
+import { Seller } from "./models/Seller.js";
 
 console.log('🔄 Syncing all models...');
 
@@ -34,6 +36,8 @@ try {
   console.log('  - admins');
   console.log('  - heritages');
   console.log('  - products');
+  console.log('  - product_categories');
+  console.log('  - sellers');
   console.log('  - orders');
   console.log('  - orderitems');
   console.log('  - events');

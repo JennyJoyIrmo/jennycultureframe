@@ -2,6 +2,14 @@ import { DataTypes } from "sequelize";
 import { sequelize } from "./db.js";
 
 export const Seller = sequelize.define("sellers", {
+  user_id:         {
+    type: DataTypes.INTEGER,
+    allowNull: true,
+    unique: true,
+    references: { model: "users", key: "id" },
+    onUpdate: "CASCADE",
+    onDelete: "SET NULL"
+  },
   business_name:   { type: DataTypes.STRING,       allowNull: false },
   contact_name:    { type: DataTypes.STRING,       allowNull: false },
   email:           { type: DataTypes.STRING,       allowNull: false, unique: true },

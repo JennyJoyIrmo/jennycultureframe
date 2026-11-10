@@ -258,6 +258,9 @@ export const dashboardPage = (req, res) => {
   if (req.session.userRole === 'admin') {
     console.log('📍 Redirecting admin to admin dashboard');
     return res.redirect("/admin/dashboard");
+  } else if (req.session.userRole === 'seller') {
+    console.log('📍 Redirecting seller to seller dashboard');
+    return res.redirect("/seller/dashboard");
   } else {
     console.log('📍 Redirecting customer to customer dashboard');
     return res.redirect("/customer/dashboard");
@@ -497,7 +500,11 @@ export const loginUser = async (req, res) => {
                    req.get('Accept')?.includes('application/json');
     
     // Determine redirect URL based on role
-    const redirectUrl = user.role === 'admin' ? '/admin/dashboard' : '/customer/dashboard';
+    const redirectUrl = user.role === 'admin'
+      ? '/admin/dashboard'
+      : user.role === 'seller'
+        ? '/seller/dashboard'
+        : '/customer/dashboard';
     
     if (isAjax) {
       console.log('📡 AJAX login request, returning JSON response');
