@@ -20,6 +20,8 @@ import { Feedback } from "./models/Feedback.js";
 import { Scenic } from "./models/Scenic.js";
 import { Craft } from "./models/Craft.js";
 import { Seller } from "./models/Seller.js";
+import { Payment } from "./models/Payment.js";
+import { PaymentIntegrationEvent } from "./models/PaymentIntegrationEvent.js";
 
 console.log('🔄 Syncing all models...');
 
@@ -38,6 +40,8 @@ try {
   console.log('  - products');
   console.log('  - product_categories');
   console.log('  - sellers');
+  console.log('  - payments');
+  console.log('  - payment_integration_events');
   console.log('  - orders');
   console.log('  - orderitems');
   console.log('  - events');

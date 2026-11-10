@@ -33,6 +33,8 @@ export const sequelize = new Sequelize(DATABASE_URL, {
   }
 });
 
-sequelize.authenticate()
-  .then(() => console.log('✅ Database connected successfully'))
-  .catch(err => console.error('⚠️ DB connection warning:', err.message));
+if (process.env.SKIP_DATABASE_AUTHENTICATION !== 'true') {
+  sequelize.authenticate()
+    .then(() => console.log('✅ Database connected successfully'))
+    .catch(err => console.error('⚠️ DB connection warning:', err.message));
+}

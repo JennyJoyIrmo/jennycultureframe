@@ -48,6 +48,14 @@ Before using the seller workspace on an existing database, create a backup and
 run `npm run sync`. See `docs/integration/KYLA_SELLER_INTEGRATION.md` for the data
 model, administrator workflow, and verification status.
 
+## Payment Service Integration
+
+The integration branch exposes a protected order feed and payment-event endpoint
+for the separate CultureFrame Payments service. Configure the same private token
+on both services, then point the payment service's `CULTUREFRAME_API_URL` to this
+application's `/api/integrations/payments` path. See
+`docs/integration/PAYMENT_SYSTEM_INTEGRATION.md` for the complete contract.
+
 ## Default Accounts
 
 ### Admin Account

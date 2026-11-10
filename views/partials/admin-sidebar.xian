@@ -63,6 +63,11 @@
     <a href="/admin/payments" class="sidebar-link {{#if (eq activePage 'payments')}}active{{/if}}">
       <i class="fas fa-credit-card w-4 text-center"></i> Payments
     </a>
+    {{#if paymentSystemUrl}}
+    <a href="{{paymentSystemUrl}}" target="_blank" rel="noopener noreferrer" class="sidebar-link">
+      <i class="fas fa-arrow-up-right-from-square w-4 text-center"></i> Payment Service
+    </a>
+    {{/if}}
 
     <!-- Analytics -->
     <div class="pt-3 pb-1">

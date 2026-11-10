@@ -42,6 +42,8 @@ import { Feedback } from "./models/Feedback.js";
 import { Scenic } from "./models/Scenic.js";
 import { Craft } from "./models/Craft.js";
 import { Seller } from "./models/Seller.js";
+import { Payment } from "./models/Payment.js";
+import { PaymentIntegrationEvent } from "./models/PaymentIntegrationEvent.js";
 import inquirer from "inquirer";
 
 // Server-level connection (no database selected)

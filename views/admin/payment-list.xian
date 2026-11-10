@@ -52,7 +52,7 @@
 
     <!-- Status filter tabs -->
     <div class="flex gap-2 mb-4">
-      {{#each (array 'all' 'paid' 'pending' 'failed' 'refunded')}}
+      {{#each (array 'all' 'paid' 'pending' 'failed' 'partially_refunded' 'refunded')}}
       <a href="/admin/payments?status={{this}}"
          class="px-4 py-2 rounded-xl text-sm font-semibold transition-colors capitalize
          {{#if (eq ../filter this)}}bg-emerald-600 text-white{{else}}bg-white text-gray-600 border border-gray-200 hover:bg-gray-50{{/if}}">
@@ -110,6 +110,8 @@
                 <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800">Pending</span>
               {{else if (eq status 'failed')}}
                 <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800">Failed</span>
+              {{else if (eq status 'partially_refunded')}}
+                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-orange-100 text-orange-800">Partially Refunded</span>
               {{else}}
                 <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-600">Refunded</span>
               {{/if}}
