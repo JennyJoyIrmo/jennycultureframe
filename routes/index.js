@@ -30,6 +30,7 @@ import { homePage } from "../controllers/homeController.js";
 import sellerPortalRouter from "./sellerPortal.js";
 import paymentIntegrationRouter from "./paymentIntegration.js";
 import discoverRouter from "./discover.js";
+import analyticsIntegrationRouter from "./analyticsIntegration.js";
 
 // Import Auth Controller
 import { 
@@ -68,6 +69,7 @@ const router = express.Router();
 // Seller workspace integrated from Kyla's CultureFrame seller module.
 router.use("/seller", sellerPortalRouter);
 router.use("/api/integrations/payments", paymentIntegrationRouter);
+router.use("/api/integrations/analytics", analyticsIntegrationRouter);
 router.use("/discover", discoverRouter);
 
 // Multer setup for product image uploads

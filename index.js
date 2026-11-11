@@ -145,6 +145,8 @@ app.use((req, res, next) => {
   res.locals.sessionUserRole = req.session.userRole || 'customer';
   const paymentSystemUrl = process.env.PAYMENT_SYSTEM_URL || '';
   res.locals.paymentSystemUrl = /^https?:\/\//i.test(paymentSystemUrl) ? paymentSystemUrl : null;
+  const cultureMetricsSystemUrl = process.env.CULTUREMETRICS_SYSTEM_URL || '';
+  res.locals.cultureMetricsSystemUrl = /^https?:\/\//i.test(cultureMetricsSystemUrl) ? cultureMetricsSystemUrl : null;
 
   // Use cached counts from session (updated by cart/wishlist controllers)
   // This is MUCH faster than querying DB on every request

@@ -65,6 +65,16 @@ Only records published by the Visitor Information team are displayed. See
 `docs/integration/VISITOR_INFORMATION_INTEGRATION.md` for ownership rules,
 routes, deployment configuration, and verification details.
 
+## CultureMetrics Integration
+
+The integration branch implements the seven read-only analytics endpoints used
+by the separate CultureMetrics dashboard. Configure the same private
+`CULTUREMETRICS_INTEGRATION_TOKEN` in both servers, point CultureMetrics at this
+CultureFrame deployment, and enable its live data mode. Optionally set
+`CULTUREMETRICS_SYSTEM_URL` to show a dashboard link in the administrator
+sidebar. See `docs/integration/CULTUREMETRICS_INTEGRATION.md` for the complete
+contract, privacy rules, and activation checklist.
+
 ## Default Accounts
 
 ### Admin Account

@@ -79,6 +79,11 @@
     <a href="/admin/analytics/business" class="sidebar-link {{#if (eq activePage 'analytics')}}active{{/if}}">
       <i class="fas fa-chart-line w-4 text-center"></i> Business Analytics
     </a>
+    {{#if cultureMetricsSystemUrl}}
+    <a href="{{cultureMetricsSystemUrl}}" target="_blank" rel="noopener noreferrer" class="sidebar-link">
+      <i class="fas fa-arrow-up-right-from-square w-4 text-center"></i> CultureMetrics
+    </a>
+    {{/if}}
   </nav>
 
   <!-- Logout -->
