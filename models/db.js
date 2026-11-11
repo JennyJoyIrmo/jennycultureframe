@@ -16,15 +16,19 @@ if (!DATABASE_URL) {
   process.exit(1);
 }
 
+const requiresSsl = process.env.DATABASE_SSL === 'true' ||
+  process.env.NODE_ENV === 'production' ||
+  /[?&]sslmode=(?:require|verify-ca|verify-full)(?:&|$)/i.test(DATABASE_URL);
+
 export const sequelize = new Sequelize(DATABASE_URL, {
   dialect: "postgres",
   logging: false,
-  dialectOptions: {
+  dialectOptions: requiresSsl ? {
     ssl: {
       require: true,
       rejectUnauthorized: false
     }
-  },
+  } : {},
   pool: {
     max: 5,
     min: 0,
