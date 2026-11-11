@@ -53,7 +53,7 @@ const ordercontroller = {
         const cartRows = await CartItem.findAll({ where: { user_id: req.session.user.id } });
         fullCart = [];
         for (const row of cartRows) {
-          const prod = await Product.findByPk(row.product_id);
+          const prod = await Product.findOne({ where: { id: row.product_id, status: 'active' } });
           if (prod) {
             fullCart.push({
               product_id: prod.id,
@@ -130,9 +130,9 @@ const ordercontroller = {
   },
   
   create: async (req, res) => {
-    const { customer_name, customer_email, customer_phone, shipping_address, cart_items, total_amount, payment_method } = req.body;
+    const { customer_name, customer_email, customer_phone, shipping_address, cart_items, payment_method } = req.body;
 
-    console.log('[Order Create] Request body:', { customer_name, cart_items: cart_items?.substring(0, 100), total_amount, payment_method });
+    console.log('[Order Create] Request body:', { customer_name, cart_items: cart_items?.substring(0, 100), payment_method });
 
     // If cart_items not provided in form, fall back to session cart
     let items = [];
@@ -149,59 +149,96 @@ const ordercontroller = {
       items = [];
     }
 
-    // Validate items exist
-    if (!items || items.length === 0) {
+    if (!Array.isArray(items) || items.length === 0) {
       console.error('[Order Create] No items in cart!');
       req.session.error_msg = 'Your cart is empty. Please add items before checkout.';
       return res.redirect('/shop');
     }
 
-    console.log('[Order Create] Processing order with', items.length, 'items');
-
-    // Check stock for each product before creating order
-    for (const item of items) {
-      const product = await Product.findByPk(item.product_id);
-      if (!product || product.stocks < item.quantity) {
-        return res.render("shop/checkout", {
-          serverCartJSON: JSON.stringify(items),
-          cartTotal: items.reduce((s, it) => s + (Number(it.price) * Number(it.quantity)), 0),
-          error_msg: `Sorry, not enough stock for ${item.name || item.product_name}`
-        });
-      }
+    const normalizedName = String(customer_name || '').trim();
+    const normalizedEmail = String(customer_email || '').trim().toLowerCase();
+    const normalizedPhone = String(customer_phone || '').trim();
+    const normalizedAddress = String(shipping_address || '').trim();
+    const allowedPaymentMethods = ['cash_on_delivery', 'gcash', 'bank_transfer', 'credit_card'];
+    if (normalizedName.length < 2 || normalizedName.length > 100 || normalizedEmail.length > 190 || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(normalizedEmail) || !normalizedPhone || normalizedPhone.length > 30 || normalizedAddress.length < 5 || normalizedAddress.length > 250) {
+      req.session.error_msg = 'Enter complete and valid customer and shipping information.';
+      return res.redirect('/checkout');
+    }
+    if (!allowedPaymentMethods.includes(payment_method)) {
+      req.session.error_msg = 'Select a supported payment method.';
+      return res.redirect('/checkout');
     }
 
-    const order = await Order.create({
-      user_id: (req.session && req.session.userId) ? Number(req.session.userId) : null,
-      customer_name,
-      customer_email,
-      customer_phone, 
-      shipping_address,
-      total_amount,
-      payment_method
-    });
-
+    const requestedItems = new Map();
     for (const item of items) {
-      console.log('[Order Create] Creating order item:', { product_id: item.product_id, quantity: item.quantity, price: item.price });
-      
-      await OrderItem.create({
-        order_id: order.id,
-        product_id: item.product_id,
-        product_name: item.name || item.product_name || '',
-        quantity: item.quantity,
-        price: item.price
-      });
-      
-      // Deduct stock - FIXED: only deduct the ordered quantity
-      const product = await Product.findByPk(item.product_id);
-      if (product) {
-        const orderedQty = parseInt(item.quantity) || 0;
-        const oldStock = product.stocks;
-        product.stocks = Math.max(0, product.stocks - orderedQty);
-        await product.save();
-        console.log(`[Order Create] ✅ Stock deducted for product ${product.id} (${product.name}): ${oldStock} → ${product.stocks} (deducted ${orderedQty})`);
-      } else {
-        console.error(`[Order Create] ❌ Product ${item.product_id} not found! Cannot deduct stock.`);
+      const productId = Number(item.product_id);
+      const quantity = Number(item.quantity);
+      if (!Number.isInteger(productId) || productId < 1 || !Number.isInteger(quantity) || quantity < 1 || quantity > 1000) {
+        req.session.error_msg = 'The cart contains an invalid product or quantity.';
+        return res.redirect('/cart');
       }
+      const combinedQuantity = (requestedItems.get(productId) || 0) + quantity;
+      if (combinedQuantity > 1000) {
+        req.session.error_msg = 'A product quantity cannot exceed 1,000.';
+        return res.redirect('/cart');
+      }
+      requestedItems.set(productId, combinedQuantity);
+    }
+
+    let order;
+    try {
+      order = await sequelize.transaction(async transaction => {
+        const trustedItems = [];
+        let totalCents = 0;
+
+        for (const [productId, quantity] of requestedItems) {
+          const product = await Product.findOne({
+            where: { id: productId, status: 'active' },
+            transaction,
+            lock: transaction.LOCK.UPDATE
+          });
+          if (!product) throw new Error('A selected product is no longer available.');
+          if (Number(product.stocks) < quantity) throw new Error(`Not enough stock for ${product.name}.`);
+
+          const unitCents = Math.round(Number(product.price) * 100);
+          if (!Number.isInteger(unitCents) || unitCents < 1) throw new Error(`Invalid price for ${product.name}.`);
+          totalCents += unitCents * quantity;
+          trustedItems.push({ product, quantity, unitCents });
+        }
+
+        if (!Number.isSafeInteger(totalCents) || totalCents < 1 || totalCents > 100000000) {
+          throw new Error('The order total is outside the supported range.');
+        }
+
+        const createdOrder = await Order.create({
+          user_id: req.session?.userId ? Number(req.session.userId) : null,
+          customer_name: normalizedName,
+          customer_email: normalizedEmail,
+          customer_phone: normalizedPhone,
+          shipping_address: normalizedAddress,
+          total_amount: (totalCents / 100).toFixed(2),
+          payment_status: 'unpaid',
+          payment_method
+        }, { transaction });
+
+        for (const { product, quantity, unitCents } of trustedItems) {
+          await OrderItem.create({
+            order_id: createdOrder.id,
+            product_id: product.id,
+            product_name: product.name,
+            quantity,
+            price: (unitCents / 100).toFixed(2)
+          }, { transaction });
+          product.stocks = Number(product.stocks) - quantity;
+          await product.save({ transaction });
+        }
+
+        return createdOrder;
+      });
+    } catch (error) {
+      console.error('[Order Create] Transaction failed:', error);
+      req.session.error_msg = error.message || 'Could not create the order.';
+      return res.redirect('/cart');
     }
 
     // After successful order creation, clear the session cart but KEEP wishlist
@@ -225,16 +262,16 @@ const ordercontroller = {
         const uid = Number(req.session.user.id);
         try {
           await User.update({
-            name: customer_name,
-            email: customer_email,
-            phone: customer_phone,
-            address: shipping_address
+            name: normalizedName,
+            email: normalizedEmail,
+            phone: normalizedPhone,
+            address: normalizedAddress
           }, { where: { id: uid } });
 
           // Update session copy
-          req.session.userName = customer_name;
-          req.session.userEmail = customer_email;
-          req.session.user = Object.assign({}, req.session.user, { name: customer_name, email: customer_email });
+          req.session.userName = normalizedName;
+          req.session.userEmail = normalizedEmail;
+          req.session.user = Object.assign({}, req.session.user, { name: normalizedName, email: normalizedEmail });
         } catch (err) {
           console.warn('Could not save customer info to user profile:', err);
         }

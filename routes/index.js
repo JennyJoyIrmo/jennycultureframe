@@ -27,6 +27,9 @@ import express from "express";
 import multer from "multer";
 import path from "path";
 import { homePage } from "../controllers/homeController.js";
+import sellerPortalRouter from "./sellerPortal.js";
+import paymentIntegrationRouter from "./paymentIntegration.js";
+import discoverRouter from "./discover.js";
 
 // Import Auth Controller
 import { 
@@ -61,6 +64,11 @@ import { Order } from "../models/Order.js";
 import { Event } from "../models/Event.js";
 
 const router = express.Router();
+
+// Seller workspace integrated from Kyla's CultureFrame seller module.
+router.use("/seller", sellerPortalRouter);
+router.use("/api/integrations/payments", paymentIntegrationRouter);
+router.use("/discover", discoverRouter);
 
 // Multer setup for product image uploads
 const storage = multer.diskStorage({

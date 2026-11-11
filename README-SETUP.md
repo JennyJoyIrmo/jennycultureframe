@@ -37,6 +37,34 @@ Server will run at: http://localhost:3000
 | `npm create:model` | Create new model |
 | `npm create:controller` | Create new controller |
 
+## Seller Workspace
+
+The unified integration branch includes Kyla's seller inventory workflow at
+`/seller/dashboard`. Administrators provision seller login accounts from
+`/admin/sellers`. An active seller can manage only products linked to their own
+seller profile.
+
+Before using the seller workspace on an existing database, create a backup and
+run `npm run sync`. See `docs/integration/KYLA_SELLER_INTEGRATION.md` for the data
+model, administrator workflow, and verification status.
+
+## Payment Service Integration
+
+The integration branch exposes a protected order feed and payment-event endpoint
+for the separate CultureFrame Payments service. Configure the same private token
+on both services, then point the payment service's `CULTUREFRAME_API_URL` to this
+application's `/api/integrations/payments` path. See
+`docs/integration/PAYMENT_SYSTEM_INTEGRATION.md` for the complete contract.
+
+## Visitor Information Integration
+
+The integration branch adds a read-only `/discover` area powered by the separate
+Visitor Information service. Set `VISITOR_INFORMATION_URL` to the public root URL
+of that service (for example, `http://localhost:5173` during local development).
+Only records published by the Visitor Information team are displayed. See
+`docs/integration/VISITOR_INFORMATION_INTEGRATION.md` for ownership rules,
+routes, deployment configuration, and verification details.
+
 ## Default Accounts
 
 ### Admin Account

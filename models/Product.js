@@ -30,12 +30,24 @@
 import { sequelize } from "./db.js";
 
 export const Product = sequelize.define("products", {
+  seller_id: {
+    type: DataTypes.INTEGER,
+    allowNull: true,
+    references: { model: "sellers", key: "id" },
+    onUpdate: "CASCADE",
+    onDelete: "RESTRICT"
+  },
   name: { type: DataTypes.STRING, allowNull: false },
   description: { type: DataTypes.TEXT, allowNull: false },
   price: { type: DataTypes.DECIMAL(10, 2), allowNull: false },
   category: { type: DataTypes.STRING, allowNull: false }, // handicraft, food, souvenir
   stocks: { type: DataTypes.INTEGER, allowNull: false },
   image_url: { type: DataTypes.TEXT, allowNull: true },
+  status: {
+    type: DataTypes.ENUM("active", "inactive", "pending"),
+    allowNull: false,
+    defaultValue: "active"
+  },
   is_featured: { type: DataTypes.BOOLEAN, defaultValue: false },
   heritage_id: { type: DataTypes.INTEGER, allowNull: true },
   free_shipping: { type: DataTypes.BOOLEAN, defaultValue: false }

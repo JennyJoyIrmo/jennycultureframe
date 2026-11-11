@@ -1,0 +1,51 @@
+{{>head}}
+<body class="bg-gray-50">
+  {{>nav}}
+
+  <main class="max-w-5xl mx-auto px-4 py-9">
+    <a href="/discover/{{item.segment}}" class="inline-flex items-center gap-2 text-emerald-700 font-semibold text-sm mb-6 hover:text-emerald-800"><i class="fas fa-arrow-left"></i> Back to {{item.categoryLabel}}</a>
+
+    <article class="cf-card overflow-hidden cf-fade-up">
+      <header class="cf-hero text-white px-6 md:px-10 py-10 md:py-14">
+        <div class="relative">
+          <span class="inline-flex px-3 py-1 rounded-full bg-white/15 border border-white/20 text-sm font-semibold">{{item.categoryLabel}}</span>
+          <h1 class="text-3xl md:text-5xl font-extrabold leading-tight mt-4 max-w-4xl">{{item.title}}</h1>
+          {{#if item.summary}}<p class="text-emerald-100 text-lg leading-relaxed mt-4 max-w-3xl">{{item.summary}}</p>{{/if}}
+          <div class="flex flex-wrap gap-4 mt-6 text-sm text-emerald-100">
+            {{#if item.location}}<span><i class="fas fa-location-dot mr-2"></i>{{item.location}}</span>{{/if}}
+            {{#if item.eventDate}}<span><i class="fas fa-calendar mr-2"></i>{{item.eventDate}}</span>{{/if}}
+          </div>
+        </div>
+      </header>
+
+      <div class="p-6 md:p-10 space-y-9">
+        <section>
+          <h2 class="cf-section-title text-xl mb-4">About this record</h2>
+          <p class="text-gray-700 leading-8 whitespace-pre-line">{{#if item.description}}{{item.description}}{{else}}Additional information has not yet been added to this published record.{{/if}}</p>
+        </section>
+
+        {{#if item.culturalSignificance}}
+        <section class="bg-emerald-50 border border-emerald-100 rounded-2xl p-6">
+          <h2 class="text-xl font-bold text-emerald-900"><i class="fas fa-leaf mr-2 text-emerald-600"></i>Cultural significance</h2>
+          <p class="text-gray-700 leading-8 whitespace-pre-line mt-3">{{item.culturalSignificance}}</p>
+        </section>
+        {{/if}}
+
+        {{#if item.historicalBackground}}
+        <section>
+          <h2 class="cf-section-title text-xl mb-4">Historical background</h2>
+          <p class="text-gray-700 leading-8 whitespace-pre-line">{{item.historicalBackground}}</p>
+        </section>
+        {{/if}}
+
+        <aside class="border-t border-gray-100 pt-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+          <p class="text-sm text-gray-500"><i class="fas fa-circle-check text-emerald-600 mr-2"></i>Published and maintained by the Visitor Information system.</p>
+          {{#if portalUrl}}<a href="{{portalUrl}}" target="_blank" rel="noopener noreferrer" class="cf-btn cf-btn-outline">Full visitor portal <i class="fas fa-up-right-from-square"></i></a>{{/if}}
+        </aside>
+      </div>
+    </article>
+  </main>
+
+  {{>footer}}
+</body>
+</html>

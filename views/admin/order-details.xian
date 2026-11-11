@@ -76,6 +76,10 @@
                   <p class="text-sm text-gray-500">Payment Method</p>
                   <p class="font-medium text-gray-800">{{order.payment_method}}</p>
                 </div>
+                <div>
+                  <p class="text-sm text-gray-500">Payment Status</p>
+                  <p class="font-medium text-gray-800 capitalize">{{order.payment_status}}</p>
+                </div>
               </div>
             </div>
 

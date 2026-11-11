@@ -1,0 +1,68 @@
+{{>head}}
+<body class="bg-gray-50">
+  {{>nav}}
+
+  <main class="max-w-6xl mx-auto px-4 py-9">
+    <a href="/discover" class="inline-flex items-center gap-2 text-emerald-700 font-semibold text-sm mb-6 hover:text-emerald-800"><i class="fas fa-arrow-left"></i> Discover home</a>
+    <section class="cf-page-header cf-fade-up">
+      <p class="text-emerald-100 text-sm font-semibold"><i class="fas fa-magnifying-glass mr-2"></i>Published Visitor Information</p>
+      <h1 class="text-3xl md:text-4xl font-extrabold mt-2">Search the archive</h1>
+      <form action="/discover/search" method="GET" class="mt-6 grid grid-cols-1 md:grid-cols-[1fr_220px_auto] gap-3">
+        <label class="sr-only" for="archive-search">Search terms</label>
+        <input id="archive-search" name="q" value="{{q}}" required maxlength="100" placeholder="Search heritage, places, traditions..." class="px-4 py-3 rounded-xl text-gray-900 outline-none" />
+        <label class="sr-only" for="archive-category">Content type</label>
+        <select id="archive-category" name="category" class="px-4 py-3 rounded-xl text-gray-900 outline-none">
+          <option value="">All categories</option>
+          {{#each modules}}<option value="{{this.segment}}" {{#if this.selected}}selected{{/if}}>{{this.label}}</option>{{/each}}
+        </select>
+        <button type="submit" class="cf-btn bg-emerald-950 text-white px-6 hover:bg-gray-900"><i class="fas fa-search"></i> Search</button>
+      </form>
+    </section>
+
+    {{#if searched}}
+    <p class="text-sm text-gray-500 mb-6"><strong class="text-gray-800">{{total}}</strong> result(s) for “{{q}}”</p>
+      {{#if items.length}}
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+        {{#each items}}
+        <a href="{{this.url}}" class="cf-card p-6 group hover:shadow-md transition-all">
+          <span class="cf-badge cf-badge-green">{{this.categoryLabel}}</span>
+          <h2 class="text-xl font-bold text-gray-900 mt-3 group-hover:text-emerald-700">{{this.title}}</h2>
+          <p class="text-sm text-gray-500 mt-2 line-clamp-3">{{#if this.summary}}{{this.summary}}{{else}}{{this.description}}{{/if}}</p>
+          <span class="inline-flex items-center gap-2 text-emerald-600 font-semibold text-sm mt-4">Read record <i class="fas fa-arrow-right text-xs"></i></span>
+        </a>
+        {{/each}}
+      </div>
+      {{else}}
+      <div class="cf-card p-14 text-center">
+        <i class="fas fa-search text-5xl text-gray-200"></i>
+        <h2 class="text-xl font-bold text-gray-700 mt-4">No matches found</h2>
+        <p class="text-gray-500 text-sm mt-2">Try a shorter or more general search term.</p>
+      </div>
+      {{/if}}
+
+      {{#if hasPrevious}}
+      <nav class="mt-8 flex items-center justify-center gap-3" aria-label="Pagination">
+        <a href="/discover/search?q={{qEncoded}}&category={{categoryEncoded}}&page={{previousPage}}" class="cf-btn cf-btn-outline"><i class="fas fa-arrow-left"></i> Previous</a>
+        <span class="text-sm text-gray-500">Page {{page}} of {{pages}}</span>
+        {{#if hasNext}}<a href="/discover/search?q={{qEncoded}}&category={{categoryEncoded}}&page={{nextPage}}" class="cf-btn cf-btn-outline">Next <i class="fas fa-arrow-right"></i></a>{{/if}}
+      </nav>
+      {{else}}
+        {{#if hasNext}}
+        <nav class="mt-8 flex items-center justify-center gap-3" aria-label="Pagination">
+          <span class="text-sm text-gray-500">Page {{page}} of {{pages}}</span>
+          <a href="/discover/search?q={{qEncoded}}&category={{categoryEncoded}}&page={{nextPage}}" class="cf-btn cf-btn-outline">Next <i class="fas fa-arrow-right"></i></a>
+        </nav>
+        {{/if}}
+      {{/if}}
+    {{else}}
+    <div class="cf-card-green p-10 text-center">
+      <i class="fas fa-compass text-4xl text-emerald-500"></i>
+      <h2 class="text-xl font-bold text-gray-800 mt-4">Find a Mansalay story</h2>
+      <p class="text-gray-500 mt-2">Enter a keyword above to search all published Visitor Information records.</p>
+    </div>
+    {{/if}}
+  </main>
+
+  {{>footer}}
+</body>
+</html>

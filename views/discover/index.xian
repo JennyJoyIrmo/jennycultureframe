@@ -1,0 +1,103 @@
+{{>head}}
+<body class="bg-gray-50">
+  {{>nav}}
+
+  <section class="cf-hero text-white">
+    <div class="relative max-w-7xl mx-auto px-4 py-16 md:py-24">
+      <div class="max-w-3xl cf-fade-up">
+        <div class="inline-flex items-center gap-2 text-emerald-200 text-sm font-semibold mb-4">
+          <i class="fas fa-compass"></i>
+          <span>Published Visitor Information</span>
+        </div>
+        <h1 class="text-4xl md:text-6xl font-extrabold leading-tight">{{content.heroTitle}}</h1>
+        <p class="text-emerald-100 text-lg mt-5 leading-relaxed max-w-2xl">{{content.heroDescription}}</p>
+        <form action="/discover/search" method="GET" class="mt-8 flex flex-col sm:flex-row gap-3 max-w-2xl">
+          <label class="sr-only" for="discover-search">Search visitor information</label>
+          <input id="discover-search" name="q" required maxlength="100" placeholder="Search stories, traditions, events, and places..."
+                 class="flex-1 px-5 py-3.5 rounded-xl text-gray-900 outline-none focus:ring-4 focus:ring-emerald-300/40" />
+          <button class="cf-btn bg-white text-emerald-800 px-6 hover:bg-emerald-50" type="submit">
+            <i class="fas fa-search"></i> Search archive
+          </button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <main class="max-w-7xl mx-auto px-4 py-12">
+    <section>
+      <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-3 mb-7">
+        <div>
+          <p class="text-emerald-600 font-semibold text-sm uppercase tracking-wider">Explore Mansalay</p>
+          <h2 class="text-3xl font-extrabold text-gray-900 mt-1">Visitor information categories</h2>
+        </div>
+        <p class="text-sm text-gray-500 max-w-md">Records shown here are maintained and published by the Visitor Information team.</p>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+        {{#each modules}}
+        <a href="/discover/{{this.segment}}" class="cf-card-green group p-6 hover:-translate-y-1 hover:shadow-lg transition-all">
+          <div class="w-11 h-11 rounded-xl bg-emerald-100 text-emerald-700 flex items-center justify-center mb-4 group-hover:bg-emerald-600 group-hover:text-white transition-colors">
+            <i class="fas {{this.icon}}"></i>
+          </div>
+          <h3 class="text-lg font-bold text-gray-900 group-hover:text-emerald-700">{{this.label}}</h3>
+          <p class="text-gray-500 text-sm mt-2 leading-relaxed">{{this.description}}</p>
+          <span class="inline-flex items-center gap-2 text-emerald-600 font-semibold text-sm mt-4">Browse records <i class="fas fa-arrow-right text-xs"></i></span>
+        </a>
+        {{/each}}
+      </div>
+    </section>
+
+    {{#if upcoming.length}}
+    <section class="mt-14">
+      <div class="flex items-center justify-between gap-4 mb-6">
+        <h2 class="cf-section-title">Featured cultural events</h2>
+        <a href="/discover/events" class="text-emerald-600 hover:text-emerald-700 font-semibold text-sm">View all events <i class="fas fa-arrow-right ml-1"></i></a>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+        {{#each upcoming}}
+        <a href="{{this.url}}" class="cf-card group p-6 hover:shadow-md transition-all">
+          <span class="cf-badge cf-badge-green">{{this.categoryLabel}}</span>
+          <h3 class="font-bold text-lg text-gray-900 mt-3 group-hover:text-emerald-700">{{this.title}}</h3>
+          <p class="text-sm text-gray-500 mt-2 line-clamp-3">{{#if this.summary}}{{this.summary}}{{else}}{{this.description}}{{/if}}</p>
+          {{#if this.eventDate}}<p class="text-xs text-emerald-700 font-semibold mt-4"><i class="fas fa-calendar mr-1"></i>{{this.eventDate}}</p>{{/if}}
+        </a>
+        {{/each}}
+      </div>
+    </section>
+    {{/if}}
+
+    {{#if featured.length}}
+    <section class="mt-14">
+      <div class="flex items-center justify-between gap-4 mb-6">
+        <h2 class="cf-section-title">Featured from the archive</h2>
+        <a href="/discover/search?q=Mansalay" class="text-emerald-600 hover:text-emerald-700 font-semibold text-sm">Search all records <i class="fas fa-search ml-1"></i></a>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+        {{#each featured}}
+        <a href="{{this.url}}" class="cf-card group overflow-hidden hover:shadow-md transition-all">
+          <div class="h-28 bg-gradient-to-br from-emerald-700 to-green-500 flex items-center justify-center text-white/80">
+            <i class="fas fa-book-open text-3xl"></i>
+          </div>
+          <div class="p-5">
+            <span class="text-xs font-semibold uppercase tracking-wide text-emerald-600">{{this.categoryLabel}}</span>
+            <h3 class="font-bold text-lg text-gray-900 mt-1 group-hover:text-emerald-700">{{this.title}}</h3>
+            <p class="text-sm text-gray-500 mt-2 line-clamp-2">{{#if this.summary}}{{this.summary}}{{else}}{{this.description}}{{/if}}</p>
+          </div>
+        </a>
+        {{/each}}
+      </div>
+    </section>
+    {{/if}}
+
+    <section class="mt-14 cf-card-green p-7 md:p-9 flex flex-col md:flex-row md:items-center md:justify-between gap-5">
+      <div class="max-w-3xl">
+        <h2 class="text-xl font-extrabold text-gray-900">One connected CultureFrame experience</h2>
+        <p class="text-gray-600 mt-2">Use Discover for verified cultural information. Use Shop for purchasable products and the existing Events area for CultureFrame registrations.</p>
+      </div>
+      {{#if portalUrl}}<a href="{{portalUrl}}" target="_blank" rel="noopener noreferrer" class="cf-btn cf-btn-outline flex-shrink-0">Open full visitor portal <i class="fas fa-up-right-from-square"></i></a>{{/if}}
+    </section>
+  </main>
+
+  {{>footer}}
+</body>
+</html>

@@ -35,7 +35,7 @@ const productcontroller = {
     console.log('[Shop] Filters:', { price_min, price_max, sort, free_shipping, in_stock, category, search });
     
     const Op = sequelize.Sequelize.Op;
-    const where = {};
+    const where = { status: 'active' };
     
     // Price range filter - properly handle both min and max
     if (price_min && price_max) {
@@ -129,7 +129,10 @@ const productcontroller = {
   
   detail: async (req, res) => {
     const { id } = req.params;
-    const product = await Product.findByPk(id);
+    const product = await Product.findOne({ where: { id, status: 'active' } });
+    if (!product) {
+      return res.status(404).render("error", { title: "Product Not Found", message: "This product is unavailable." });
+    }
     // Cart/Wishlist count for header
     let cartCount = 0, wishlistCount = 0;
     if (req.session && req.session.user && req.session.user.id) {

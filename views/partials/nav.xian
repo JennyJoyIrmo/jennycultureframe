@@ -17,6 +17,7 @@
         <!-- Desktop nav links -->
         <div class="hidden lg:flex items-center gap-1">
           <a href="/" class="nav-link"><i class="fas fa-home text-xs"></i> Home</a>
+          <a href="/discover" class="nav-link"><i class="fas fa-compass text-xs"></i> Discover</a>
           <a href="/heritage" class="nav-link"><i class="fas fa-landmark text-xs"></i> Heritage</a>
           <a href="/events" class="nav-link"><i class="fas fa-calendar-alt text-xs"></i> Events</a>
           <a href="/scenic" class="nav-link"><i class="fas fa-mountain text-xs"></i> Scenic</a>
@@ -91,6 +92,7 @@
   <div id="mobileMenu" class="hidden lg:hidden border-t border-white/10 bg-emerald-900/95 backdrop-blur-sm">
     <div class="max-w-7xl mx-auto px-4 py-3 space-y-1">
       <a href="/" class="mobile-nav-link"><i class="fas fa-home w-4"></i> Home</a>
+      <a href="/discover" class="mobile-nav-link"><i class="fas fa-compass w-4"></i> Discover</a>
       <a href="/heritage" class="mobile-nav-link"><i class="fas fa-landmark w-4"></i> Heritage</a>
       <a href="/events" class="mobile-nav-link"><i class="fas fa-calendar-alt w-4"></i> Events</a>
       <a href="/scenic" class="mobile-nav-link"><i class="fas fa-mountain w-4"></i> Scenic</a>

@@ -40,6 +40,11 @@ export const Order = sequelize.define("orders", {
   shipping_address: { type: DataTypes.TEXT, allowNull: false },
   total_amount: { type: DataTypes.DECIMAL(10, 2), allowNull: false },
   status: { type: DataTypes.STRING, defaultValue: "pending" },
+  payment_status: {
+    type: DataTypes.STRING,
+    allowNull: false,
+    defaultValue: "unpaid"
+  },
   payment_method: { type: DataTypes.STRING, allowNull: false }
 });
 
