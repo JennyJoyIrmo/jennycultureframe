@@ -39,15 +39,19 @@ const initializeAuth = async () => {
     // ==================== DEFAULT ADMIN CREATION ====================
     const adminExists = await User.findOne({ where: { role: 'admin' } });
     if (!adminExists) {
+      const initialAdminPassword = process.env.ADMIN_INITIAL_PASSWORD ||
+        (process.env.NODE_ENV !== 'production' ? 'admin123' : null);
+      if (!initialAdminPassword) {
+        throw new Error('ADMIN_INITIAL_PASSWORD is required when creating the production administrator.');
+      }
       await User.create({
         name: 'System Administrator',
         email: 'admin@cultureframe.com',
-        password: 'admin123',
+        password: initialAdminPassword,
         role: 'admin'
       });
       console.log('✅ Default admin account created');
       console.log('📧 Email: admin@cultureframe.com');
-      console.log('🔑 Password: admin123');
     } else {
       console.log('ℹ️  Admin account already exists');
     }
@@ -413,8 +417,6 @@ export const loginUser = async (req, res) => {
     const { email, password, remember } = req.body;
     
     console.log('🔄 Login attempt for:', email);
-    console.log('🔐 Raw password input:', `"${password}"`);
-    console.log('🔐 Password length:', password?.length);
     
     clearSessionMessages(req);
     
@@ -457,8 +459,6 @@ export const loginUser = async (req, res) => {
     console.log('🔐 Hash exists:', !!storedHash, 'Hash length:', storedHash?.length);
     
     const isPasswordValid = await bcrypt.compare(password.trim(), storedHash);
-    console.log('🔐 Password valid:', isPasswordValid);
-    
     if (!isPasswordValid) {
       console.log('❌ Password comparison failed');
       const isAjax = req.headers['x-requested-with'] === 'XMLHttpRequest' || 
@@ -580,9 +580,6 @@ export const registerUser = async (req, res) => {
     console.log('🔄 Registration attempt:');
     console.log('📝 Name:', name);
     console.log('📧 Email:', email);
-    console.log('🔐 Raw password:', `"${password}"`);
-    console.log('🔐 Confirm password:', `"${confirmPassword}"`);
-    console.log('🔐 Password length:', password?.length);
     console.log('✅ Terms accepted:', terms);
     
     clearSessionMessages(req);
@@ -639,8 +636,6 @@ export const registerUser = async (req, res) => {
     
     console.log(`✅ New customer registered: ${user.name} (ID: ${user.id})`);
     console.log(`📧 Email saved as: ${user.email}`);
-    console.log(`🔐 Password hash saved: ${user.password?.substring(0, 20)}...`);
-
     // Clear form data
     req.session.formData = null;
 
@@ -761,16 +756,20 @@ export const requireAdmin = (req, res, next) => {
 // ==================== ADMIN PASSWORD RESET ====================
 export const resetAdminPassword = async () => {
   try {
+    const password = process.env.ADMIN_INITIAL_PASSWORD;
+    if (!password) {
+      console.error('❌ ADMIN_INITIAL_PASSWORD is required to reset the administrator password');
+      return false;
+    }
     const adminUser = await User.findOne({ where: { email: 'admin@cultureframe.com' } });
     if (!adminUser) {
       console.log('❌ Admin account not found');
       return false;
     }
 
-    await adminUser.update({ password: 'admin123' });
+    await adminUser.update({ password });
     console.log('✅ Admin password reset successfully');
     console.log('📧 Email: admin@cultureframe.com');
-    console.log('🔑 New Password: admin123');
     return true;
   } catch (error) {
     console.error('❌ Error resetting admin password:', error);
@@ -789,7 +788,6 @@ export const emergencyPasswordReset = async (email, newPassword) => {
 
     await user.update({ password: newPassword });
     console.log(`✅ Emergency password reset for ${email}`);
-    console.log(`🔑 New Password: ${newPassword}`);
     return true;
   } catch (error) {
     console.error('❌ Emergency reset error:', error);

@@ -386,12 +386,7 @@ const ordercontroller = {
   adminFeedbackList: async (req, res) => {
     try {
       const feedbacks = await Feedback.findAll({
-        order: [['createdAt', 'DESC']],
-        include: [{
-          model: Order,
-          as: 'order',
-          required: false
-        }]
+        order: [['createdAt', 'DESC']]
       });
 
       // Get order details for each feedback
